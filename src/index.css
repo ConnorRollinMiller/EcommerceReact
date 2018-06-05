@@ -1,0 +1,55 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #05386B;
+  --primary-color-shade1: #446084;
+  --secondary-color: #5CDB99;
+  --secondary-color-shade1: #379683;
+  --gray-color: #777;
+  --text-color: #111;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  font-size: 16px;
+  color: var(--primary-color);
+}
+
+a {
+  color: var(--secondary-color) !important;
+}
+
+.fa {
+  vertical-align: middle;
+}
+
+.section-title {
+  text-align: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.section-title h2 {
+  border: 2px solid Var(--secondary-color);
+  font-weight: 600;
+}
+
+.section-title b {
+  height: 2px;
+  background: var(--secondary-color);
+}
+
+.btn-primary {
+	color: #fff;
+  background: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+.btn-primary:hover, .btn-primary:active {
+  background: var(--secondary-color-shade1) !important;
+  border-color: var(--secondary-color-shade1) !important;
+}

@@ -1,0 +1,14 @@
+.footer-title {
+	background: var(--primary-color);
+	color: #fff;
+}
+
+.footer-payment-option {
+	margin: 0px 8px;
+	opacity: 0.5;
+	transition: 0.5s;
+}
+
+.footer-payment-option:hover {
+	opacity: 1;
+}

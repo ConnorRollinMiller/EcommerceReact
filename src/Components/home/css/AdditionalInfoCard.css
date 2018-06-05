@@ -1,0 +1,8 @@
+.additional-info-card {
+	width: calc(92% / 4);
+	margin: 1%;
+}
+
+.info-card-icon {
+	color: var(--secondary-color);
+}

@@ -1,0 +1,10 @@
+.checkout-title {
+	background: var(--primary-color);
+	color: rgba(255,255,255,0.6);
+	transition: 0.25s;
+}
+
+.checkout-title-text:hover {
+	color: rgba(255,255,255,1);
+	cursor: pointer;
+}

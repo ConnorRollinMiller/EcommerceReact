@@ -1,0 +1,17 @@
+.page-title {
+	background: var(--primary-color);
+	color: #fff;
+}
+
+.breadcrumbs {
+	text-transform: uppercase;
+	font-size: 1.2em !important;
+}
+
+.breadcrumbs-link {
+	margin-right: 6px;
+}
+
+.breadcrumbs-path {
+	margin-left:6px;
+}

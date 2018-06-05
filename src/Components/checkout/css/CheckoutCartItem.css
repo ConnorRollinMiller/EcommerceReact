@@ -1,0 +1,14 @@
+.checkout-cart-item-img {
+	width: 125px;
+	height: 125px;
+}
+
+.checkout-cart-item-icon {
+	color: var(--secondary-color);
+	transition: 0.25s;
+}
+
+.checkout-cart-item-icon:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
