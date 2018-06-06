@@ -5,6 +5,8 @@ import {
 	FETCH_SHOE_BY_ID_FAILED,
 	SET_SHOE_FILTER,
 	EMPTY_SHOE_STATE,
+	SHOW_QUICKVIEW,
+	CLOSE_QUICKVIEW,
 	Filters,
 } from '../actions/actionTypes.js';
 
@@ -14,7 +16,9 @@ const initialState = {
 	filter: Filters.SHOW_ALL,
 	fetchingShoes: false,
 	error: false,
-	errorMessage: null
+	errorMessage: null,
+	quickviewShoe: null,
+	quickviewOpen: false
 };
 
 export default (state = initialState, action) => {
@@ -54,6 +58,18 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				shoe: null
+			}
+		case SHOW_QUICKVIEW:
+			return {
+				...state,
+				quickviewShoe: action.shoe,
+				quickviewOpen: true
+			}
+		case CLOSE_QUICKVIEW:
+			return {
+				...state,
+				quickviewShoe: null,
+				quickviewOpen: false
 			}
 		default:
 			return state;

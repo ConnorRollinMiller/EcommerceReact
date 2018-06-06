@@ -1,6 +1,8 @@
 import ProductList from './ProductList';
 import { connect } from 'react-redux'
 import { Filters } from '../../redux/actions/actionTypes';
+import { addToCart } from '../../redux/actions/cartActions';
+import { showQuickview } from '../../redux/actions/shoesAction';
 
 const getQualifiedShoes = (shoes, filter) => {
 	switch (filter) {
@@ -21,9 +23,15 @@ const getQualifiedShoes = (shoes, filter) => {
 
 const mapStateToProps = (state, ownProps) => ({
 	sectionTitle: ownProps.sectionTitle,
-	shoes: getQualifiedShoes(state.shoeReducer.shoes, state.shoeReducer.filter)
+	filter: ownProps.filter,
+	shoes: getQualifiedShoes(state.shoeReducer.shoes, state.shoeReducer.filter),
 });
 
-const FilterProductList = connect(mapStateToProps)(ProductList);
+const mapDispatchToProps = (dispatch) => ({
+	addToCart: shoe => dispatch(addToCart(shoe)),
+	showQuickview: id => dispatch(showQuickview(id))
+});
+
+const FilterProductList = connect(mapStateToProps, mapDispatchToProps)(ProductList);
 
 export default FilterProductList;

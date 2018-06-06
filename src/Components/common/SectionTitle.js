@@ -1,18 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const SectionTitle = ({ ...props }) => (
-	<div className='section-title row'>
-		<b className='col'></b>
-		<h2 className='col mb-0 p-4'>
-			{ props.title }
-		</h2>
-		<b className='col'></b>
-	</div>
-);
+class SectionTitle extends Component {
+
+	shouldComponentUpdate(nextProps) {
+		if (nextProps.title !== this.props.title) {
+			return true;
+		}
+		return false;
+	}
+
+	render() {
+		return (
+			<div className='section-title row'>
+				<b className='col'></b>
+				<h2 className='col mb-0 p-4'>
+					{ this.props.title }
+				</h2>
+				<b className='col'></b>
+			</div>
+		);
+	}
+}
 
 SectionTitle.propTypes = {
-	titleName: PropTypes.string
+	title: PropTypes.string.isRequired
 }
 
 export default SectionTitle;

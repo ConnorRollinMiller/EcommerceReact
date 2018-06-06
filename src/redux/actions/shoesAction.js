@@ -5,26 +5,24 @@ import {
 	SET_SHOE_FILTER,
 	FETCH_SHOE_BY_ID_SUCCESS,
 	FETCH_SHOE_BY_ID_FAILED,
-	EMPTY_SHOE_STATE
+	EMPTY_SHOE_STATE,
+	SHOW_QUICKVIEW,
+	CLOSE_QUICKVIEW
 } from './actionTypes';
 
 import { Filters } from './actionTypes';
 
 const apiUrl = 'http://localhost:8080/api/shoes';
 
-const fetchShoesSuccess = (shoes) => {
-	return {
-		type: FETCH_SHOES_SUCCESS,
-		shoes
-	}
-}
+const fetchShoesSuccess = (shoes) => ({
+	type: FETCH_SHOES_SUCCESS,
+	shoes
+});
 
-const fetchShoesFailed = (err) => {
-	return {
-		type: FETCH_SHOES_FAILED,
-		err
-	}
-}
+const fetchShoesFailed = (err) => ({
+	type: FETCH_SHOES_FAILED,
+	err
+})
 
 export const fetchShoes = () => {
 	return dispatch => {
@@ -40,21 +38,17 @@ export const fetchShoes = () => {
 	}
 }
 
-const fetchShoeByIdSuccess = (shoe) => {
-	return {
-		type: FETCH_SHOE_BY_ID_SUCCESS,
-		shoe
-	}
-}
+const fetchShoeByIdSuccess = (shoe) => ({
+	type: FETCH_SHOE_BY_ID_SUCCESS,
+	shoe
+});
 
-const fetchShoeByIdFailed = (err) => {
-	return {
-		type: FETCH_SHOE_BY_ID_FAILED,
-		err
-	}
-}
+const fetchShoeByIdFailed = (err) => ({
+	type: FETCH_SHOE_BY_ID_FAILED,
+	err
+});
 
-export const getShoeById = (id) => {
+export const fetchShoeById = (id) => {
 	return dispatch => {
 		axios.get(`${ apiUrl }/${ id }`)
 			.then(res => {
@@ -66,15 +60,20 @@ export const getShoeById = (id) => {
 	}
 }
 
-export const emptyShoeState = () => {
-	return {
-		type: EMPTY_SHOE_STATE
-	}
-}
+export const emptyShoeState = () => ({
+	type: EMPTY_SHOE_STATE
+});
 
-export const setShoeFilter = (filter) => {
-	return {
-		type: SET_SHOE_FILTER,
-		filter
-	}
-}
+export const setShoeFilter = (filter) => ({
+	type: SET_SHOE_FILTER,
+	filter
+});
+
+export const showQuickview = (shoe) => ({
+	type: SHOW_QUICKVIEW,
+	shoe
+});
+
+export const closeQuickview = () => ({
+	type: CLOSE_QUICKVIEW
+});

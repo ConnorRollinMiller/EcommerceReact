@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const ProductImageThumnail = ({ ...props }) => (
-	<div className='product-image-thumbnail m-3 w-25'>
-		<img
-			className='w-100'
-			src={ `/${ props.imageFolderURL }/${ props.imageId }.jpg` }
-			alt={ `${ props.brand } ${ props.colorway } 1` }
-		/>
-	</div>
-);
+class ProductImageThumnail extends Component {
+	render() {
+		return (
+			<div className='product-image-thumbnail m-3 w-25'>
+				<img
+					className='w-100'
+					src={ `/${ this.props.imageFolderURL }/${ this.props.imageId }.jpg` }
+					alt={ `${ this.props.brand } ${ this.props.colorway } 1` }
+				/>
+			</div>
+		);
+	}
+}
 
 ProductImageThumnail.propTypes = {
 	brand: PropTypes.string.isRequired,

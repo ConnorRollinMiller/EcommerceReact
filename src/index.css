@@ -23,8 +23,9 @@ a {
   color: var(--secondary-color) !important;
 }
 
-.fa {
-  vertical-align: middle;
+#page {
+  padding: 0;
+  margin: 0;
 }
 
 .section-title {

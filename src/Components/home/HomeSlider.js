@@ -1,19 +1,19 @@
 import React from 'react';
-import FontAwesome from 'react-fontawesome'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import './css/HomeSlider.css';
 
 const CarouselSlider = ({ ...props }) => (
 	<section className='container-fluid align-items-center p-4' id='carousel-slider'>
-		<FontAwesome
+		<FontAwesomeIcon
 			className='ml-5 carousel-arrow'
-			name='chevron-left'
+			icon='chevron-left'
 		/>
 		<div className='container row m-auto justify-content-center'>
-			<h2 style={ { color: 'white' } }>Slider</h2>
+			<h2 className='text-white'>Slider</h2>
 		</div>
-		<FontAwesome
+		<FontAwesomeIcon
 			className='mr-5 carousel-arrow'
-			name='chevron-right'
+			icon='chevron-right'
 		/>
 	</section>
 );

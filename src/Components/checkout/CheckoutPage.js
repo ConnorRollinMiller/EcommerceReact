@@ -1,33 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
 import CheckoutTitle from './CheckoutTitle';
 import CheckoutDetails from './CheckoutDetails';
+import NoCheckoutItems from './NoCheckoutItems';
 import './css/CheckoutPage.css';
 
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { removeItemFromCart } from '../../redux/actions/cartActions';
 
 class CheckoutPage extends Component {
 	render() {
-		console.log(this.props)
 		return (
 			<div>
 				<CheckoutTitle />
 				{
 					this.props.cart.length > 0 ?
-						<CheckoutDetails cart={ this.props.cart } /> :
 						(
-							<div className='checkout-no-items py-4 d-flex flex-column justify-content-center align-items-center'>
-								<FontAwesome className='mb-2 secondary-color' name='exclamation-triangle' size='5x' />
-								<h3 className='text-capitalize my-4'>You don't have any items in your cart!</h3>
-								<h4 className='text-capitalize font-weight-bold'>
-									<Link className='mt-2' to='/shop'>
-										<button className='btn btn-primary btn-lg'>Shop Now</button>
-									</Link>
-								</h4>
-							</div>
-						)
+							<CheckoutDetails
+								cart={ this.props.cart }
+								total={ this.props.total }
+								removeFromCart={ this.props.removeFromCart }
+							/>
+						) : <NoCheckoutItems />
 				}
 			</div>
 		);
@@ -35,15 +29,18 @@ class CheckoutPage extends Component {
 }
 
 CheckoutPage.propTypes = {
-	cart: PropTypes.array.isRequired
+	cart: PropTypes.array.isRequired,
+	total: PropTypes.number.isRequired,
+	removeFromCart: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => ({
-	cart: state.cartReducer.cart
+	cart: state.cartReducer.cart,
+	total: state.cartReducer.total
 });
 
 const mapDispatchToProps = (dispatch) => ({
-
+	removeFromCart: (id, price) => dispatch(removeItemFromCart(id, price))
 });
 
-export default connect(mapStateToProps)(CheckoutPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutPage);

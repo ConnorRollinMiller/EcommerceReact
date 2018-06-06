@@ -1,3 +1,7 @@
+.product-image-container {
+	overflow: hidden;
+}
+
 .product-image-thumbnail:hover {
 	cursor: pointer;
 }
