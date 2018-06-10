@@ -28,15 +28,15 @@ This application is an ecommerce store for shoes. It is built with MongoDB, Expr
 	|	ReviewText	|	String										|
 
 ### User Model
-	| Keys			|						Data Types					|
-	| ------------ | --------------------------------------- |
-	|	UserId		|	Int (Primary Key)								|
-	|	Username		|	String											|
-	| 	Password		| 	String											|
-	| 	First_Name	|	String											|
-	|	Last_Name	|	String											|
-	| 	Email			| 	String											|
-	|	isActive		|	Boolean											|
+	| Keys						|						Data Types					|
+	| --------------------- | --------------------------------------- |
+	|	UserId					|	Int (Primary Key)								|
+	|	Username					|	String											|
+	|	NormalizedUserName	|	String **(All CAPS)**						|				
+	| 	PasswordHashed			| 	String											|
+	| 	Email						| 	String											|
+	|	isActive					|	Boolean											|
+	|	DateCreated				|	Date
 
 ### Order Model
 	|	Keys				|					Data Types						|

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import PrimaryButton from '../button/PrimaryButton';
 import { Link } from 'react-router-dom';
 
 class NoCheckoutItems extends Component {
@@ -10,7 +11,7 @@ class NoCheckoutItems extends Component {
 				<h3 className='text-capitalize my-4'>You don't have any items in your cart!</h3>
 				<h4 className='text-capitalize font-weight-bold'>
 					<Link className='mt-2' to='/shop'>
-						<button className='btn btn-primary btn-lg'>Shop Now</button>
+						<PrimaryButton largeButton={ true }>Shop Now</PrimaryButton>
 					</Link>
 				</h4>
 			</div>

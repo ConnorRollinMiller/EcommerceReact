@@ -1,18 +1,27 @@
 import {
-	ADD_TO_CART,
-	REMOVE_FROM_CART,
+	CartActions,
 } from './actionTypes';
 
 let cartItemId = 0;
 
-export const addToCart = (shoe) => ({
-	type: ADD_TO_CART,
+export const addToCart = (shoe) => {
+	// if (!shoe.size) return addToCartFailure('Must Select A Size');
+	return addToCartSuccess(shoe);
+};
+
+const addToCartSuccess = (shoe) => ({
+	type: CartActions.ADD_TO_CART_SUCCESS,
 	id: cartItemId++,
 	shoe
 });
 
+// const addToCartFailure = (errorMessage) => ({
+// 	type: CartActions.ADD_TO_CART_FAILURE,
+// 	errorMessage
+// });
+
 export const removeItemFromCart = (id, price) => ({
-	type: REMOVE_FROM_CART,
+	type: CartActions.REMOVE_FROM_CART,
 	id,
 	price
 });

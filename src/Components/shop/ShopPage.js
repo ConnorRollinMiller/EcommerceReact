@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PageTitle from '../common/PageTitle';
-import FilterProductList from '../product/FilterProductList';
+import FilterProductList from '../product-card/FilterProductList';
 import SideBar from './SideBar';
-import ProductQuickview from '../quickview/ProductQuickview';
+import Quickview from '../quickview/Quickview';
 import './css/Shop.css';
 
 import { connect } from 'react-redux';
@@ -23,6 +23,10 @@ class ShopPage extends Component {
 		return null;
 	}
 
+	componentDidMount() {
+		window.scrollTo(0, 0);
+	}
+
 	shouldComponentUpdate(nextProps) {
 		if (nextProps.shoes !== this.props.shoes) {
 			return true;
@@ -36,7 +40,7 @@ class ShopPage extends Component {
 
 	render() {
 		return (
-			<div>
+			<main className='main-section'>
 				<PageTitle />
 				<div className='container-fluid'>
 					<div className='row'>
@@ -48,13 +52,13 @@ class ShopPage extends Component {
 				</div>
 				{
 					this.props.quickviewOpen &&
-					<ProductQuickview
+					<Quickview
 						addToCart={ this.props.addToCart }
 						closeQuickview={ this.props.closeQuickview }
 						shoe={ this.props.quickviewShoe }
 					/>
 				}
-			</div>
+			</main>
 		)
 	}
 }

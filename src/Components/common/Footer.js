@@ -26,7 +26,7 @@ class Footer extends Component {
 						</div>
 
 						<strong>
-							Designed By <Link to='https://www.instagram.com/connorbiz/' target='_blank'>Connor Miller</Link>
+							Designed By: <Link to='https://www.instagram.com/connorbiz/' target='_blank'>Connor Miller</Link>
 						</strong>
 
 						<div>

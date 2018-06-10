@@ -5,6 +5,7 @@ import HomePage from './home/HomePage';
 import ShopPage from './shop/ShopPage';
 import ProductPage from './product/ProductPage';
 import CheckoutPage from './checkout/CheckoutPage';
+import LoginForm from './form/LoginForm';
 import PageNotFound from './common/PageNotFound';
 
 import ConnectedRouter from 'react-router-redux/ConnectedRouter';
@@ -25,19 +26,18 @@ store.dispatch(fetchShoes());
 
 const Root = () => (
 	<Provider store={ store }>
-		<ConnectedRouter history={ history }>
-			<div>
-				<div className='container-fluid' id='page'>
-					<Header />
-					<Switch>
-						<Route exact path='/' component={ HomePage } />
-						<Route exact path='/shop' component={ ShopPage } />
-						<Route path='/shop/:shoeId' component={ ProductPage } />
-						<Route exact path='/checkout' component={ CheckoutPage } />
-						<Route path='*' component={ PageNotFound } />
-					</Switch>
-					<Footer />
-				</div>
+		<ConnectedRouter history={ history } basename='/'>
+			<div className='container-fluid' id='page'>
+				<Header />
+				<Switch>
+					<Route exact path='/' component={ HomePage } />
+					<Route exact path='/shop' component={ ShopPage } />
+					<Route path='/shop/:shoeId' component={ ProductPage } />
+					<Route exact path='/checkout' component={ CheckoutPage } />
+					<Route exact path='/login' component={ LoginForm } />
+					<Route path='*' component={ PageNotFound } />
+				</Switch>
+				<Footer />
 			</div>
 		</ConnectedRouter>
 	</Provider>

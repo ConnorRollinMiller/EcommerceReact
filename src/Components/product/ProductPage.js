@@ -5,7 +5,7 @@ import ProductDetailsContainer from './ProductDetailsContainer';
 
 import { addToCart } from '../../redux/actions/cartActions';
 import { connect } from 'react-redux';
-import { fetchShoeById, emptyShoeState } from '../../redux/actions/shoesAction';
+import { fetchShoeById } from '../../redux/actions/shoesAction';
 
 class ProductPage extends Component {
 
@@ -28,32 +28,27 @@ class ProductPage extends Component {
 		}
 	}
 
-	componentWillUnmount() {
-		this.props.resetShoe();
-	}
-
 	render() {
 		return (
-			<div>
+			<main className='main-section'>
 				<PageTitle displayPageTitle={ false } />
 				<div className='container-fluid'>
-					<div className='container py-4 d-flex justify-content-center align-items-stretch'>
-						{
-							this.props.shoe &&
-							<ProductImageContainer
-								shoe={ this.props.shoe }
-							/>
-						}
-						{
-							this.props.shoe &&
-							<ProductDetailsContainer
-								shoe={ this.props.shoe }
-								addToCart={ this.props.addToCart }
-							/>
-						}
-					</div>
+					{
+						this.props.shoe ?
+							(
+								<div className='container py-4 d-flex justify-content-center align-items-stretch'>
+									<ProductImageContainer
+										shoe={ this.props.shoe }
+									/>
+									<ProductDetailsContainer
+										shoe={ this.props.shoe }
+										addToCart={ this.props.addToCart }
+									/>
+								</div>
+							) : null
+					}
 				</div>
-			</div>
+			</main>
 		);
 	}
 }
@@ -65,7 +60,6 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
 	fetchShoeById: (id) => dispatch(fetchShoeById(id)),
-	resetShoe: () => dispatch(emptyShoeState()),
 	addToCart: (shoe) => dispatch(addToCart(shoe))
 });
 

@@ -1,42 +1,48 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import HomeSlider from './HomeSlider'
-import FilterProductList from '../product/FilterProductList';
+import Carousel from '../carousel/Carousel';
+import FilterProductList from '../product-card/FilterProductList';
 import AdditionalInfoContainer from './AdditionalInfoContainer';
 import BrandList from './BrandList';
 import Newsletter from './Newsletter';
-import ProductQuickview from '../quickview/ProductQuickview';
+import Quickview from '../quickview/Quickview';
 
-import { setShoeFilter, closeQuickview } from '../../redux/actions/shoesAction';
-import { addToCart } from '../../redux/actions/cartActions';
+import { setShoeFilter } from '../../redux/actions/shoesAction';
 import { Filters } from '../../redux/actions/actionTypes';
 import { connect } from 'react-redux';
 
-
-
-class HomePage extends PureComponent {
+class HomePage extends Component {
 
 	componentDidMount() {
 		if (this.props.shoes) {
 			this.props.changeFilter(Filters.SHOW_FEATURED);
 		}
+		window.scrollTo(0, 0);
+	}
+
+	shouldComponentUpdate(nextProps) {
+		if (nextProps.quickviewOpen !== this.props.quickviewOpen) {
+			return true;
+		} else if (nextProps.shoes !== this.props.shoes) {
+			return true;
+		}
+		return false;
 	}
 
 	render() {
 		return (
-			<main>
-				<HomeSlider />
+			<main className='main-section'>
+				<Carousel />
 				<BrandList />
-				<FilterProductList sectionTitle='Featured Shoes' />
+				<FilterProductList
+					sectionTitle='Featured Shoes'
+					shoes={ this.props.shoes }
+				/>
 				<Newsletter />
 				<AdditionalInfoContainer />
 				{
 					this.props.quickviewOpen &&
-					<ProductQuickview
-						addToCart={ this.props.addToCart }
-						closeQuickview={ this.props.closeQuickview }
-						shoe={ this.props.quickviewShoe }
-					/>
+					<Quickview />
 				}
 			</main>
 		)
@@ -45,20 +51,21 @@ class HomePage extends PureComponent {
 
 HomePage.propTypes = {
 	shoes: PropTypes.array,
-	filter: PropTypes.string.isRequired
+	quickviewOpen: PropTypes.bool.isRequired
+}
+
+HomePage.defaultProps = {
+	shoes: [],
+	quickviewOpen: false
 }
 
 const mapStateToProps = (state, ownProps) => ({
 	shoes: state.shoeReducer.shoes,
-	filter: state.shoeReducer.filter,
-	quickviewShoe: state.shoeReducer.quickviewShoe,
-	quickviewOpen: state.shoeReducer.quickviewOpen
+	quickviewOpen: state.shoeReducer.quickviewOpen,
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	changeFilter: filter => dispatch(setShoeFilter(filter)),
-	addToCart: shoe => dispatch(addToCart(shoe)),
-	closeQuickview: () => dispatch(closeQuickview())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

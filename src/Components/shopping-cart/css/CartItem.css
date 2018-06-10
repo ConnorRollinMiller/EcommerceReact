@@ -1,0 +1,14 @@
+.shopping-card-img {
+	width: 100px;
+	height: 100px;
+}
+
+.shopping-cart-remove-icon {
+	color: var(--secondary-color);
+	transition: 0.25s;
+}
+
+.shopping-cart-remove-icon:hover {
+	cursor: pointer;
+	transform: scale(1.25);
+}

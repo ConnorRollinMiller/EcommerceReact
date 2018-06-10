@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import RadioButton from './RadioButton';
+import RadioButton from '../form/RadioButton';
 import './css/SideBar.css';
 
 import { connect } from 'react-redux';

@@ -1,26 +1,18 @@
 import axios from 'axios';
 import {
-	FETCH_SHOES_SUCCESS,
-	FETCH_SHOES_FAILED,
-	SET_SHOE_FILTER,
-	FETCH_SHOE_BY_ID_SUCCESS,
-	FETCH_SHOE_BY_ID_FAILED,
-	EMPTY_SHOE_STATE,
-	SHOW_QUICKVIEW,
-	CLOSE_QUICKVIEW
+	ShoeActions,
+	Filters
 } from './actionTypes';
-
-import { Filters } from './actionTypes';
 
 const apiUrl = 'http://localhost:8080/api/shoes';
 
 const fetchShoesSuccess = (shoes) => ({
-	type: FETCH_SHOES_SUCCESS,
+	type: ShoeActions.FETCH_SHOES_SUCCESS,
 	shoes
 });
 
 const fetchShoesFailed = (err) => ({
-	type: FETCH_SHOES_FAILED,
+	type: ShoeActions.FETCH_SHOES_FAILED,
 	err
 })
 
@@ -29,22 +21,22 @@ export const fetchShoes = () => {
 		axios.get(apiUrl)
 			.then(res => {
 				dispatch(fetchShoesSuccess(res.data));
-				dispatch(setShoeFilter(Filters.SHOW_FEATURED))
+				dispatch(setShoeFilter(Filters.SHOW_FEATURED));
 			})
 			.catch(err => {
 				console.log(err.response);
-				dispatch(fetchShoesFailed(err.response));
+				dispatch(fetchShoesFailed(err));
 			});
 	}
 }
 
 const fetchShoeByIdSuccess = (shoe) => ({
-	type: FETCH_SHOE_BY_ID_SUCCESS,
+	type: ShoeActions.FETCH_SHOE_BY_ID_SUCCESS,
 	shoe
 });
 
 const fetchShoeByIdFailed = (err) => ({
-	type: FETCH_SHOE_BY_ID_FAILED,
+	type: ShoeActions.FETCH_SHOE_BY_ID_FAILED,
 	err
 });
 
@@ -60,20 +52,21 @@ export const fetchShoeById = (id) => {
 	}
 }
 
-export const emptyShoeState = () => ({
-	type: EMPTY_SHOE_STATE
-});
-
 export const setShoeFilter = (filter) => ({
-	type: SET_SHOE_FILTER,
+	type: ShoeActions.SET_SHOE_FILTER,
 	filter
 });
 
 export const showQuickview = (shoe) => ({
-	type: SHOW_QUICKVIEW,
+	type: ShoeActions.SHOW_QUICKVIEW,
 	shoe
 });
 
 export const closeQuickview = () => ({
-	type: CLOSE_QUICKVIEW
+	type: ShoeActions.CLOSE_QUICKVIEW
+});
+
+export const setShoeSize = (size) => ({
+	type: ShoeActions.SET_SHOE_SIZE,
+	size
 });

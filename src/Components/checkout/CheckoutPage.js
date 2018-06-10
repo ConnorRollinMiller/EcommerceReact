@@ -6,41 +6,43 @@ import NoCheckoutItems from './NoCheckoutItems';
 import './css/CheckoutPage.css';
 
 import { connect } from 'react-redux';
-import { removeItemFromCart } from '../../redux/actions/cartActions';
 
 class CheckoutPage extends Component {
+
+	shouldComponentUpdate(nextProps) {
+		if (nextProps.cart !== this.props.cart) {
+			return true;
+		}
+		return false;
+	}
+
 	render() {
 		return (
-			<div>
-				<CheckoutTitle />
+			<main className='main-section container-fluid d-flex align-items-center justify-content-center'>
 				{
 					this.props.cart.length > 0 ?
 						(
-							<CheckoutDetails
-								cart={ this.props.cart }
-								total={ this.props.total }
-								removeFromCart={ this.props.removeFromCart }
-							/>
+							<div className='container'>
+								<CheckoutTitle />
+								<CheckoutDetails
+									cart={ this.props.cart }
+									total={ this.props.total }
+									removeFromCart={ this.props.removeFromCart }
+								/>
+							</div>
 						) : <NoCheckoutItems />
 				}
-			</div>
+			</main>
 		);
 	}
 }
 
 CheckoutPage.propTypes = {
 	cart: PropTypes.array.isRequired,
-	total: PropTypes.number.isRequired,
-	removeFromCart: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => ({
 	cart: state.cartReducer.cart,
-	total: state.cartReducer.total
 });
 
-const mapDispatchToProps = (dispatch) => ({
-	removeFromCart: (id, price) => dispatch(removeItemFromCart(id, price))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CheckoutPage);
+export default connect(mapStateToProps)(CheckoutPage);

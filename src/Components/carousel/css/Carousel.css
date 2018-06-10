@@ -1,0 +1,32 @@
+.carousel-slider {
+	height: 75vh;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: visible;
+}
+
+.carousel-arrow {
+	color: var(--secondary-color);
+	font-size: 2em !important;
+	transition: 0.5s;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	opacity: 1;
+}
+
+.carousel-arrow-next {
+	right: 5%;
+}
+
+
+.carousel-arrow-prev {
+	left: 5%;
+}
+
+.carousel-arrow:hover {
+	cursor: pointer;
+	opacity: 1;
+}

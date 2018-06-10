@@ -1,0 +1,7 @@
+.form-page {
+	height: 60vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-top: 2px solid var(--primary-color);
+}

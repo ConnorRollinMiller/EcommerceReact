@@ -19,17 +19,17 @@ class ProductImageContainer extends Component {
 			<div className='w-50 d-flex flex-column justify-content-center align-items-center py-4'>
 				<img
 					className='product-image-container img-fluid'
-					src={ `/${ this.props.shoe.imageFolderURL }/1.jpg` }
-					alt={ `${ this.props.shoe.brand } ${ this.props.shoe.colorway }` }
+					src={ `/${ this.props.shoe.ImageFolderURL }/1.jpg` }
+					alt={ `${ this.props.shoe.Brand } ${ this.props.shoe.Colorway }` }
 				/>
 				<div className='d-flex justify-content-center align-items-center my-2'>
 					{
 						imageIdArr.map(id =>
 							<ProductImageThumbnail
 								key={ id }
-								brand={ this.props.shoe.brand }
-								imageFolderURL={ this.props.shoe.imageFolderURL }
-								colorway={ this.props.shoe.colorway }
+								brand={ this.props.shoe.Brand }
+								imageFolderURL={ this.props.shoe.ImageFolderURL }
+								colorway={ this.props.shoe.Colorway }
 								imageId={ id }
 							/>
 						)

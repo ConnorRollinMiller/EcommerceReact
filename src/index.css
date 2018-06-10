@@ -11,6 +11,11 @@
   --text-color: #111;
 }
 
+html, body, #root, #page {
+  position: relative;
+  min-height: 100vh;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -26,6 +31,9 @@ a {
 #page {
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .section-title {
@@ -53,4 +61,22 @@ a {
 .btn-primary:hover, .btn-primary:active {
   background: var(--secondary-color-shade1) !important;
   border-color: var(--secondary-color-shade1) !important;
+}
+
+input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(92, 219, 153, 0.25) !important;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(92, 219, 153, 0.25) !important;
+	border: 1px solid var(--secondary-color) !important;
+}
+
+hr {
+  border: none;
+	height: 1px;
+	opacity: 0.75;
+	background: var(--secondary-color)
+}
+
+.main-section {
+  position: relative;
+  min-height: 60vh;
 }

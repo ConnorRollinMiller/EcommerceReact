@@ -9,9 +9,15 @@
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "@fortawesome/react-fontawesome": "0.0.20",
     "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
     "bootstrap": "^4.1.1",
+    "concurrently": "^3.5.1",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
     "fs": "0.0.1-security",
     "history": "^4.7.2",
+    "mysql": "^2.15.0",
+    "password-hash": "^1.2.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-redux": "^5.0.7",
@@ -23,12 +29,15 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"npm run client\" \"npm run server\"",
+    "server": "cd server && nodemon server.js",
+    "client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "morgan": "^1.9.0",
     "prop-types": "^15.6.1",
     "why-did-you-update": "^0.1.1"
   }
