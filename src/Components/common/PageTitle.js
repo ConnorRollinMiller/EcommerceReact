@@ -1,50 +1,68 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './css/PageTitle.css';
 
-const PageTitle = ({ ...props }) => {
-	const { displayPageTitle = true } = props;
-	props.path.shift();
-	let lastPathItem = props.path[ props.path.length - 1 ];
+class PageTitle extends Component {
 
-	// if (typeof lastPathItem === number) {
-	// 	lastPathItem = 
-	// }
+	shouldComponentUpdate(nextProps) {
+		if (nextProps.path[ nextProps.length - 1 ] !== this.props.path[ this.props.length - 1 ]) {
+			return true;
+		}
+		return false;
+	}
 
-	return (
-		<div className='page-title text-center py-4'>
-			{
-				displayPageTitle &&
-				<h2 className='h3 mb-3 text-capitalize'>{ lastPathItem }</h2>
-			}
-			<h3 className='h4 m-0 breadcrumbs'>
-				<Link className='' to='/'>Home</Link>
+	render() {
+		this.props.path.shift()
+		return (
+			<div className='page-title text-center py-4'>
 				{
-					props.path.map(p => {
-						if (p !== lastPathItem) {
-							return (
-								<span key={ p }> / <Link to={ `/${ p }` }>{ p }</Link></span>
-							)
-						}
-						return (
-							<span className='breadcrumbs-path' key={ p }> / { p }</span>
-						)
-					})
+					this.props.displayPageTitle &&
+					<h2 className='h3 mb-0 text-capitalize'>{ this.props.path[ this.props.path.length - 1 ] }</h2>
 				}
-			</h3>
-		</div>
-	)
+				{
+					this.props.displayBreadcrumbs &&
+					(
+						<h3 className='h4 mt-2 breadcrumbs'>
+							<Link className='' to='/'>Home</Link>
+							{
+								this.props.path &&
+								this.props.path.map(p => {
+									if (p !== this.props.path[ this.props.path.length - 1 ]) {
+										return (
+											<span key={ p }> / <Link to={ `/${ p }` }>{ p }</Link></span>
+										)
+									}
+									return (
+										<span className='breadcrumbs-path' key={ p }>
+											/ { p }
+										</span>
+									)
+								})
+							}
+						</h3>
+					)
+				}
+			</div>
+		)
+	}
+
 }
 
 PageTitle.propTypes = {
 	displayPageTitle: PropTypes.bool,
+	displayBreadcrumbs: PropTypes.bool,
 	path: PropTypes.array.isRequired
 }
 
+PageTitle.defaultProps = {
+	displayPageTitle: true,
+	displayBreadcrumbs: true
+}
+
 const mapStateToProps = (state, ownProps) => ({
-	path: state.routerReducer.location.pathname.split('/')
+	path: state.routerReducer.location.pathname.split('/'),
 });
 
 export default connect(mapStateToProps)(PageTitle);

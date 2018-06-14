@@ -1,0 +1,16 @@
+.review-rating-active {
+	color: var(--secondary-color);
+}
+
+.review-rating {
+	margin: 0 8px;
+}
+
+.review-rating:first-of-type {
+	margin-left: 0;
+}
+
+.review-rating:hover {
+	color: var(--secondary-color);
+	cursor: pointer;
+}

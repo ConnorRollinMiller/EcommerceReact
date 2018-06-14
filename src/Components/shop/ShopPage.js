@@ -8,7 +8,7 @@ import './css/Shop.css';
 import { connect } from 'react-redux';
 import { setShoeFilter, closeQuickview } from '../../redux/actions/shoesAction';
 import { addToCart } from '../../redux/actions/cartActions';
-import { Filters } from '../../redux/actions/actionTypes';
+import { Filters } from '../../redux/actions';
 
 class ShopPage extends Component {
 

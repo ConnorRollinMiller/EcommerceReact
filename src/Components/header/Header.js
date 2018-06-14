@@ -4,9 +4,14 @@ import Menu from './Menu';
 import { NavLink } from 'react-router-dom';
 import './css/Header.css';
 
+import { connect } from 'react-redux';
+
 class Header extends Component {
 
 	shouldComponentUpdate(nextProps) {
+		if (nextProps.user !== this.props.user) {
+			return true;
+		}
 		return false;
 	}
 
@@ -19,7 +24,7 @@ class Header extends Component {
 						<NavLink to='/' className='navbar-brand' id='company-name' href='#'>
 							<h1 className='mb-0'>Site Logo</h1>
 						</NavLink>
-						<Menu />
+						<Menu user={ this.props.user } />
 					</div>
 				</header>
 			</div>
@@ -27,4 +32,8 @@ class Header extends Component {
 	}
 }
 
-export default Header;
+const mapStateToProps = (state, ownProps) => ({
+	user: state.accountReducer.user
+})
+
+export default connect(mapStateToProps)(Header);

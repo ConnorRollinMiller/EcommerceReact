@@ -4,7 +4,7 @@ import './css/SideBar.css';
 
 import { connect } from 'react-redux';
 import { setShoeFilter } from '../../redux/actions/shoesAction';
-import { Filters } from '../../redux/actions/actionTypes';
+import { Filters } from '../../redux/actions';
 
 class SideBar extends Component {
 

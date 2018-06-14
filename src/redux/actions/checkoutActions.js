@@ -1,7 +1,7 @@
-import { CheckoutActions } from '../actions/actionTypes';
+import { CheckoutActions } from '../actions/index';
 
 export const inputChange = (name, value) => ({
-	type: CheckoutActions.INPUT_CHANGE,
+	type: CheckoutActions.CHECKOUT_INPUT_CHANGE,
 	name,
 	value
 });

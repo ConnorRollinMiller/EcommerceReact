@@ -1,7 +1,7 @@
 import React from 'react';
 import SectionTitle from '../common/SectionTitle';
 import BrandCard from './BrandCard';
-import { Filters } from '../../redux/actions/actionTypes';
+import { Filters } from '../../redux/actions';
 
 const BrandList = ({ ...props }) => (
 	<section className='bg-light py-4'>

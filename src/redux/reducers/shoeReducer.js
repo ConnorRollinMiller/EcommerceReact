@@ -1,17 +1,17 @@
 import {
 	ShoeActions,
 	Filters
-} from '../actions/actionTypes.js';
+} from '../actions';
 
 const initialState = {
-	shoes: null,
+	shoes: [],
 	shoe: null,
 	filter: Filters.SHOW_ALL,
-	fetchingShoes: false,
 	error: false,
 	errorMessage: null,
 	quickviewShoe: null,
 	quickviewOpen: false,
+	activeShoeImage: 1
 };
 
 export default (state = initialState, action) => {
@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
 				...state,
 				shoes: action.shoes,
 				error: false,
-				errorMessage: null
+				errorMessage: null,
 			}
 		case ShoeActions.FETCH_SHOES_FAILED:
 			return {
@@ -38,8 +38,10 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				shoe: action.shoe,
+				reviews: action.reviews,
 				error: false,
-				errorMessage: null
+				errorMessage: null,
+				activeShoeImage: 1
 			}
 		case ShoeActions.FETCH_SHOE_BY_ID_FAILED:
 			return {
@@ -51,13 +53,15 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				quickviewShoe: action.shoe,
-				quickviewOpen: true
+				quickviewOpen: true,
+				activeShoeImage: 1
 			}
 		case ShoeActions.CLOSE_QUICKVIEW:
 			return {
 				...state,
 				quickviewShoe: null,
-				quickviewOpen: false
+				quickviewOpen: false,
+				activeShoeImage: 1
 			}
 		case ShoeActions.SET_SHOE_SIZE:
 			return {
@@ -66,6 +70,11 @@ export default (state = initialState, action) => {
 					...state.quickviewShoe,
 					size: action.size
 				}
+			}
+		case ShoeActions.CHANGE_ACTIVE_SHOE_IMAGE:
+			return {
+				...state,
+				activeShoeImage: action.shoeImageId
 			}
 		default:
 			return state;

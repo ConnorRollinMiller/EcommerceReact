@@ -11,7 +11,7 @@ class Footer extends Component {
 
 	render() {
 		return (
-			<footer className='container-fluid px-0 text-center bg-light' id='footer'>
+			<footer className='container-fluid px-0 text-center' id='footer'>
 				<section className='footer-title p-4'>
 					<h2 className='mb-0'>Site Name</h2>
 				</section>
@@ -25,12 +25,12 @@ class Footer extends Component {
 							<FontAwesomeIcon className='footer-payment-option' icon={ [ 'fab', 'cc-paypal' ] } size='2x' />
 						</div>
 
-						<strong>
+						<strong className='mb-0'>
 							Designed By: <Link to='https://www.instagram.com/connorbiz/' target='_blank'>Connor Miller</Link>
 						</strong>
 
 						<div>
-							<p className='mt-2 mb-0'>Copyright 2018 &copy;</p>
+							<p className='mb-0'>Copyright 2018 &copy;</p>
 						</div>
 					</div>
 				</section>

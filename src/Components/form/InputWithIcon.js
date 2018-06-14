@@ -1,33 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import './css/FormInputWithIcon.css';
 
-const FormInputWithIcon = ({ ...props }) => (
-	<div className='form-group position-relative'>
-		<FontAwesomeIcon className='form-input-with-icon-icon' icon={ props.iconName } />
-		<input
-			className={ `form-input-with-icon-input form-control ${ props.className }` }
-			type={ props.type }
-			name={ props.name }
-			placeholder={ props.placeholder }
-			onChange={ props.onChange }
-			required={ props.required }
-		/>
-	</div>
-);
+class FormInputWithIcon extends Component {
+
+	shouldComponentUpdate(nextProps) {
+		if (nextProps.value !== this.props.value) {
+			return true;
+		}
+		return false;
+	}
+
+	render() {
+		return (
+			<div className='form-group position-relative'>
+				{ this.props.children }
+				<input
+					className={ `form-input-with-icon-input form-control ${ this.props.className }` }
+					type={ this.props.type }
+					name={ this.props.name }
+					value={ this.props.value }
+					placeholder={ this.props.placeholder }
+					onChange={ this.props.onChange }
+				/>
+			</div>
+		)
+	}
+}
 
 FormInputWithIcon.propTypes = {
 	className: PropTypes.string,
 	name: PropTypes.string.isRequired,
 	type: PropTypes.string.isRequired,
+	value: PropTypes.string.isRequired,
 	placeholder: PropTypes.string.isRequired,
-	required: PropTypes.bool.isRequired,
-	onChange: PropTypes.func.isRequired
-}
-
-FormInputWithIcon.defaultProps = {
-	required: true
+	onChange: PropTypes.func.isRequired,
+	children: PropTypes.element
 }
 
 export default FormInputWithIcon;

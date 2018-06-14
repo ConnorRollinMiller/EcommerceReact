@@ -1,4 +1,4 @@
-import { CheckoutActions } from '../actions/actionTypes';
+import { CheckoutActions } from '../actions';
 
 const initialState = {
 	firstName: '',
@@ -6,14 +6,16 @@ const initialState = {
 	country: '',
 	state: '',
 	streetAddress: '',
+	city: '',
 	zipCode: '',
 	phone: '',
-	email: ''
+	email: '',
+	checkoutSuccess: false
 }
 
 export default (state = initialState, action) => {
 	switch (action.type) {
-		case CheckoutActions.INPUT_CHANGE:
+		case CheckoutActions.CHECKOUT_INPUT_CHANGE:
 			return {
 				...state,
 				[ action.name ]: action.value

@@ -8,13 +8,13 @@ import Newsletter from './Newsletter';
 import Quickview from '../quickview/Quickview';
 
 import { setShoeFilter } from '../../redux/actions/shoesAction';
-import { Filters } from '../../redux/actions/actionTypes';
+import { Filters } from '../../redux/actions';
 import { connect } from 'react-redux';
 
 class HomePage extends Component {
 
 	componentDidMount() {
-		if (this.props.shoes) {
+		if (this.props.shoes && this.props.filter !== Filters.SHOW_FEATURED) {
 			this.props.changeFilter(Filters.SHOW_FEATURED);
 		}
 		window.scrollTo(0, 0);

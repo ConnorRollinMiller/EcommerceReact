@@ -4,20 +4,22 @@ const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
 
+const router = express.Router();
 const app = express();
 const PORT = process.env.port || 8080;
 
-const Shoes = require('./controllers/ShoeController');
-const Users = require('./controllers/UserController');
-
+const ShoesController = require('./server/controllers/ShoeController');
+const UsersController = require('./server/controllers/UserController');
+const ReviewsController = require('./server/controllers/ReviewController');
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(morgan('dev'))
+app.use(morgan('dev'));
 
-app.use('/users', Users);
-app.use('/api', Shoes);
+app.use('/api/users', UsersController);
+app.use('/api/shoes', ShoesController);
+app.use('/api/reviews', ReviewsController)
 
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static(path.join(__dirname, 'build')));

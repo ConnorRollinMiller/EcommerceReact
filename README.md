@@ -22,7 +22,8 @@ This application is an ecommerce store for shoes. It is built with MongoDB, Expr
 	| ------------	| ------------------------------------ |
 	|	ReviewId		|	Int (Primary key)							|
 	|	ShoeId		|	Int (Foreign Key)							|	
-	|	UserId		|	Int (Foreign Key)							|	
+	|	UserId		|	Int (Foreign Key)							|
+	|	UserName		|	String										|
 	| 	ReviewDate	|	Date											|	
 	|	Rating		|	Int											|
 	|	ReviewText	|	String										|

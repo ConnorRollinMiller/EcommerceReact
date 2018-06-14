@@ -63,7 +63,7 @@ a {
   border-color: var(--secondary-color-shade1) !important;
 }
 
-input:focus {
+input:focus, select:focus {
   box-shadow: 0 0 0 0.2rem rgba(92, 219, 153, 0.25) !important;
   -webkit-box-shadow: 0 0 0 0.2rem rgba(92, 219, 153, 0.25) !important;
 	border: 1px solid var(--secondary-color) !important;

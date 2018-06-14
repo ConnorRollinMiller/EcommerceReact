@@ -1,13 +1,13 @@
 const express = require('express');
-const Users = require('../models/Users');
+const UsersModel = require('../models/UsersModel');
 const router = express.Router();
 
 const connection = require('../db');
 
 router.route('/register')
-	.post(Users.doesUserExist, Users.passwordIsHashed, Users.userRegister);
+	.post(UsersModel.doesUserExist, UsersModel.passwordIsHashed, UsersModel.userRegister);
 
 router.route('/login')
-	.post(Users.userLogin);
+	.post(UsersModel.userLogin);
 
 module.exports = router;

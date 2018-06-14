@@ -27,7 +27,6 @@ class ProductList extends Component {
 							this.props.error ? (
 								<h1>there was an error</h1>
 							) : (
-									this.props.shoes &&
 									this.props.shoes.map(shoe =>
 										<ProductCard
 											key={ shoe.ShoeId }

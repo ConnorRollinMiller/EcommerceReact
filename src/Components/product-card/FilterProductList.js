@@ -1,6 +1,6 @@
 import ProductList from './ProductList';
 import { connect } from 'react-redux'
-import { Filters } from '../../redux/actions/actionTypes';
+import { Filters } from '../../redux/actions';
 import { addToCart } from '../../redux/actions/cartActions';
 import { showQuickview } from '../../redux/actions/shoesAction';
 

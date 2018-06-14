@@ -1,6 +1,6 @@
 import {
 	CartActions,
-} from './actionTypes';
+} from './index';
 
 let cartItemId = 0;
 

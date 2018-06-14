@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const CartTotal = ({ ...props }) => (
 	<strong>
-		{ props.children } ${ props.total }
+		<span>Total:</span> ${ props.total }
 	</strong>
 );
 

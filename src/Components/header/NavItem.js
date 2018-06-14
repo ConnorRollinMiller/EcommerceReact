@@ -11,7 +11,10 @@ const NavItem = ({ ...props }) => (
 );
 
 NavItem.propTypes = {
-	children: PropTypes.string.isRequired,
+	children: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.array
+	]),
 	activeClassName: PropTypes.string.isRequired,
 	to: PropTypes.string.isRequired
 }

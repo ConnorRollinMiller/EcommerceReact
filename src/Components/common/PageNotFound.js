@@ -14,7 +14,7 @@ class PageNotFound extends Component {
 		return (
 			<main className='main-section py-4 d-flex align-items-center justify-content-center flex-column'>
 				<FontAwesomeIcon className='secondary-color' icon={ [ 'fa', 'exclamation-triangle' ] } size='5x' />
-				<h2 className='display-3 my-4'>Page Not Found</h2>
+				<h2 className='my-4'>404: Page Not Found</h2>
 				<Link to='/shop'>
 					<PrimaryButton largeButton={ true }>Shop Now</PrimaryButton>
 				</Link>
