@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import PrimaryButton from '../button/PrimaryButton';
 
 const ProductCardDetails = ({ ...props }) => (
 	<div>
@@ -15,6 +16,12 @@ const ProductCardDetails = ({ ...props }) => (
 		<p className='product-card-price mb-0'>
 			${ props.shoe.Price.toFixed(2) }
 		</p>
+		<PrimaryButton
+			className='col-6 mx-auto mt-2'
+			onClick={ () => props.addToCart(props.shoe) }
+		>
+			Add To Cart
+		</PrimaryButton>
 	</div>
 );
 

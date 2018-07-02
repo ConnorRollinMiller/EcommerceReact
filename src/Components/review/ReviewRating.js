@@ -4,8 +4,7 @@ import StarIcon from '../icon/StarIcon';
 import './css/ReviewRating.css';
 
 const ReviewRating = ({ ...props }) => (
-	<div className='d-flex'>
-
+	<div className='row justify-content-center'>
 		<div
 			className={ props.reviewRating === 1 ? 'd-flex review-rating-active review-rating' : 'd-flex review-rating' }
 			onClick={ () => props.changeReviewRating(1) }

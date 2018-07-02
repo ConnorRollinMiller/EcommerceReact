@@ -1,20 +1,32 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
-const CloseIcon = ({ ...props }) => (
-	<FontAwesomeIcon
-		className={ `${ props.className } secondary-color` }
-		icon='times-circle'
-		size={ props.size }
-		onClick={ props.onClick }
-	/>
-);
+class CloseIcon extends Component {
+   shouldComponentUpdate(nextProps) {
+      return false;
+   }
+
+   render() {
+      return (
+         <FontAwesomeIcon
+            className={`${this.props.className} secondary-color`}
+            icon="times-circle"
+            size={this.props.size}
+            onClick={this.props.onClick}
+         />
+      );
+   }
+}
 
 CloseIcon.propTypes = {
-	className: PropTypes.string,
-	size: PropTypes.string.isRequired,
-	onClick: PropTypes.func.isRequired,
-}
+   className: PropTypes.string,
+   size: PropTypes.string.isRequired,
+   onClick: PropTypes.func.isRequired
+};
+
+CloseIcon.defaultProps = {
+   className: ''
+};
 
 export default CloseIcon;

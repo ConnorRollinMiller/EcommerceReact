@@ -1,13 +1,16 @@
-const express = require('express');
+const router = require('express').Router();
 const UsersModel = require('../models/UsersModel');
-const router = express.Router();
+const Jwt = require('../models/JwtModel');
 
-const connection = require('../db');
+router
+   .route('/register')
+   .post(
+      UsersModel.doesUserExist,
+      UsersModel.passwordIsHashed,
+      UsersModel.userRegister,
+      Jwt.signToken
+   );
 
-router.route('/register')
-	.post(UsersModel.doesUserExist, UsersModel.passwordIsHashed, UsersModel.userRegister);
-
-router.route('/login')
-	.post(UsersModel.userLogin);
+router.route('/login').post(UsersModel.userLogin, Jwt.signToken);
 
 module.exports = router;

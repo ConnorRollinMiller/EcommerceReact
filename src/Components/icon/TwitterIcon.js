@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
-const TwitterIcon = ({ ...props }) => (
-	<FontAwesomeIcon
-		className={ props.className }
-		icon={ [ 'fab', 'twitter' ] }
-		size={ props.size }
-		onClick={ props.onClick }
-	/>
-);
+class TwitterIcon extends Component {
+
+	shouldComponentUpdate() {
+		return false;
+	}
+
+	render() {
+		return (
+			<FontAwesomeIcon
+				className={ this.props.className }
+				icon={ [ 'fab', 'twitter' ] }
+				size={ this.props.size }
+				onClick={ this.props.onClick }
+			/>
+		);
+	}
+}
+
 
 TwitterIcon.propTypes = {
 	className: PropTypes.string,

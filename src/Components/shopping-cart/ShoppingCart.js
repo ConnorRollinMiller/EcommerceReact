@@ -7,11 +7,13 @@ import './css/ShoppingCart.css';
 
 import { connect } from 'react-redux';
 import { removeItemFromCart } from '../../redux/actions/cartActions';
+import { addNotification } from '../../redux/actions/notificationActions';
+import { NotificationCodes } from '../../redux/actions';
 
 class ShoppingCart extends Component {
 	render() {
 		return (
-			<div className='nav-link d-flex' id='shopping-cart'>
+			<div className='nav-link' id='shopping-cart'>
 				<CartTotal total={ this.props.total }>
 					Cart /
 				</CartTotal>
@@ -38,7 +40,10 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	removeFromCart: (id, price) => dispatch(removeItemFromCart(id, price))
+	removeFromCart: (id, price) => {
+		dispatch(removeItemFromCart(id, price));
+		dispatch(addNotification(NotificationCodes.REMOVE_FROM_CART))
+	}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart);

@@ -1,12 +1,8 @@
-const express = require('express');
+const router = require('express').Router();
 const ReviewsModel = require('../models/ReviewsModel.js');
-const router = express.Router();
-const app = express();
 
-router.route('/')
-	.post(ReviewsModel.postNewReview);
+router.route('/').post(ReviewsModel.postNewReview);
 
-router.route('/:shoeId')
-	.get(ReviewsModel.getReviewsByShoeId);
+router.route('/:shoeId').get(ReviewsModel.getReviewsByShoeId);
 
 module.exports = router;

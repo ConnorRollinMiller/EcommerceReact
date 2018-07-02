@@ -26,7 +26,6 @@
 	font-weight: 600;
 	transition: 0.25s;
 	text-transform: uppercase;
-	padding: 0.75em 1em !important;
 }
 
 .active-nav, .nav-link:hover {
@@ -37,8 +36,4 @@
 	width: 1px;
 	background: var(--secondary-color);
 	opacity: 0.8;
-}
-
-.right-main-nav {
-	position: relative;
 }

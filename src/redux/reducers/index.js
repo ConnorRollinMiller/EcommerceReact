@@ -5,6 +5,7 @@ import cartReducer from './cartReducer';
 import accountReducer from './accountReducer';
 import checkoutReducer from './checkoutReducer';
 import reviewReducer from './reviewReducer';
+import notificationReducer from './notificationReducer'
 
 export default combineReducers({
 	shoeReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
 	accountReducer,
 	checkoutReducer,
 	reviewReducer,
+	notificationReducer,
 	routerReducer
 });

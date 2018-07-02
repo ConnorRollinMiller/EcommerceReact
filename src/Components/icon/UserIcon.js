@@ -24,8 +24,4 @@ UserIcon.propTypes = {
 	className: PropTypes.string,
 }
 
-UserIcon.defaultProps = {
-	size: '1x'
-}
-
 export default UserIcon;

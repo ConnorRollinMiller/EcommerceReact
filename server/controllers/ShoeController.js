@@ -1,11 +1,8 @@
-const express = require('express');
+const router = require('express').Router();
 const ShoesModel = require('../models/ShoesModel');
-const router = express.Router();
 
-router.route('/')
-	.get(ShoesModel.getAllShoes);
+router.route('/').get(ShoesModel.getAllShoes);
 
-router.route('/:shoeId')
-	.get(ShoesModel.getShoeById);
+router.route('/:shoeId').get(ShoesModel.getShoeById);
 
 module.exports = router;

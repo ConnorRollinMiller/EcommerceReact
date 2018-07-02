@@ -12,7 +12,10 @@ module.exports = {
 
 				if (err) return res.status(400).json({ success: false, message: err });
 
-				return res.status(200).json({ success: true, shoes: results });
+				res.status(200).json({
+					success: true,
+					shoes: results
+				});
 			});
 		})
 	},
@@ -31,12 +34,18 @@ module.exports = {
 
 				connection.release();
 
-				if (err) return res.status(400).json({ success: false, message: err })
+				if (err) return res.status(400).json({ success: false, message: err });
+
+				let shoe;
 
 				for (let i in results) {
-					return res.status(200).json({ success: true, shoe: results[ i ] });
+					shoe = results[ i ];
 				}
 
+				return res.status(200).json({
+					success: true,
+					shoe: shoe
+				});
 
 			});
 		});

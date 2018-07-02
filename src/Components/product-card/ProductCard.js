@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import QuickviewButton from './QuickviewButton';
-import PrimaryButton from '../button/PrimaryButton';
 import './css/ProductCard.css';
 import ProductCardDetails from './ProductCardDetails';
+import QuickviewButton from './QuickviewButton';
+
 
 class ProductCard extends Component {
 
@@ -16,27 +16,25 @@ class ProductCard extends Component {
 
 	render() {
 		return (
-			<article className='product-card d-flex flex-column justify-content-end text-center' >
-				<img
-					className='product-card-img img-fluid py-4'
-					src={ `${ this.props.shoe.ImageFolderURL }/1.jpg` }
-					alt={ `${ this.props.shoe.Brand } ${ this.props.shoe.Colorway }` }
-				/>
-				<div className='product-card-info d-flex flex-column justify-content-center py-4'>
-					<QuickviewButton
-						onClickFunction={ () => this.props.showQuickview(this.props.shoe) }>
-						Quickview
-					</QuickviewButton>
-					<ProductCardDetails shoe={ this.props.shoe } />
-					{
-						<PrimaryButton
-							className='w-50 mx-auto mt-2'
-							onClick={ () => this.props.addToCart(this.props.shoe) }>
-							Add To Cart
-						</PrimaryButton>
-					}
-				</div>
-			</article>
+			<div className='col-md-4 p-0'>
+				<article className='product-card m-2 flex-column justify-content-end text-center' >
+					<img
+						className='product-card-img img-fluid py-4'
+						src={ `${ this.props.shoe.ImageFolderURL }/1.jpg` }
+						alt={ `${ this.props.shoe.Brand } ${ this.props.shoe.Colorway }` }
+					/>
+					<div className='product-card-info py-4'>
+						<QuickviewButton onClick={ () => this.props.showQuickview(this.props.shoe) }>
+							Quickview
+						</QuickviewButton>
+						<ProductCardDetails
+							shoe={ this.props.shoe }
+							addToCart={ this.props.addToCart }
+							showQuickview={ this.props.showQuickview }
+						/>
+					</div>
+				</article>
+			</div>
 		);
 	}
 }

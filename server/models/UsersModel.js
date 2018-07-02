@@ -2,135 +2,215 @@ const pool = require('../db');
 const passwordHash = require('password-hash');
 
 module.exports = {
-	doesUserExist: async (req, res, next) => {
-		const { UserName } = req.body;
+   doesUserExist: async (req, res, next) => {
+      const { NormalizedUserName } = req.body;
 
-		pool.getConnection((err, connection) => {
-			const queryString = 'SELECT * FROM `Users` WHERE `NormalizedUserName` = ?';
+      pool.getConnection((err, connection) => {
+         const queryString =
+            'SELECT * FROM `Users` WHERE `NormalizedUserName` = ?';
 
-			connection.query(queryString, [ UserName.toUpperCase() ], (err, results) => {
+         connection.query(queryString, NormalizedUserName, (err, results) => {
+            connection.release();
 
-				connection.release();
+            if (err) {
+               console.log(err);
+               return res.status(200).json({
+                  success: false,
+                  message: err.response
+               });
+            } else if (results.length > 0) {
+               console.log('USER EXISTS:', results);
+               return res.status(200).json({
+                  success: false,
+                  message: 'User Name Already In Use. Please Try Again.'
+               });
+            }
 
-				if (err) {
-					console.log(err);
-					return res.status(400).json({ message: err })
-				} else if (results.length > 0) {
-					console.log('USER EXISTS:', results);
-					return res.status(400).json({ success: false, message: 'User Already Exists.' });
-				}
+            next();
+         });
+      });
+   },
 
-				next();
-			});
-		})
-	},
+   passwordIsHashed: (req, res, next) => {
+      let { Password } = req.body;
 
-	passwordIsHashed: (req, res, next) => {
+      const hashed = passwordHash.generate(Password);
+      const isPasswordHashed = passwordHash.isHashed(hashed);
 
-		let { Password } = req.body;
+      if (!isPasswordHashed)
+         return res.status(200).json({
+            success: false,
+            message: `Password Wasn't Hashed.`
+         });
 
-		const hashed = passwordHash.generate(Password);
-		const isPasswordHashed = passwordHash.isHashed(hashed)
+      req.body = { ...req.body, PasswordHash: hashed };
 
-		if (!isPasswordHashed) return res.status(400).json({ success: false, message: `Hash Wasn't Verified` });
+      next();
+   },
 
-		req.body = { ...req.body, PasswordHash: hashed };
+   userRegister: (req, res, next) => {
+      const {
+         UserName,
+         NormalizedUserName,
+         Email,
+         NormalizedEmail,
+         PasswordHash
+      } = req.body;
 
-		next();
-	},
+      if (!UserName) {
+         console.error('No UserName Provided.');
+         return res.status(200).json({
+            success: false,
+            message: 'No UserName Provided.'
+         });
+      }
+      if (!NormalizedUserName) {
+         console.error('No UserName Provided.');
+         return res.status(200).json({
+            success: false,
+            message: 'No NormalizedUserName Provided.'
+         });
+      }
+      if (!Email) {
+         console.error('No Email Provided.');
+         return res.status(200).json({
+            success: false,
+            message: 'No Email Provided.'
+         });
+      }
+      if (!NormalizedEmail) {
+         console.error('No Email Provided.');
+         return res.status(200).json({
+            success: false,
+            message: 'No NormalizedEmail Provided.'
+         });
+      }
+      if (!PasswordHash) {
+         console.error(`The Password Wasn't Hashed.`);
+         return res.status(200).json({
+            success: false,
+            message: 'There Is No Password Hash Provided.'
+         });
+      }
 
-	userRegister: (req, res) => {
+      const newUser = {
+         UserName: UserName,
+         NormalizedUserName: NormalizedUserName,
+         Email: Email,
+         NormalizedEmail: NormalizedEmail,
+         PasswordHash: PasswordHash
+      };
 
-		const { UserName, Email, PasswordHash } = req.body;
+      pool.getConnection((err, connection) => {
+         const queryString = 'INSERT INTO Users SET ?';
+         connection.query(queryString, newUser, (err, results) => {
+            connection.release();
+            if (err) {
+               if (!err.errno) {
+                  console.log(err);
+                  return res.status(200).json({
+                     success: false,
+                     message: err
+                  });
+               } else if (err.errno === 1062) {
+                  console.error(`ERROR: ${err}`);
+                  return res.status(200).json({
+                     success: false,
+                     message: 'Email Already In Use.'
+                  });
+               } else {
+                  return res.status(200).json({
+                     success: false,
+                     message: err
+                  });
+               }
+            }
 
-		if (UserName === '') {
-			console.error('NO UserName PROVIDED.');
-			return res.status(400).json({ success: false, message: 'No UserName Provided.' });
-		} else if (Email === '') {
-			console.error('NO Email PROVIDED.');
-			return res.status(400).json({ success: false, message: 'No Email Provided.' });
-		} else if (PasswordHash === '') {
-			console.error('NO PasswordHash Provided.');
-			return res.status(400).json({ success: false, message: 'No PasswordHash Provided.' });
-		}
+            console.log('REGISTER SUCCESS:', results);
 
-		const newUser = {
-			UserName: UserName.trim(),
-			NormalizedUserName: UserName.trim().toUpperCase(),
-			Email: Email.trim(),
-			PasswordHash: PasswordHash
-		};
+            const returnUser = {
+               UserId: results.insertId,
+               UserName: newUser.UserName,
+               Email: newUser.Email
+            };
 
-		pool.getConnection((err, connection) => {
+            // res.status(200).json({ success: true, user: returnUser, message: 'Registeration was successful!' });
+            req.body.jwtData = returnUser;
 
-			const queryString = 'INSERT INTO Users SET ?';
-			connection.query(queryString, newUser, (err, results) => { // err, results, fields
+            next();
+         });
+      });
+   },
 
-				connection.release();
+   userLogin: (req, res, next) => {
+      const { UserName, Password } = req.body;
 
-				if (err) {
-					console.error(`ERROR: ${ err }`);
-					return res.status(400).json({ success: false, message: err });
-				}
+      console.log(UserName.toUpperCase(), Password);
 
-				console.log('REGISTER SUCCESS:', results);
+      pool.getConnection((err, connection) => {
+         if (err)
+            return res.status(200).json({
+               success: false,
+               message: err
+            });
 
-				const returnUser = {
-					UserId: results.insertId,
-					UserName: newUser.UserName,
-					Email: newUser.Email
-				}
+         const queryString =
+            'SELECT * FROM `Users` WHERE `NormalizedUserName` = ?';
+         connection.query(
+            queryString,
+            [UserName.toUpperCase()],
+            (err, results) => {
+               connection.release();
 
-				return res.status(200).json({ success: true, user: returnUser, message: 'Registeration was successful!' });
-			});
-		});
-	},
+               if (err) {
+                  console.error(err);
 
-	userLogin: (req, res) => {
-		const { UserName, Password } = req.body;
+                  res.status(200).json({
+                     success: false,
+                     message: err
+                  });
+               } else if (results.length === 0) {
+                  console.error('USER DOESNT EXIST');
+                  res.status(200).json({
+                     success: false,
+                     message: 'User Name Or Password Is Incorrect.'
+                  });
+               } else {
+                  const isPassword = passwordHash.verify(
+                     Password,
+                     results[0].PasswordHash
+                  );
 
-		console.error(UserName.toUpperCase(), Password);
+                  if (!isPassword) {
+                     console.error('Password INCORRECT');
 
-		pool.getConnection((err, connection) => {
+                     res.status(200).json({
+                        success: false,
+                        message: 'User Name Or Password Is Incorrect.'
+                     });
 
-			if (err) return res.status(400).json({ success: false, message: err });
+                     return;
+                  }
 
-			const queryString = 'SELECT * FROM `Users` WHERE `NormalizedUserName` = ?';
-			connection.query(queryString, [ UserName.toUpperCase() ], (err, results) => {
+                  let user;
 
-				connection.release();
+                  for (let i in results) {
+                     user = results[i];
+                  }
 
-				if (err) {
-					console.error(err);
-					return res.status(400).json({ message: err })
-				} else if (results.length === 0) {
-					console.error('USER DOESNT EXIST');
-					return res.status(404).json({ message: 'User Name Or Password Is Incorrect.' });
-				} else {
+                  const returnUser = {
+                     UserId: user.UserId,
+                     UserName: user.UserName,
+                     Email: user.Email
+                  };
 
-					const isPassword = passwordHash.verify(Password, results[ 0 ].PasswordHash);
+                  // res.status(200).json({ user: returnUser });
+                  req.body.jwtData = returnUser;
 
-					if (!isPassword) {
-						console.error('Password INCORRECT')
-						return res.status(400).json({ message: 'User Name Or Password Is Incorrect.' });
-					} else {
-
-						let user;
-
-						for (let i in results) {
-							user = results[ i ];
-						}
-
-						const returnUser = {
-							UserId: user.UserId,
-							UserName: user.UserName,
-							Email: user.Email
-						}
-
-						return res.status(200).json({ user: returnUser });
-					}
-				}
-			});
-		});
-	}
-}
+                  next();
+               }
+            }
+         );
+      });
+   }
+};

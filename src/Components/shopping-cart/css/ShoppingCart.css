@@ -3,6 +3,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	position: relative;
 }
 
 #shopping-cart:focus {
@@ -46,13 +47,13 @@
 .shopping-cart-hover-container {
 	visibility: hidden;
 	position: absolute;
-	top: 101%;
-	left: -5%;
+	top: 105%;
+	right: 0%;
 	display: flex;
 	flex-direction: column;
 	justify-content: stretch;
 	align-items: stretch;
-	width: 125%;
+	width: 250%;
 	box-shadow: 0 3px 6px -4px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 

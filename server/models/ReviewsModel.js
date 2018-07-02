@@ -1,59 +1,106 @@
 const pool = require('../db');
 
 module.exports = {
-	getReviewsByShoeId: (req, res, next) => {
-		const shoeId = req.params.shoeId;
-		const queryString = 'SELECT * FROM Reviews WHERE ShoeId = ?';
+   getReviewsByShoeId: (req, res, next) => {
+      const shoeId = req.params.shoeId;
+      const queryString = 'SELECT * FROM Reviews WHERE ShoeId = ?';
 
-		console.log('SHOEID:', shoeId);
+      console.log('SHOEID:', shoeId);
 
-		pool.getConnection((err, connection) => {
+      pool.getConnection((err, connection) => {
+         if (err)
+            return res.status(400).json({
+               success: false,
+               message: err
+            });
 
-			if (err) return res.status(400).json({ success: false, message: err });
+         connection.query(queryString, [shoeId], (err, results) => {
+            connection.release();
 
-			connection.query(queryString, [ shoeId ], (err, results) => {
+            if (err)
+               return res.status(400).json({
+                  success: false,
+                  message: err
+               });
+            if (results.length === 0)
+               return res.status(200).json({
+                  success: false,
+                  message: 'No Reviews Found.'
+               });
 
-				connection.release();
+            res.status(200).json({
+               success: true,
+               reviews: results
+            });
+         });
+      });
+   },
 
-				if (err) return res.status(400).json({ success: false, message: err });
-				if (results.length === 0) return res.status(404).json({ success: false, message: 'No Reviews Found.' });
+   postNewReview: (req, res, next) => {
+      let newReview = req.body;
 
-				return res.status(200).json({ success: true, reviews: results });
-			});
-		})
-	},
+      if (!newReview.UserName)
+         return res.status(200).json({
+            success: false,
+            message: 'No User Name Given.'
+         });
+      if (!newReview.ShoeId)
+         return res.status(200).json({
+            success: false,
+            message: 'No Shoe Id Given.'
+         });
+      if (!newReview.Rating)
+         return res.status(200).json({
+            success: false,
+            message: 'No Rating Given.'
+         });
+      if (!newReview.ReviewDate)
+         return res.status(200).json({
+            success: false,
+            message: 'No Review Date Given.'
+         });
+      if (!newReview.ReviewText)
+         return res.status(200).json({
+            success: false,
+            message: 'No Review Text Given.'
+         });
 
-	postNewReview: (req, res, next) => {
+      pool.getConnection((err, connection) => {
+         if (err)
+            return res.status(400).json({
+               success: false,
+               message: err
+            });
 
-		let newReview = req.body;
+         const queryString = 'INSERT INTO Reviews SET ?';
 
-		if (!newReview.UserId) return res.status(400).json({ success: false, message: 'No User Id Given.' });
-		if (!newReview.ShoeId) return res.status(400).json({ success: false, message: 'No Shoe Id Given.' });
-		if (!newReview.Rating) return res.status(400).json({ success: false, message: 'No Rating Given.' });
-		if (!newReview.ReviewDate) return res.status(400).json({ success: false, message: 'No Review Date Given.' });
-		if (!newReview.ReviewText) return res.status(400).json({ success: false, message: 'No Review Text Given.' });
+         connection.query(queryString, newReview, (err, results) => {
+            connection.release();
 
-		pool.getConnection((err, connection) => {
+            if (err)
+               return res.status(400).json({
+                  success: false,
+                  message: err
+               });
+            if (results.length === 0)
+               return res.status(200).json({
+                  success: false,
+                  message: 'Review Post Failed.'
+               });
 
-			if (err) return res.status(400).json({ success: false, message: err });
+            console.log(results);
 
-			const queryString = 'INSERT INTO Reviews SET ?';
-			connection.query(queryString, newReview, (err, results) => {
+            newReview = {
+               ...newReview,
+               ReviewId: results.insertId
+            };
 
-				connection.release();
-
-				if (err) return res.status(400).json({ success: false, message: err });
-				if (results.length === 0) return res.status(404).json({ success: false, message: 'Review Post Failed.' });
-
-				console.log(results);
-
-				newReview = {
-					...newReview,
-					ReviewId: results.insertId
-				}
-
-				return res.status(201).json({ success: true, newReview: newReview, message: 'Post Successfully Posted.' });
-			});
-		});
-	}
-}
+            res.status(201).json({
+               success: true,
+               newReview: newReview,
+               message: 'Post Successfully Posted.'
+            });
+         });
+      });
+   }
+};

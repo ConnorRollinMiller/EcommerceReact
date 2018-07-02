@@ -1,40 +1,32 @@
 import React from 'react';
 import Slide from './Slide';
 import './css/Carousel.css';
-import { CAROUSEL_IMAGES } from '../../AppConstants';
+import { CAROUSEL_IMAGES } from '../../utilities/constants';
 
 class Carousel extends React.PureComponent {
 
 	state = {
 		imgNum: 1,
-		requestId: null
+		request: null
 	}
 
 	componentDidMount() {
-		this.startAnimation();
+		requestAnimationFrame(this.animate);
 	}
 
 	componentWillUnmount() {
-		this.stopAnimation();
+		cancelAnimationFrame(this.frameId);
 	}
 
-	startAnimation = () => {
-		if (!this._frameId) {
-			this._frameId = requestAnimationFrame(this.animation);
-		}
-	}
-
-	stopAnimation = () => {
-		cancelAnimationFrame(this._frameId);
-	}
-
-	animation = () => {
+	animate = () => {
 		setTimeout(() => {
 			if (this.state.imgNum >= 36) {
 				this.setState({ imgNum: 1 });
+				requestAnimationFrame(this.animate);
+				return;
 			}
 			this.setState({ imgNum: this.state.imgNum + 1 });
-			this._frameId = requestAnimationFrame(this.animation);
+			requestAnimationFrame(this.animate);
 		}, 60)
 	}
 

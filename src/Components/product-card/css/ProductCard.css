@@ -1,7 +1,5 @@
 .product-card {
 	position: relative;
-	width: calc(94% / 3 );
-	margin: 1%;
 	/* border: 1px solid rgba(51,51,51,0.1); */
 	box-shadow: 0 3px 6px -4px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 	transition: 0.25s;
@@ -35,9 +33,9 @@
 	background: var(--primary-color);
 }
 
-.product-card-quick-view {
+.product-card-quick-view-button {
 	position: absolute;
-	top: 0;
+	top: -30px;
 	left: 0;
 	height: 30px;
 	width: 100%;
@@ -51,14 +49,16 @@
 	font-size: 0.9em;
 	transition: 0.25s;
 	border: none;
-	z-index: -1;
+	z-index: 0;
+	opacity: 0;
 }
 
-.product-card:hover .product-card-quick-view {
-	top: -30px;
+.product-card:hover .product-card-quick-view-button {
+	/* top: -30px; */
+	opacity: 1;
 }
 
-.product-card-quick-view:hover {
+.product-card-quick-view-button:hover {
 	cursor: pointer;
 }
 

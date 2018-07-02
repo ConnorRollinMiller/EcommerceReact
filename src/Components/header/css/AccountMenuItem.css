@@ -1,0 +1,34 @@
+#account-nav-menu {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#account-nav-menu:hover .account-nav-menu-hover-container {
+	visibility: visible;
+}
+
+.account-nav-menu-hover-container {
+	visibility: hidden;
+	position: absolute;
+	top: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: stretch;
+	align-items: stretch;
+	width: 200%;
+	box-shadow: 0 3px 6px -4px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	z-index: 100;
+}
+
+.account-nav-menu-hover-container::after {
+	content: "";
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -10px;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent transparent var(--secondary-color) transparent;
+}

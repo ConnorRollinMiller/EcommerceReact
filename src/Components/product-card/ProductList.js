@@ -22,11 +22,13 @@ class ProductList extends Component {
 						this.props.sectionTitle &&
 						<SectionTitle title={ this.props.sectionTitle } />
 					}
-					<div className='row justify-content-center py-4 m-0 w-100'>
+					<div className='row justify-content-center align-items-center py-4 m-0'>
 						{
-							this.props.error ? (
-								<h1>there was an error</h1>
-							) : (
+							this.props.error ?
+								(
+									<h1 className='text-center text-capitalize text-danger'>there was an error!</h1>
+								) :
+								(
 									this.props.shoes.map(shoe =>
 										<ProductCard
 											key={ shoe.ShoeId }

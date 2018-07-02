@@ -1,0 +1,20 @@
+.notifications-list {
+   position: fixed !important;
+   bottom: 2.5%;
+   left: 2.5%;
+   z-index: 1100;
+}
+
+.notification {
+   animation: notification-fade-out 2s 2s;
+   transition: 1s;
+}
+
+@keyframes notification-fade-out {
+   from {
+      opacity: 1;
+   }
+   to {
+      opacity: 0;
+   }
+}
