@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 class SectionTitle extends Component {
 
 	shouldComponentUpdate(nextProps) {
-		if (nextProps.title !== this.props.title) {
-			return true;
-		}
+		if (nextProps.title !== this.props.title) return true;
 		return false;
 	}
 

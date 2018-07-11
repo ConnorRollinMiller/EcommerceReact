@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 class UserIcon extends Component {
@@ -13,15 +13,19 @@ class UserIcon extends Component {
 			<FontAwesomeIcon
 				className={ this.props.className }
 				icon={ [ 'fas', 'user' ] }
-				size={ this.props.size }
+				size='1x'
 			/>
 		);
 	}
 }
 
-UserIcon.propTypes = {
-	size: PropTypes.string,
-	className: PropTypes.string,
-}
+// UserIcon.propTypes = {
+// 	size: PropTypes.string.isRequired,
+// 	className: PropTypes.string,
+// }
+
+// UserIcon.defaultProps = {
+// 	size: '1x'
+// }
 
 export default UserIcon;

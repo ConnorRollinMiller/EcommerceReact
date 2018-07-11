@@ -33,12 +33,12 @@ class AccountFormPage extends Component {
    }
 
    render() {
-      if (this.props.user) return <Redirect to="/" />;
+      if (this.props.user) return <Redirect to='/' />;
 
       return (
          <main>
             <PageTitle displayBreadcrumbs={true} />
-            <div className="main-section container d-flex align-items-center justify-content-center p-4">
+            <div className='main-section container d-flex align-items-center justify-content-center p-4'>
                {this.props.isLoginForm ? (
                   <LoginForm
                      username={this.props.username}

@@ -5,9 +5,7 @@ import './css/FormInputWithIcon.css';
 class FormInputWithIcon extends Component {
 
 	shouldComponentUpdate(nextProps) {
-		if (nextProps.value !== this.props.value) {
-			return true;
-		}
+		if (nextProps.value !== this.props.value) return true;
 		return false;
 	}
 

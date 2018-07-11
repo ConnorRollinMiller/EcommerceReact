@@ -24,11 +24,22 @@ class CheckoutForm extends Component {
       return false;
    }
 
+   handleZipCode = (e) => {
+      const value = e.target.value;
+      const name = e.target.name;
+
+      const regExp = /^[0-9\b]+$/;
+
+      if (value === '' || regExp.test(value)) {
+         this.props.inputChange(name, value);
+      }
+   }
+
    render() {
       return (
          <Form
-            className="col-md-6 p-4 d-flex flex-column"
-            onSubmit={e =>
+            className='col-md-6'
+            onSubmit={ e =>
                this.props.submitOrder(
                   e,
                   this.props.firstName,
@@ -41,108 +52,104 @@ class CheckoutForm extends Component {
                   this.props.phone,
                   this.props.email,
                   this.props.total,
-                  this.props.cart
+                  this.props.cart,
+                  this.props.user
                )
             }
          >
-            <div className="form-group row">
+            <div className='form-group mb-0 row'>
                <Input
-                  inline={true}
-                  type="text"
-                  name="firstName"
-                  value={this.props.firstName}
-                  placeholder="First Name"
-                  onChange={e =>
-                     this.props.inputChange(e.target.name, e.target.value)
-                  }
+                  className='mb-3'
+                  inline={ true }
+                  type='text'
+                  name='firstName'
+                  value={ this.props.firstName }
+                  placeholder='First Name'
+                  onChange={ e => this.props.inputChange(e.target.name, e.target.value) }
                />
                <Input
-                  inline={true}
-                  type="text"
-                  name="lastName"
-                  value={this.props.lastName}
-                  placeholder="Last Name"
-                  onChange={e =>
-                     this.props.inputChange(e.target.name, e.target.value)
-                  }
+                  className='mb-3'
+                  inline={ true }
+                  type='text'
+                  name='lastName'
+                  value={ this.props.lastName }
+                  placeholder='Last Name'
+                  onChange={ e => this.props.inputChange(e.target.name, e.target.value) }
                />
             </div>
-            <div className="form-group row">
-               <div className="col">
+            <div className='form-group mb-0 row'>
+               <div className='col-12 col-sm-6'>
                   <Select
-                     name="country"
-                     options={['Select Country', ...COUNTRIES]}
-                     onChange={e =>
-                        this.props.inputChange(e.target.name, e.target.value)
-                     }
-                     value={this.props.country}
+                     className='mb-3'
+                     name='country'
+                     options={ [ 'Select Country', ...COUNTRIES ] }
+                     value={ this.props.country }
+                     onChange={ e => this.props.inputChange(e.target.name, e.target.value) }
                   />
                </div>
-               <div className="col">
+               <div className='col-12 col-sm-6'>
                   <Select
-                     name="state"
-                     options={['Select State', ...STATES]}
-                     onChange={e =>
-                        this.props.inputChange(e.target.name, e.target.value)
-                     }
-                     value={this.props.state}
+                     className='mb-3'
+                     name='state'
+                     options={ [ 'Select State', ...STATES ] }
+                     value={ this.props.state }
+                     onChange={ e => this.props.inputChange(e.target.name, e.target.value) }
                   />
                </div>
             </div>
             <Input
-               type="text"
-               name="address"
-               value={this.props.address}
-               placeholder="Street Address"
-               onChange={e =>
-                  this.props.inputChange(e.target.name, e.target.value)
-               }
+               className='mb-3'
+               type='text'
+               name='address'
+               value={ this.props.address }
+               placeholder='Street Address'
+               onChange={ e => this.props.inputChange(e.target.name, e.target.value) }
             />
-            <div className="form-group row">
+            <div className='form-group mb-0 row'>
                <Input
-                  inline={true}
-                  type="text"
-                  name="city"
-                  value={this.props.city}
-                  placeholder="City"
-                  onChange={e =>
-                     this.props.inputChange(e.target.name, e.target.value)
-                  }
+                  className='mb-3'
+                  inline={ true }
+                  type='text'
+                  name='city'
+                  value={ this.props.city }
+                  placeholder='City'
+                  onChange={ e => this.props.inputChange(e.target.name, e.target.value) }
                />
                <Input
-                  inline={true}
-                  type="text"
-                  name="zipCode"
-                  value={this.props.zipCode}
-                  placeholder="Zip Code"
-                  onChange={e =>
-                     this.props.inputChange(e.target.name, e.target.value)
-                  }
-               />
-            </div>
-            <div className="form-group row">
-               <Input
-                  inline={true}
-                  type="tel"
-                  name="phone"
-                  value={this.props.phone}
-                  placeholder="Phone"
-                  onChange={e =>
-                     this.props.inputChange(e.target.name, e.target.value)
-                  }
-               />
-               <Input
-                  inline={true}
-                  type="email"
-                  name="email"
-                  value={this.props.email}
-                  placeholder="Email"
-                  onChange={e =>
-                     this.props.inputChange(e.target.name, e.target.value)
-                  }
+                  className='form-control mb-3'
+                  inline={ true }
+                  type='text'
+                  name='zipCode'
+                  placeholder='Zip Code'
+                  pattern='^[0-9]*$'
+                  onChange={ e => this.handleZipCode(e) }
+                  value={ this.props.zipCode }
                />
             </div>
-            <PrimaryButton>Place Order</PrimaryButton>
+            <div className='form-group mb-0 row'>
+               <Input
+                  className='mb-3'
+                  inline={ true }
+                  type='tel'
+                  name='phone'
+                  value={ this.props.phone }
+                  placeholder='Phone'
+                  onChange={ e => this.props.inputChange(e.target.name, e.target.value) }
+               />
+               <Input
+                  className='mb-3'
+                  inline={ true }
+                  type='email'
+                  name='email'
+                  value={ this.props.email }
+                  placeholder='Email'
+                  onChange={ e => this.props.inputChange(e.target.name, e.target.value) }
+               />
+            </div>
+            <PrimaryButton
+               fullWidth={ true }>
+               Place Order
+               </PrimaryButton>
          </Form>
       );
    }
@@ -161,7 +168,8 @@ CheckoutForm.propTypes = {
    total: PropTypes.number.isRequired,
    cart: PropTypes.array.isRequired,
    inputChange: PropTypes.func.isRequired,
-   submitOrder: PropTypes.func.isRequired
+   submitOrder: PropTypes.func.isRequired,
+   user: PropTypes.object
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -175,7 +183,8 @@ const mapStateToProps = (state, ownProps) => ({
    phone: state.checkoutReducer.phone,
    email: state.checkoutReducer.email,
    total: state.cartReducer.total,
-   cart: state.cartReducer.cart
+   cart: state.cartReducer.cart,
+   user: state.accountReducer.user
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -192,7 +201,8 @@ const mapDispatchToProps = dispatch => ({
       phone,
       email,
       total,
-      cart
+      cart,
+      user
    ) => {
       e.preventDefault();
       dispatch(clearCart());
@@ -208,7 +218,8 @@ const mapDispatchToProps = dispatch => ({
             phone,
             email,
             total,
-            cart
+            cart,
+            user
          )
       );
    }

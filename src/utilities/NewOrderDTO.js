@@ -8,8 +8,10 @@ export default (
    zipCode,
    phone,
    email,
-   total
+   total,
+   userId = null
 ) => ({
+   UserId: userId,
    OrderDate: Date.now(),
    FirstName: firstName,
    LastName: lastName,
@@ -21,5 +23,4 @@ export default (
    Phone: phone,
    Email: email,
    Total: total,
-   Status: 'Pending'
 });

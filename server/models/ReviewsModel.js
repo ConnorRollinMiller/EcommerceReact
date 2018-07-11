@@ -5,27 +5,32 @@ module.exports = {
       const shoeId = req.params.shoeId;
       const queryString = 'SELECT * FROM Reviews WHERE ShoeId = ?';
 
+      console.log(req.params)
+
       console.log('SHOEID:', shoeId);
 
       pool.getConnection((err, connection) => {
          if (err)
-            return res.status(400).json({
+            return res.status(200).json({
                success: false,
                message: err
             });
 
-         connection.query(queryString, [shoeId], (err, results) => {
+         connection.query(queryString, [ shoeId ], (err, results) => {
             connection.release();
 
+            console.log(results);
+
             if (err)
-               return res.status(400).json({
+               return res.status(200).json({
                   success: false,
                   message: err
                });
             if (results.length === 0)
                return res.status(200).json({
                   success: false,
-                  message: 'No Reviews Found.'
+                  message: 'No Reviews Found.',
+                  reviews: []
                });
 
             res.status(200).json({
@@ -67,7 +72,7 @@ module.exports = {
 
       pool.getConnection((err, connection) => {
          if (err)
-            return res.status(400).json({
+            return res.status(200).json({
                success: false,
                message: err
             });

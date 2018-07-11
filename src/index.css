@@ -79,6 +79,10 @@ button:focus {
    border: 1px solid var(--secondary-color) !important;
 }
 
+input[type='radio']:hover {
+   cursor: pointer;
+}
+
 hr {
    border: none;
    height: 1px;

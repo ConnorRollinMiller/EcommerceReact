@@ -1,51 +1,26 @@
 const pool = require('../db');
-const passwordHash = require('password-hash');
+const bcrypt = require('bcrypt');
+
+const saltRounds = 10;
 
 module.exports = {
-   doesUserExist: async (req, res, next) => {
-      const { NormalizedUserName } = req.body;
-
-      pool.getConnection((err, connection) => {
-         const queryString =
-            'SELECT * FROM `Users` WHERE `NormalizedUserName` = ?';
-
-         connection.query(queryString, NormalizedUserName, (err, results) => {
-            connection.release();
-
-            if (err) {
-               console.log(err);
-               return res.status(200).json({
-                  success: false,
-                  message: err.response
-               });
-            } else if (results.length > 0) {
-               console.log('USER EXISTS:', results);
-               return res.status(200).json({
-                  success: false,
-                  message: 'User Name Already In Use. Please Try Again.'
-               });
-            }
-
-            next();
-         });
-      });
-   },
-
-   passwordIsHashed: (req, res, next) => {
+   hashPassword: (req, res, next) => {
       let { Password } = req.body;
 
-      const hashed = passwordHash.generate(Password);
-      const isPasswordHashed = passwordHash.isHashed(hashed);
+      bcrypt.hash(Password, saltRounds, (err, hash) => {
 
-      if (!isPasswordHashed)
-         return res.status(200).json({
-            success: false,
-            message: `Password Wasn't Hashed.`
-         });
+         if (err)
+            return res.status(200).json({
+               success: false,
+               message: err
+            });
 
-      req.body = { ...req.body, PasswordHash: hashed };
+         console.log('HASHED PASS:', hash);
 
-      next();
+         req.body = { ...req.body, PasswordHash: hash };
+
+         next();
+      });
    },
 
    userRegister: (req, res, next) => {
@@ -102,22 +77,156 @@ module.exports = {
       };
 
       pool.getConnection((err, connection) => {
-         const queryString = 'INSERT INTO Users SET ?';
-         connection.query(queryString, newUser, (err, results) => {
+
+         if (err)
+            return res.status(200).json({
+               success: false,
+               message: err
+            });
+
+         const queryString = 'SELECT * FROM Users WHERE NormalizedUserName=?';
+
+         connection.query(queryString, [ NormalizedUserName ], (err, results) => {
+            if (err)
+               return res.status(200).json({
+                  success: false,
+                  message: err
+               });
+            if (results.length > 0)
+               return res.status(200).json({
+                  success: false,
+                  message: 'User Name Already In Use. Please Try Again.'
+               });
+
+            const queryString = 'INSERT INTO Users SET ?';
+
+            connection.query(queryString, newUser, (err, results) => {
+               connection.release();
+               if (err) {
+                  if (!err.errno) {
+                     console.log(err);
+                     return res.status(200).json({
+                        success: false,
+                        message: err
+                     });
+                  }
+                  if (err.errno === 1062) {
+                     console.error(`ERROR: ${ err }`);
+                     return res.status(200).json({
+                        success: false,
+                        message: 'Email Already In Use.'
+                     });
+                  }
+
+                  res.status(200).json({
+                     success: false,
+                     message: err
+                  });
+               }
+
+               console.log('REGISTER SUCCESS:', results);
+
+               const returnUser = {
+                  UserId: results.insertId,
+                  UserName: newUser.UserName,
+                  Email: newUser.Email
+               };
+
+               // res.status(200).json({ success: true, user: returnUser, message: 'Registeration was successful!' });
+               req.body.jwtData = returnUser;
+
+               next();
+            });
+         })
+      });
+   },
+
+   userLogin: (req, res, next) => {
+      const { NormalizedUserName, Password } = req.body;
+
+      pool.getConnection((err, connection) => {
+
+         if (err)
+            return res.status(200).json({
+               success: false,
+               message: err
+            });
+
+         const queryString = 'SELECT * FROM Users WHERE NormalizedUserName=?';
+
+         connection.query(queryString, [ NormalizedUserName ], (err, results) => {
             connection.release();
+
             if (err) {
-               if (!err.errno) {
-                  console.log(err);
+               console.error(err);
+               return res.status(200).json({
+                  success: false,
+                  message: err
+               });
+            }
+            if (results.length === 0) {
+               console.error('USER DOESNT EXIST');
+               return res.status(200).json({
+                  success: false,
+                  message: 'User Name Or Password Is Incorrect.'
+               });
+            }
+
+            bcrypt.compare(Password, results[ 0 ].PasswordHash, (err, compareResponse) => {
+
+               if (err)
                   return res.status(200).json({
                      success: false,
                      message: err
                   });
-               } else if (err.errno === 1062) {
-                  console.error(`ERROR: ${err}`);
+               if (!compareResponse)
                   return res.status(200).json({
                      success: false,
-                     message: 'Email Already In Use.'
+                     message: 'Passwords Did Not Match.'
                   });
+
+               let user;
+               for (let i in results) {
+                  user = results[ i ];
+               }
+
+               const returnUser = {
+                  UserId: user.UserId,
+                  UserName: user.UserName,
+                  Email: user.Email
+               };
+
+               req.body.jwtData = returnUser;
+               next();
+            });
+
+         });
+      });
+   },
+
+   updateAccountUserName: (req, res, next) => {
+      const { UserId, UserName, NormalizedUserName } = req.body;
+
+      pool.getConnection((err, connection) => {
+
+         if (err)
+            return res.status(200).json({
+               success: false,
+               message: err
+            });
+
+         const queryString = 'UPDATE Users SET UserName=?, NormalizedUserName=? WHERE UserId=?';
+
+         connection.query(queryString, [ UserName, NormalizedUserName, UserId ], (err, result) => {
+            connection.release();
+
+            console.log('ERROR:', err);
+            if (err) {
+               if (err.errno === 1062) {
+                  return res.status(200).json({
+                     success: false,
+                     message: 'Username Already In Use.'
+                  })
                } else {
                   return res.status(200).json({
                      success: false,
@@ -126,26 +235,73 @@ module.exports = {
                }
             }
 
-            console.log('REGISTER SUCCESS:', results);
+            if (result.changedRows === 0)
+               return res.status(200).json({
+                  success: false,
+                  message: 'No Records Updated.'
+               });
 
-            const returnUser = {
-               UserId: results.insertId,
-               UserName: newUser.UserName,
-               Email: newUser.Email
+            req.body.jwtData = {
+               UserId: UserId,
+               UserName: UserName,
             };
-
-            // res.status(200).json({ success: true, user: returnUser, message: 'Registeration was successful!' });
-            req.body.jwtData = returnUser;
 
             next();
          });
       });
    },
 
-   userLogin: (req, res, next) => {
-      const { UserName, Password } = req.body;
+   updateAccountEmail: (req, res, next) => {
+      const { UserId, Email, NormalizedEmail } = req.body;
 
-      console.log(UserName.toUpperCase(), Password);
+      pool.getConnection((err, connection) => {
+
+         if (err)
+            return res.status(200).json({
+               success: false,
+               message: err
+            });
+
+         const queryString = 'UPDATE Users SET Email=?, NormalizedEmail=? WHERE UserId=?';
+
+         connection.query(queryString, [ Email, NormalizedEmail, UserId ], (err, result) => {
+            connection.release();
+
+            console.log('ERROR:', err);
+            if (err) {
+               if (err.errno === 1062) {
+                  return res.status(200).json({
+                     success: false,
+                     message: 'Email Already In Use.'
+                  })
+               } else {
+                  return res.status(200).json({
+                     success: false,
+                     message: err
+                  });
+               }
+            }
+
+            console.log(result);
+
+            if (result.changedRows === 0)
+               return res.status(200).json({
+                  success: false,
+                  message: 'No Records Updated.'
+               });
+
+            req.body.jwtData = {
+               UserId: UserId,
+               Email: Email
+            };
+
+            next();
+         });
+      });
+   },
+
+   updateAccountPassword: (req, res, next) => {
+      const { UserId, CurrentPassword, NewPassword } = req.body;
 
       pool.getConnection((err, connection) => {
          if (err)
@@ -154,63 +310,67 @@ module.exports = {
                message: err
             });
 
-         const queryString =
-            'SELECT * FROM `Users` WHERE `NormalizedUserName` = ?';
-         connection.query(
-            queryString,
-            [UserName.toUpperCase()],
-            (err, results) => {
-               connection.release();
+         const queryString = 'SELECT * FROM Users WHERE UserId=?';
 
-               if (err) {
-                  console.error(err);
+         connection.query(queryString, [ UserId ], (err, results) => {
+            if (err)
+               return res.status(200).json({
+                  success: false,
+                  message: err
+               });
+            if (results.length === 0)
+               return res.status(200).json({
+                  success: false,
+                  message: 'No User Found.'
+               });
 
-                  res.status(200).json({
+            console.log('RESULTS:', results);
+
+            bcrypt.compare(CurrentPassword, results[ 0 ].PasswordHash, (err, compareResponse) => {
+
+               console.log('COMPARE RESPONSE:', compareResponse);
+
+               if (err)
+                  return res.status(200).json({
                      success: false,
                      message: err
                   });
-               } else if (results.length === 0) {
-                  console.error('USER DOESNT EXIST');
-                  res.status(200).json({
+               if (!compareResponse)
+                  return res.status(200).json({
                      success: false,
-                     message: 'User Name Or Password Is Incorrect.'
+                     message: 'Current Password Is Incorrect.'
                   });
-               } else {
-                  const isPassword = passwordHash.verify(
-                     Password,
-                     results[0].PasswordHash
-                  );
 
-                  if (!isPassword) {
-                     console.error('Password INCORRECT');
-
-                     res.status(200).json({
+               bcrypt.hash(NewPassword, saltRounds, (err, hash) => {
+                  if (err)
+                     return res.status(200).json({
                         success: false,
-                        message: 'User Name Or Password Is Incorrect.'
+                        message: err
                      });
 
-                     return;
-                  }
+                  const updateQueryString = 'UPDATE Users SET PasswordHash=? WHERE UserId=?'
 
-                  let user;
+                  connection.query(updateQueryString, [ hash, UserId ], (err, result) => {
+                     connection.release();
 
-                  for (let i in results) {
-                     user = results[i];
-                  }
+                     if (err)
+                        return res.status(200).json({
+                           success: false,
+                           message: err
+                        });
+                     if (result.changedRows === 0)
+                        return res.status(200).json({
+                           success: false,
+                           message: 'No Records Updated.'
+                        });
 
-                  const returnUser = {
-                     UserId: user.UserId,
-                     UserName: user.UserName,
-                     Email: user.Email
-                  };
-
-                  // res.status(200).json({ user: returnUser });
-                  req.body.jwtData = returnUser;
-
-                  next();
-               }
-            }
-         );
+                     res.status(200).json({
+                        success: true
+                     });
+                  });
+               });
+            });
+         });
       });
    }
 };

@@ -1,33 +1,44 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import TopHeader from './TopHeader';
 import Menu from './Menu';
 import './css/Header.css';
 
 import { connect } from 'react-redux';
+import { accountLogout } from '../../redux/actions/accountActions';
 
 class Header extends Component {
+   shouldComponentUpdate(nextProps) {
+      if (nextProps.user !== this.props.user) return true;
+      return false;
+   }
 
-	shouldComponentUpdate(nextProps) {
-		if (nextProps.user !== this.props.user) {
-			return true;
-		}
-		return false;
-	}
-
-	render() {
-		return (
-			<div>
-				<TopHeader />
-				<header className='py-4' id='header'>
-					<Menu user={ this.props.user } />
-				</header>
-			</div>
-		)
-	}
+   render() {
+      return (
+         <div>
+            <TopHeader />
+            <header className='py-4' id='header'>
+               <Menu user={this.props.user} logout={this.props.accountLogout} />
+            </header>
+         </div>
+      );
+   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-	user: state.accountReducer.user
-})
+Header.propTypes = {
+   user: PropTypes.object,
+   accountLogout: PropTypes.func.isRequired
+};
 
-export default connect(mapStateToProps)(Header);
+const mapStateToProps = (state, ownProps) => ({
+   user: state.accountReducer.user
+});
+
+const mapDispatchToProps = dispatch => ({
+   accountLogout: () => dispatch(accountLogout())
+});
+
+export default connect(
+   mapStateToProps,
+   mapDispatchToProps
+)(Header);

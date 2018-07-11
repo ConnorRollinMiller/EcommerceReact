@@ -48,7 +48,7 @@ class ProductReviewForm extends Component {
    render() {
       return (
          <Form
-            className="col-12 my-4"
+            className='col-12 my-4'
             onSubmit={e =>
                this.props.postNewReview(
                   e,
@@ -60,24 +60,26 @@ class ProductReviewForm extends Component {
             }
          >
             {this.props.error && (
-               <div className="mt-4 alert alert-danger">
+               <div className='mt-4 alert alert-danger'>
                   {this.props.errorMessage}
                </div>
             )}
-            <div className="mb-2">
-               <p className="mb-1">Your Rating:</p>
+            <div className='mb-2'>
+               <p className='mb-1'>Your Rating:</p>
                <ReviewRating
                   reviewRating={this.props.reviewRating}
                   changeReviewRating={this.props.changeReviewRating}
                />
             </div>
             <TextArea
-               label="Your Review:"
+               label='Your Review:'
                value={this.props.reviewText}
                onChange={this.props.changeReviewText}
                rows={4}
             />
-            <PrimaryButton>Submit Review</PrimaryButton>
+            <PrimaryButton className='col-12 col-md-6'>
+               Submit Review
+            </PrimaryButton>
          </Form>
       );
    }

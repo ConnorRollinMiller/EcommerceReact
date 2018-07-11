@@ -10,16 +10,16 @@ class Select extends Component {
    render() {
       return (
          <select
-            className={`form-control ${this.props.className}`}
-            name={this.props.name}
-            onChange={this.props.onChange}
-            value={this.props.value}
+            className={ `form-control ${ this.props.className }` }
+            name={ this.props.name }
+            onChange={ this.props.onChange }
+            value={ this.props.value }
          >
-            {this.props.options.map(opt => (
-               <option key={opt} value={opt}>
-                  {opt}
+            { this.props.options.map(opt => (
+               <option key={ opt } value={ opt }>
+                  { opt }
                </option>
-            ))}
+            )) }
          </select>
       );
    }

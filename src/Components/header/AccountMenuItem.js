@@ -9,9 +9,9 @@ import { deleteToken } from '../../utilities/localStorage';
 import { accountLogout } from '../../redux/actions/accountActions';
 
 const AccountMenuItem = ({ ...props }) => (
-   <div className="nav-link" id="account-nav-menu">
-      My Account <DownArrow className="ml-1" size="lg" />
-      <span className="account-nav-menu-hover-container p-4 rounded bg-white">
+   <div className='nav-link' id='account-nav-menu'>
+      My Account <DownArrow className='ml-1' size='lg' />
+      <span className='account-nav-menu-hover-container p-4 rounded bg-white'>
          <PrimaryButton onClick={() => props.accountLogout()}>
             Log Out
          </PrimaryButton>

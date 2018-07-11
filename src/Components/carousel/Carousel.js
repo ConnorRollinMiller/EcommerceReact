@@ -35,7 +35,12 @@ class Carousel extends React.PureComponent {
 			<section className='carousel-slider'>
 				<div className='carousel-slider-inner'>
 					{
-						CAROUSEL_IMAGES.map(n => <Slide key={ n } src={ `img${ n }.jpg` } isActive={ this.state.imgNum === n } />)
+						CAROUSEL_IMAGES.map(n =>
+							<Slide
+								key={ n }
+								src={ `img${ n }.jpg` }
+								isActive={ this.state.imgNum === n }
+							/>)
 					}
 					{
 						// <FontAwesomeIcon

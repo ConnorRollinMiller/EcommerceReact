@@ -12,4 +12,8 @@ Form.propTypes = {
 	onSubmit: PropTypes.func.isRequired
 }
 
+Form.defaultProps = {
+	className: ''
+}
+
 export default Form;

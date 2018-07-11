@@ -11,7 +11,7 @@ class CloseIcon extends Component {
       return (
          <FontAwesomeIcon
             className={`${this.props.className} secondary-color`}
-            icon="times-circle"
+            icon='times-circle'
             size={this.props.size}
             onClick={this.props.onClick}
          />

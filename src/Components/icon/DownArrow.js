@@ -7,14 +7,12 @@ const DownArrow = ({ ...props }) => (
 		className={ `${ props.className }` }
 		icon={ [ 'fas', 'caret-down' ] }
 		size={ props.size }
-		onClick={ props.onClick }
 	/>
 );
 
 DownArrow.propTypes = {
 	className: PropTypes.string,
 	size: PropTypes.string.isRequired,
-	onClick: PropTypes.func,
 }
 
 export default DownArrow;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CartTotal from './CartTotal';
 import CartItem from './CartItem';
-import { Link } from 'react-router-dom';
+import LinkComponent from '../common/LinkComponent';
 
 const ShoppingCartHover = ({ ...props }) => (
 	<div className='shopping-cart-hover-container bg-white p-4 rounded text-center'>
@@ -23,9 +23,9 @@ const ShoppingCartHover = ({ ...props }) => (
 						<hr className='shopping-cart-hr mt-0' />
 						<CartTotal total={ props.total } />
 						<hr className='shopping-cart-hr' />
-						<Link className='btn btn-primary btn-block text-white text-capitalize mt-2' to='/checkout'>
+						<LinkComponent className='btn btn-primary btn-block text-white text-capitalize mt-2' to='/checkout'>
 							Checkout
-						</Link>
+						</LinkComponent>
 					</div>
 				) : (
 					<span className='secondary-color'>No Items In Cart</span>

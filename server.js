@@ -5,7 +5,6 @@ const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
 
-// const router = express.Router();
 const app = express();
 
 const PORT = process.env.port || 8080;
@@ -36,5 +35,5 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.listen(PORT, () => {
-   console.log(`Server listening on port ${PORT}`);
+   console.log(`Server listening on port ${ PORT }`);
 });

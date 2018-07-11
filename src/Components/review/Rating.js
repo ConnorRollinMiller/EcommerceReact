@@ -7,7 +7,7 @@ const Rating = ({ ...props }) => {
    switch (props.rating) {
       case 0:
          return (
-            <div className="d-flex mb-2 secondary-color">
+            <div className='d-flex justify-content-md-start justify-content-center mb-2 secondary-color'>
                <StarOutlineIcon />
                <StarOutlineIcon />
                <StarOutlineIcon />
@@ -17,7 +17,7 @@ const Rating = ({ ...props }) => {
          );
       case 1:
          return (
-            <div className="d-flex mb-2 secondary-color">
+            <div className='d-flex justify-content-md-start justify-content-center mb-2 secondary-color'>
                <StarIcon />
                <StarOutlineIcon />
                <StarOutlineIcon />
@@ -27,7 +27,7 @@ const Rating = ({ ...props }) => {
          );
       case 2:
          return (
-            <div className="d-flex mb-2 secondary-color">
+            <div className='d-flex justify-content-md-start justify-content-center mb-2 secondary-color'>
                <StarIcon />
                <StarIcon />
                <StarOutlineIcon />
@@ -37,7 +37,7 @@ const Rating = ({ ...props }) => {
          );
       case 3:
          return (
-            <div className="d-flex mb-2 secondary-color">
+            <div className='d-flex justify-content-md-start justify-content-center mb-2 secondary-color'>
                <StarIcon />
                <StarIcon />
                <StarIcon />
@@ -47,7 +47,7 @@ const Rating = ({ ...props }) => {
          );
       case 4:
          return (
-            <div className="d-flex mb-2 secondary-color">
+            <div className='d-flex justify-content-md-start justify-content-center mb-2 secondary-color'>
                <StarIcon />
                <StarIcon />
                <StarIcon />
@@ -57,7 +57,7 @@ const Rating = ({ ...props }) => {
          );
       case 5:
          return (
-            <div className="d-flex mb-2 secondary-color">
+            <div className='d-flex justify-content-md-start justify-content-center mb-2 secondary-color'>
                <StarIcon />
                <StarIcon />
                <StarIcon />

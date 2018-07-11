@@ -27,16 +27,16 @@ class ProductQuickview extends Component {
 
    render() {
       return (
-         <div className="quickview-bg container-fluid d-flex justify-content-center align-items-center">
-            <article className="container position-relative row align-items-center justify-content-center bg-white rounded p-4">
+         <div className='quickview-bg container-fluid d-flex justify-content-center align-items-center'>
+            <article className='container position-relative row align-items-center justify-content-center bg-white rounded p-4'>
                <CloseIcon
-                  className="quickview-icon"
-                  size="2x"
+                  className='quickview-icon'
+                  size='3x'
                   onClick={() => this.props.closeQuickview()}
                />
-               <div className="col-md-6 my-2">
+               <div className='col-md-6 my-2'>
                   <img
-                     className="img-fluid"
+                     className='img-fluid'
                      src={`${this.props.shoe.ImageFolderURL}/1.jpg`}
                      alt={`${this.props.shoe.Model} ${
                         this.props.shoe.Colorway

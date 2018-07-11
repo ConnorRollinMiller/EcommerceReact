@@ -11,7 +11,7 @@ class CheckoutTitle extends Component {
 
    render() {
       return (
-         <div className="checkout-title d-flex justify-content-center align-items-center py-4">
+         <div className='checkout-title d-flex justify-content-center align-items-center py-4'>
             <h3
                className={
                   this.props.checkoutSuccess
@@ -21,7 +21,7 @@ class CheckoutTitle extends Component {
             >
                Checkout Details
             </h3>
-            <FontAwesomeIcon className="mx-3" icon={'angle-right'} size="2x" />
+            <FontAwesomeIcon className='mx-3' icon={ 'angle-right' } size='2x' />
             <h3
                className={
                   this.props.checkoutSuccess

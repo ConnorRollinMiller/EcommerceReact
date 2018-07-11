@@ -14,11 +14,11 @@ class ProductImageThumnail extends Component {
    render() {
       return (
          <div
-            className="product-image-thumbnail col-3"
+            className='product-image-thumbnail col-3'
             style={this.props.isActive ? { opacity: '1' } : { opacity: '0.5' }}
          >
             <img
-               className="w-100"
+               className='w-100'
                src={`${this.props.imageFolderURL}/${this.props.imageId}.jpg`}
                alt={`${this.props.brand} ${this.props.colorway} 1`}
                onClick={() =>

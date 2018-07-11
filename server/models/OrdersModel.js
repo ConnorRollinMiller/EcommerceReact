@@ -2,8 +2,6 @@ const pool = require('../db');
 
 module.exports = {
    submitOrder: (req, res, next) => {
-      // console.log('SUBMIT ORDER', req.body);
-
       let newOrder = req.body.newOrder;
 
       pool.getConnection((err, connection) => {
@@ -22,8 +20,6 @@ module.exports = {
                   success: false,
                   message: 'Order Failed To Submit.'
                });
-
-            // console.log(results);
 
             newOrder = {
                OrderId: results.insertId,
@@ -47,44 +43,44 @@ module.exports = {
       // console.log(req.body);
 
       let newOrderDetails = req.body.newOrderDetails;
-
       const orderId = req.body.newOrder.OrderId;
+      const insertValues = newOrderDetails.map(item => [ orderId, item.ShoeId, item.Quantity, item.Price ]);
 
       pool.getConnection((err, connection) => {
-         const queryString = 'INSERT INTO OrderDetails SET ?';
+         const queryString = 'INSERT INTO OrderDetails (OrderId, ShoeId, Quantity, Price) VALUES ?';
 
-         newOrderDetails.forEach(item => {
-            connection.query(
-               queryString,
-               { OrderId: orderId, ...item },
-               (err, results) => {
-                  if (err)
-                     return res.status(200).json({
-                        success: false,
-                        message: err
-                     });
-                  if (results.length === 0)
-                     return res.status(200).json({
-                        success: false,
-                        message: 'Order Details Failed To Submit.'
-                     });
+         connection.query(queryString, [ insertValues ], (err, results) => {
+            connection.release();
 
-                  // console.log(results);
+            if (err) {
+               console.log('ERROR:', err);
 
-                  newOrderDetails = {
-                     ...newOrderDetails,
-                     OrderDetailsId: results.insertId
-                  };
-               }
-            );
-         });
+               return res.status(200).json({
+                  success: false,
+                  message: err
+               });
+            }
+            if (results.length === 0) {
+               console.log('NO RESULTS LENGTH:', results);
+               return res.status(200).json({
+                  success: false,
+                  message: 'Order Details Failed To Submit.'
+               });
+            }
 
-         res.status(201).json({
-            success: true,
-            message: 'Order Details Successfully Submitted.',
-            newOrder: req.body.newOrder,
-            newOrderDetails: newOrderDetails
-         });
+            newOrderDetails = {
+               ...newOrderDetails,
+               OrderDetailsId: results.insertId
+            };
+
+            res.status(201).json({
+               success: true,
+               message: 'Order Details Successfully Submitted.',
+               newOrder: req.body.newOrder,
+               newOrderDetails: newOrderDetails
+            });
+         }
+         );
       });
    }
 };

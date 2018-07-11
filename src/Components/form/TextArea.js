@@ -11,10 +11,10 @@ class TextArea extends Component {
 
    render() {
       return (
-         <div className="form-group">
+         <div className='form-group'>
             {this.props.label && <label>{this.props.label}</label>}
             <textarea
-               className="form-control"
+               className='form-control'
                value={this.props.value}
                onChange={e => this.props.onChange(e.target.value)}
                rows={this.props.rows}

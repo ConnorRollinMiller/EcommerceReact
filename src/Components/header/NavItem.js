@@ -1,21 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import LinkComponent from '../common/LinkComponent';
 
 const NavItem = ({ ...props }) => (
-	<div className='nav-item'>
-		<NavLink className='nav-link' activeClassName={ props.activeClassName } to={ props.to }>
-			{ props.children }
-		</NavLink>
-	</div>
+   <div className='nav-item'>
+      <LinkComponent
+         className='nav-link'
+         to={ props.to }
+      >
+         { props.children }
+      </LinkComponent>
+   </div>
 );
 
 NavItem.propTypes = {
-	children: PropTypes.oneOfType([
-		PropTypes.string
-	]),
-	activeClassName: PropTypes.string.isRequired,
-	to: PropTypes.string.isRequired
-}
+   children: PropTypes.oneOfType([ PropTypes.element, PropTypes.string ]),
+   activeClassName: PropTypes.string.isRequired,
+   to: PropTypes.string.isRequired
+};
 
 export default NavItem;

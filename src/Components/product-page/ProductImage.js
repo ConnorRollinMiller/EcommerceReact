@@ -17,15 +17,15 @@ class ProductImage extends Component {
 
    render() {
       return (
-         <div className="col-md-6 d-flex flex-column justify-content-center align-items-center mb-4">
+         <div className='col-md-6 d-flex flex-column justify-content-center align-items-center mb-4'>
             <img
-               className="product-image-container img-fluid"
+               className='product-image-container img-fluid'
                src={`${this.props.shoe.ImageFolderURL}/${
                   this.props.activeShoeImage
                }.jpg`}
                alt={`${this.props.shoe.Brand} ${this.props.shoe.Colorway}`}
             />
-            <div className="row justify-content-center align-items-center my-2">
+            <div className='row justify-content-center align-items-center my-2'>
                {imageIdArr.map(id => (
                   <ProductImageThumbnail
                      key={id}

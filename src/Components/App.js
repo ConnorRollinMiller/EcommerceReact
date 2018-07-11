@@ -12,20 +12,19 @@ import { verifyToken } from '../redux/actions/accountActions';
 import { getToken } from '../utilities/localStorage';
 
 class App extends Component {
-   async componentDidMount() {
+
+   componentDidMount() {
       this.props.appStart();
    }
 
    shouldComponentUpdate(nextProps) {
-      if (nextProps.path !== this.props.path) {
-         return true;
-      }
+      if (nextProps.path !== this.props.path) return true;
       return false;
    }
 
    render() {
       return (
-         <div id="page">
+         <div id='page'>
             <Header />
             <Routes />
             <Footer />

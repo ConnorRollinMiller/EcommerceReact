@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
+import LinkComponent from '../common/LinkComponent';
 import './css/Footer.css';
 
 class Footer extends Component {
@@ -16,7 +16,7 @@ class Footer extends Component {
 					<h2 className='mb-0'>Site Name</h2>
 				</section>
 				<section className='container py-4'>
-					<div className='py-4'>
+					<div className='py-2'>
 						<div className='mb-4'>
 							<FontAwesomeIcon className='footer-payment-option' icon={ [ 'fab', 'cc-visa' ] } size='2x' />
 							<FontAwesomeIcon className='footer-payment-option' icon={ [ 'fab', 'cc-amex' ] } size='2x' />
@@ -26,7 +26,11 @@ class Footer extends Component {
 						</div>
 
 						<strong className='mb-0'>
-							Designed By: <Link to='https://www.instagram.com/connorbiz/' target='_blank'>Connor Miller</Link>
+							Designed By:
+							{ ' ' }
+							<LinkComponent to='https://www.instagram.com/connorbiz/' target='_blank'>
+								Connor Miller
+							</LinkComponent>
 						</strong>
 
 						<div>

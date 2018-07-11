@@ -26,29 +26,22 @@ class ShopPage extends Component {
    }
 
    shouldComponentUpdate(nextProps) {
-      if (nextProps.shoes !== this.props.shoes) {
-         return true;
-      } else if (nextProps.filter !== this.props.filter) {
-         return true;
-      } else if (nextProps.quickviewOpen !== this.props.quickviewOpen) {
-         return true;
-      } else if (nextProps.notifications !== this.props.notifications) {
-         return true;
-      }
+      if (nextProps.shoes !== this.props.shoes) return true;
+      if (nextProps.filter !== this.props.filter) return true;
+      if (nextProps.quickviewOpen !== this.props.quickviewOpen) return true;
+      if (nextProps.notifications !== this.props.notifications) return true;
       return false;
    }
 
    render() {
       return (
-         <main className="main-section">
+         <main className='main-section'>
             <PageTitle />
-            <div className="container-fluid">
-               <div className="row">
-                  <SideBar />
-                  <main className="w-75">
-                     <FilterProductList />
-                  </main>
-               </div>
+            <div className='container-fluid row mx-auto'>
+               <SideBar />
+               <main className='col-12 col-lg-9'>
+                  <FilterProductList />
+               </main>
             </div>
             {this.props.quickviewOpen && (
                <Quickview
