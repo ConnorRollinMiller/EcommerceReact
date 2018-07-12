@@ -23,12 +23,17 @@ class Menu extends Component {
       return false;
    }
 
+   componentDidUpdate(prevProps) {
+      if (prevProps.location.pathname !== this.props.location.pathname) {
+         this.setState({})
+      }
+   }
+
    toggleMenu = () => {
       this.setState(prevState => ({ isOpen: !prevState.isOpen }));
    }
 
    render() {
-      console.log(this.props.location)
       return (
          <div className='container navbar navbar-expand-md'>
             <LinkComponent to='/' className='navbar-brand mr-4'>
@@ -43,10 +48,10 @@ class Menu extends Component {
             </button>
 
             <nav className={ this.state.isOpen ? 'collapse navbar-collapse show' : 'collapse navbar-collapse' }>
-               <NavItem activeClassName='' to='/shop' onClick={ this.toggleMenu }>
+               <NavItem activeClassName='' to='/shop'>
                   Shop
                </NavItem>
-               <NavItem activeClassName='' to='/checkout' onClick={ this.toggleMenu }>
+               <NavItem activeClassName='' to='/checkout'>
                   Checkout
                </NavItem>
                <Dropdown
@@ -55,7 +60,6 @@ class Menu extends Component {
                   userMenuItems={ userMenuItems }
                   user={ this.props.user }
                   logout={ this.props.logout }
-                  onClick={ this.toggleMenu }
                   location={ this.props.location }
                />
 

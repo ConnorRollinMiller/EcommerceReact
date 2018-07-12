@@ -33,9 +33,9 @@ class Dropdown extends Component {
 
 	render() {
 		return (
-			<div className='dropdown'>
+			<div className='dropdown' onClick={ this.toggleMenu }>
 				<div className='nav-item'>
-					<span className='nav-link text-nowrap' onClick={ this.toggleMenu }>
+					<span className='nav-link text-nowrap'>
 						{ this.props.navItemName }{ ' ' }
 						{
 							this.state.isMenuOpen ?
@@ -53,13 +53,7 @@ class Dropdown extends Component {
 										<LinkComponent
 											className='dropdown-item nav-link font-weight-bold text-capitalize py-2'
 											key={ item.path }
-											to={ `${ item.path }` }
-											onClick={
-												() => {
-													this.toggleMenu();
-													this.props.onClick();
-												}
-											}>
+											to={ `${ item.path }` }>
 											{ item.text }
 										</LinkComponent>
 									)
@@ -67,12 +61,7 @@ class Dropdown extends Component {
 								<div className='dropdown-divider' />
 								<PrimaryButton
 									className='dropdown-item col-10 text-center my-3 mx-auto'
-									onClick={
-										() => {
-											this.toggleMenu();
-											this.props.logout();
-										}
-									}>
+									onClick={ this.props.logout }>
 									Sign Out
                         </PrimaryButton>
 							</React.Fragment>
@@ -82,8 +71,7 @@ class Dropdown extends Component {
 										<LinkComponent
 											className='dropdown-item nav-link font-weight-bold text-capitalize py-2'
 											key={ item.path }
-											to={ `${ item.path }` }
-											onClick={ this.toggleMenu }>
+											to={ `${ item.path }` }>
 											{ item.text }
 										</LinkComponent>
 									) }

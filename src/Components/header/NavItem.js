@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import LinkComponent from '../common/LinkComponent';
 
 const NavItem = ({ ...props }) => (
-   <div className='nav-item' onClick={ props.onClick }>
+   <div className='nav-item'>
       <LinkComponent
          className='nav-link'
-         to={ props.to }
-      >
+         to={ props.to }>
          { props.children }
       </LinkComponent>
    </div>

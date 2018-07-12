@@ -42,7 +42,7 @@ class ManageAccountPage extends Component {
 					</h2>
 				</div>
 				<div className='container'>
-					<div className='col-12 col-md-8 py-4 mx-auto'>
+					<div className='col-12 col-md-10 col-lg-6 py-4 mx-auto'>
 						<UpdateUserNameForm
 							user={ this.props.user }
 							newUsername={ this.props.newUsername }
