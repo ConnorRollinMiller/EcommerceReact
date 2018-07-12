@@ -30,13 +30,13 @@ app.use('/api/shoes', ShoesController);
 app.use('/api/reviews', ReviewsController);
 app.use('/api/orders', OrdersController);
 
-if (process.env.NODE_ENV === 'production') {
-   app.use(express.static(path.join(__dirname, 'build')));
 
-   app.get('/*', function(req, res) {
-      res.sendFile(path.join(__dirname, 'build', 'index.html'));
-   });
-}
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/*', function(req, res) {
+   res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 
 app.listen(PORT, () => {
    console.log(`Server listening on port ${ PORT }`);
