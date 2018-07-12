@@ -10,3 +10,9 @@
 	width: 90%;
 	margin: auto
 }
+
+@media (max-width: 767.98px) {
+	.slide-img {
+		width: 100%;
+	}
+}

@@ -36,7 +36,7 @@ class CheckoutPage extends Component {
                this.props.completedOrder &&
                <CheckoutTitle checkoutSuccess={ this.props.completedOrder } />
             }
-            <div className='container-fluid row p-4' >
+            <div className='container-fluid row p-4 m-0'>
                {
                   this.props.completedOrder ? (
                      <CheckoutComplete

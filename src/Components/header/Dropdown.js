@@ -4,6 +4,7 @@ import PrimaryButton from '../button/PrimaryButton';
 import UpArrow from '../icon/UpArrow';
 import DownArrow from '../icon/DownArrow';
 import LinkComponent from '../common/LinkComponent';
+import './css/Dropdown.css';
 
 class Dropdown extends Component {
 
@@ -12,8 +13,16 @@ class Dropdown extends Component {
 	};
 
 	shouldComponentUpdate(nextProps) {
+		if (nextProps.user !== this.props.user) return true;
+		if (nextProps.location.pathname !== this.props.location.pathname) return true;
 		if (nextProps.isMenuOpen !== this.state.isMenuOpen) return true;
 		return false;
+	}
+
+	componentDidUpdate(prevProps) {
+		if (prevProps.location.pathname !== this.props.location.pathname) {
+			this.setState({ isMenuOpen: false });
+		}
 	}
 
 	toggleMenu = () => {
@@ -28,19 +37,16 @@ class Dropdown extends Component {
 				<div className='nav-item'>
 					<span className='nav-link text-nowrap' onClick={ this.toggleMenu }>
 						{ this.props.navItemName }{ ' ' }
-						{ this.state.isMenuOpen ? (
-							<UpArrow size='1x' />
-						) : (
+						{
+							this.state.isMenuOpen ?
+								<UpArrow size='1x' /> :
 								<DownArrow size='1x' />
-							) }
+						}
 					</span>
 				</div>
-				{ this.state.isMenuOpen && (
-					<ul
-						className='dropdown-menu text-center'
-						style={ { display: 'block' } }
-					>
-						{ this.props.user ? (
+				<ul className={ this.state.isMenuOpen ? 'dropdown-menu text-center show' : 'dropdown-menu text-center' }>
+					{
+						this.props.user ? (
 							<React.Fragment>
 								{
 									this.props.userMenuItems.map(item =>
@@ -48,8 +54,12 @@ class Dropdown extends Component {
 											className='dropdown-item nav-link font-weight-bold text-capitalize py-2'
 											key={ item.path }
 											to={ `${ item.path }` }
-											onClick={ this.toggleMenu }
-										>
+											onClick={
+												() => {
+													this.toggleMenu();
+													this.props.onClick();
+												}
+											}>
 											{ item.text }
 										</LinkComponent>
 									)
@@ -57,11 +67,12 @@ class Dropdown extends Component {
 								<div className='dropdown-divider' />
 								<PrimaryButton
 									className='dropdown-item col-10 text-center my-3 mx-auto'
-									onClick={ () => {
-										this.toggleMenu();
-										this.props.logout();
-									} }
-								>
+									onClick={
+										() => {
+											this.toggleMenu();
+											this.props.logout();
+										}
+									}>
 									Sign Out
                         </PrimaryButton>
 							</React.Fragment>
@@ -72,15 +83,14 @@ class Dropdown extends Component {
 											className='dropdown-item nav-link font-weight-bold text-capitalize py-2'
 											key={ item.path }
 											to={ `${ item.path }` }
-											onClick={ this.toggleMenu }
-										>
+											onClick={ this.toggleMenu }>
 											{ item.text }
 										</LinkComponent>
 									) }
 								</React.Fragment>
-							) }
-					</ul>
-				) }
+							)
+					}
+				</ul>
 			</div>
 		);
 	}

@@ -12,6 +12,7 @@ import { accountInputChange, submitNewAccountUserName, submitNewAccountEmail, su
 class ManageAccountPage extends Component {
 
 	shouldComponentUpdate(nextProps) {
+		if (nextProps.user !== this.props.user) return true;
 		if (nextProps.user.UserId !== this.props.user.UserId) return true;
 		if (nextProps.user.UserName !== this.props.user.UserName) return true;
 		if (nextProps.user.Email !== this.props.user.Email) return true;
@@ -40,33 +41,35 @@ class ManageAccountPage extends Component {
 						Account Settings
 					</h2>
 				</div>
-				<div className='container col-12 col-md-8 py-4'>
-					<UpdateUserNameForm
-						user={ this.props.user }
-						newUsername={ this.props.newUsername }
-						error={ this.props.accountUserNameError }
-						errorMessage={ this.props.accountUserNameErrorMessage }
-						handleInputChange={ this.props.handleInputChange }
-						handleSubmitNewUserName={ this.props.handleSubmitNewUserName }
-					/>
-					<UpdateEmailForm
-						user={ this.props.user }
-						newEmail={ this.props.newEmail }
-						error={ this.props.accountEmailError }
-						errorMessage={ this.props.accountEmailErrorMessage }
-						handleInputChange={ this.props.handleInputChange }
-						handleSubmitNewEmail={ this.props.handleSubmitNewEmail }
-					/>
-					<UpdatePasswordForm
-						user={ this.props.user }
-						currentPassword={ this.props.currentPassword }
-						newPassword={ this.props.newPassword }
-						confirmNewPassword={ this.props.confirmNewPassword }
-						error={ this.props.accountPasswordError }
-						errorMessage={ this.props.accountEmailErrorMessage }
-						handleInputChange={ this.props.handleInputChange }
-						handleSubmitNewPassword={ this.props.handleSubmitNewPassword }
-					/>
+				<div className='container'>
+					<div className='col-12 col-md-8 py-4 mx-auto'>
+						<UpdateUserNameForm
+							user={ this.props.user }
+							newUsername={ this.props.newUsername }
+							error={ this.props.accountUserNameError }
+							errorMessage={ this.props.accountUserNameErrorMessage }
+							handleInputChange={ this.props.handleInputChange }
+							handleSubmitNewUserName={ this.props.handleSubmitNewUserName }
+						/>
+						<UpdateEmailForm
+							user={ this.props.user }
+							newEmail={ this.props.newEmail }
+							error={ this.props.accountEmailError }
+							errorMessage={ this.props.accountEmailErrorMessage }
+							handleInputChange={ this.props.handleInputChange }
+							handleSubmitNewEmail={ this.props.handleSubmitNewEmail }
+						/>
+						<UpdatePasswordForm
+							user={ this.props.user }
+							currentPassword={ this.props.currentPassword }
+							newPassword={ this.props.newPassword }
+							confirmNewPassword={ this.props.confirmNewPassword }
+							error={ this.props.accountPasswordError }
+							errorMessage={ this.props.accountEmailErrorMessage }
+							handleInputChange={ this.props.handleInputChange }
+							handleSubmitNewPassword={ this.props.handleSubmitNewPassword }
+						/>
+					</div>
 				</div>
 			</main>
 		);

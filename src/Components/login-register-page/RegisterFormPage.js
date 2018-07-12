@@ -40,9 +40,9 @@ class RegisterFormPage extends Component {
       return (
          <main>
             <PageTitle displayBreadcrumbs={ true } />
-            <div className='main-section container d-flex align-items-center justify-content-center p-4'>
+            <div className='main-section container d-flex align-items-center justify-content-center py-4'>
                <Form
-                  className='col-6 p-4'
+                  className='col-12 col-md-10 col-lg-6 p-4'
                   onSubmit={ e =>
                      this.props.submitRegister(
                         e,

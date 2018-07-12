@@ -77,3 +77,16 @@
    border-style: solid;
    border-color: transparent transparent var(--secondary-color) transparent;
 }
+
+@media (max-width: 767.98px) {
+   .shopping-cart-hover-container {
+      left: 50%;
+      right: 50%;
+      transform: translate(-50%, 0);
+      width: 100%;
+   }
+
+   .shopping-cart-hover-container::after {
+      left: 50%;
+   }
+}

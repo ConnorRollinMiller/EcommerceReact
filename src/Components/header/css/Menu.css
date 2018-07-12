@@ -8,12 +8,17 @@
 
 .nav-item::before {
 	position: absolute;
+	top: -3px;
+	left: 50%;
+	right: 50%;
+	transform: translate(-50%, 0);
 	content: ' ';
 	width: 0%;
 	height: 3px;
 	background: var(--secondary-color);
-	top: -3px;
 	transition: 0.25s;
+	display: flex;
+	justify-content: center;
 }
 
 .nav-item:hover::before {
@@ -26,6 +31,7 @@
 	font-weight: 600;
 	transition: 0.25s;
 	text-transform: uppercase;
+	text-align: center;
 }
 
 .active-nav, .nav-link:hover {
@@ -36,4 +42,10 @@
 	width: 1px;
 	background: var(--secondary-color);
 	opacity: 0.8;
+}
+
+@media (max-width: 767.98px) {
+	.nav-item:hover::before {
+		width: 0%;
+	}
 }

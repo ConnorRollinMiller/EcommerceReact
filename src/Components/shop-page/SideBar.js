@@ -23,33 +23,33 @@ class SideBar extends Component {
                      key='All'
                      inputName='brand'
                      labelText='All'
-                     checked={this.props.filter === Filters.SHOW_ALL}
-                     shoeFilter={Filters.SHOW_ALL}
-                     changeFilter={this.props.changeFilter}
+                     checked={ this.props.filter === Filters.SHOW_ALL }
+                     shoeFilter={ Filters.SHOW_ALL }
+                     changeFilter={ this.props.changeFilter }
                   />
                   <RadioButton
                      key='Adidas'
                      inputName='brand'
                      labelText='Adidas'
-                     checked={this.props.filter === Filters.SHOW_ADIDAS}
-                     shoeFilter={Filters.SHOW_ADIDAS}
-                     changeFilter={this.props.changeFilter}
+                     checked={ this.props.filter === Filters.SHOW_ADIDAS }
+                     shoeFilter={ Filters.SHOW_ADIDAS }
+                     changeFilter={ this.props.changeFilter }
                   />
                   <RadioButton
                      key='Jordan'
                      inputName='brand'
                      labelText='Jordan'
-                     checked={this.props.filter === Filters.SHOW_JORDAN}
-                     shoeFilter={Filters.SHOW_JORDAN}
-                     changeFilter={this.props.changeFilter}
+                     checked={ this.props.filter === Filters.SHOW_JORDAN }
+                     shoeFilter={ Filters.SHOW_JORDAN }
+                     changeFilter={ this.props.changeFilter }
                   />
                   <RadioButton
                      key='Nike'
                      inputName='brand'
                      labelText='Nike'
-                     checked={this.props.filter === Filters.SHOW_NIKE}
-                     shoeFilter={Filters.SHOW_NIKE}
-                     changeFilter={this.props.changeFilter}
+                     checked={ this.props.filter === Filters.SHOW_NIKE }
+                     shoeFilter={ Filters.SHOW_NIKE }
+                     changeFilter={ this.props.changeFilter }
                   />
                </form>
             </div>

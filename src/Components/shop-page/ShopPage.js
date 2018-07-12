@@ -33,7 +33,7 @@ class ShopPage extends Component {
       return (
          <main className='main-section'>
             <PageTitle />
-            <div className='container-fluid row mx-auto'>
+            <div className='container row mx-auto'>
                <SideBar />
                <main className='col-12 col-lg-9'>
                   <FilterProductList />
