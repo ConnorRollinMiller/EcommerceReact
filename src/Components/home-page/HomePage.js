@@ -16,7 +16,6 @@ class HomePage extends Component {
       if (this.props.shoes && this.props.filter !== Filters.SHOW_FEATURED) {
          this.props.changeFilter(Filters.SHOW_FEATURED);
       }
-      window.scrollTo(0, 0);
    }
 
    shouldComponentUpdate(nextProps) {
@@ -32,12 +31,12 @@ class HomePage extends Component {
             <BrandList />
             <FilterProductList
                sectionTitle='Featured Shoes'
-               shoes={this.props.shoes}
+               shoes={ this.props.shoes }
             />
             <Newsletter />
             <AdditionalInfoContainer />
 
-            {this.props.quickviewOpen && <Quickview />}
+            { this.props.quickviewOpen && <Quickview /> }
          </main>
       );
    }

@@ -12,23 +12,23 @@ class ProductCard extends Component {
 
    render() {
       return (
-         <div className='col-12 col-sm-10 col-md-4 p-0'>
+         <div className='col-12 col-sm-6 col-md-4 p-0'>
             <article className='product-card m-2 flex-column justify-content-end text-center'>
                <img
                   className='product-card-img img-fluid py-4'
-                  src={`${this.props.shoe.ImageFolderURL}/1.jpg`}
-                  alt={`${this.props.shoe.Brand} ${this.props.shoe.Colorway}`}
+                  src={ `${ this.props.shoe.ImageFolderURL }/1.jpg` }
+                  alt={ `${ this.props.shoe.Brand } ${ this.props.shoe.Colorway }` }
                />
                <div className='product-card-info py-4'>
                   <QuickviewButton
-                     onClick={() => this.props.showQuickview(this.props.shoe)}
+                     onClick={ () => this.props.showQuickview(this.props.shoe) }
                   >
                      Quickview
                   </QuickviewButton>
                   <ProductCardDetails
-                     shoe={this.props.shoe}
-                     addToCart={this.props.addToCart}
-                     showQuickview={this.props.showQuickview}
+                     shoe={ this.props.shoe }
+                     addToCart={ this.props.addToCart }
+                     showQuickview={ this.props.showQuickview }
                   />
                </div>
             </article>

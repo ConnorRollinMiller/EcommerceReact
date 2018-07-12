@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom';
 import App from './Components/App';
 
 import { Provider } from 'react-redux';
-import { store } from './redux/store/configureStore';
-import { history } from './redux/store/configureStore';
+import configureStore from './redux/store/configureStore';
+import createHistory from 'history/createBrowserHistory';
 
 import '@fortawesome/fontawesome';
 import '@fortawesome/fontawesome-free-brands';
@@ -16,6 +16,9 @@ import './index.css';
 
 import ConnectedRouter from 'react-router-redux/ConnectedRouter';
 
+const history = createHistory();
+const store = configureStore({}, history);
+
 // if (process.env.NODE_ENV !== 'production') {
 // 	const { whyDidYouUpdate } = require('why-did-you-update');
 // 	whyDidYouUpdate(React);
@@ -23,7 +26,7 @@ import ConnectedRouter from 'react-router-redux/ConnectedRouter';
 
 ReactDOM.render(
 	<Provider store={ store }>
-		<ConnectedRouter history={ history } basename='/'>
+		<ConnectedRouter history={ history }>
 			<App />
 		</ConnectedRouter>
 	</Provider>,

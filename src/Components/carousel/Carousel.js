@@ -1,32 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Slide from './Slide';
 import './css/Carousel.css';
 import { CAROUSEL_IMAGES } from '../../utilities/constants';
 
-class Carousel extends React.PureComponent {
+class Carousel extends Component {
 
 	state = {
 		imgNum: 1,
-		request: null
+		animation: null
 	}
 
 	componentDidMount() {
-		requestAnimationFrame(this.animate);
+		this.setState({
+			animation: requestAnimationFrame(this.animate)
+		});
 	}
 
 	componentWillUnmount() {
-		cancelAnimationFrame(this.frameId);
+		cancelAnimationFrame(this.state.animation);
 	}
 
 	animate = () => {
 		setTimeout(() => {
 			if (this.state.imgNum >= 36) {
-				this.setState({ imgNum: 1 });
-				requestAnimationFrame(this.animate);
-				return;
+				this.setState({
+					imgNum: 1,
+					animation: requestAnimationFrame(this.animate)
+				});
+
+			} else {
+				this.setState({
+					imgNum: this.state.imgNum + 1,
+					animation: requestAnimationFrame(this.animate)
+				});
 			}
-			this.setState({ imgNum: this.state.imgNum + 1 });
-			requestAnimationFrame(this.animate);
 		}, 60)
 	}
 
@@ -40,7 +47,8 @@ class Carousel extends React.PureComponent {
 								key={ n }
 								src={ `img${ n }.jpg` }
 								isActive={ this.state.imgNum === n }
-							/>)
+							/>
+						)
 					}
 					{
 						// <FontAwesomeIcon

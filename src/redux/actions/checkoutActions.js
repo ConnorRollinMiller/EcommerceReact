@@ -1,5 +1,4 @@
 import { CheckoutActions } from '../actions/index';
-import { APP_URL } from '../../utilities/constants';
 import axios from 'axios';
 import NewOrderDTO from '../../utilities/NewOrderDTO';
 import NewOrderDetailsDTO from '../../utilities/NewOrderDetailsDTO';
@@ -63,7 +62,7 @@ export const submitOrder = (
             );
 
             axios
-                  .post(`${ APP_URL }${ API_ORDER_URL }`, {
+                  .post(`${ API_ORDER_URL }`, {
                         newOrder: newOrder,
                         newOrderDetails: newOrderDetails
                   })

@@ -26,7 +26,7 @@ class Dropdown extends Component {
 		return (
 			<div className='dropdown'>
 				<div className='nav-item'>
-					<span className='nav-link' onClick={ this.toggleMenu }>
+					<span className='nav-link text-nowrap' onClick={ this.toggleMenu }>
 						{ this.props.navItemName }{ ' ' }
 						{ this.state.isMenuOpen ? (
 							<UpArrow size='1x' />

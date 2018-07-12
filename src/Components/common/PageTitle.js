@@ -22,7 +22,7 @@ class PageTitle extends Component {
 			<div className='page-title text-center py-4'>
 				{
 					this.props.displayPageTitle && (
-						<h2 className='h3 mb-0 text-capitalize'>
+						<h2 className='h3 mb-0 text-uppercase'>
 							{ this.props.path[ this.props.path.length - 1 ] }
 						</h2>
 					)

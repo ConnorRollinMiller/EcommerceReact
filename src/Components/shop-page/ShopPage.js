@@ -21,10 +21,6 @@ class ShopPage extends Component {
       return null;
    }
 
-   componentDidMount() {
-      window.scrollTo(0, 0);
-   }
-
    shouldComponentUpdate(nextProps) {
       if (nextProps.shoes !== this.props.shoes) return true;
       if (nextProps.filter !== this.props.filter) return true;
@@ -43,13 +39,13 @@ class ShopPage extends Component {
                   <FilterProductList />
                </main>
             </div>
-            {this.props.quickviewOpen && (
+            { this.props.quickviewOpen && (
                <Quickview
-                  addToCart={this.props.addToCart}
-                  closeQuickview={this.props.closeQuickview}
-                  shoe={this.props.quickviewShoe}
+                  addToCart={ this.props.addToCart }
+                  closeQuickview={ this.props.closeQuickview }
+                  shoe={ this.props.quickviewShoe }
                />
-            )}
+            ) }
          </main>
       );
    }

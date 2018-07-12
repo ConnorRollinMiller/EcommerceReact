@@ -10,7 +10,7 @@ export default class LinkComponent extends Component {
 
 	render() {
 		return (
-			<Link className={ `${ this.props.className }` } to={ this.props.to } target={ this.props.target } onClick={ this.props.onClick }>
+			<Link className={ `${ this.props.className }` } to={ this.props.to } target={ this.props.target } replace>
 				{ this.props.children }
 			</Link>
 		);

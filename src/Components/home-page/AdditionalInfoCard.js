@@ -4,7 +4,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import './css/AdditionalInfoCard.css';
 
 const AdditionalInfoCard = ({ ...props }) => (
-	<article className='col-md-3 d-flex flex-column justify-content-center align-items-center py-4'>
+	<article className='col-sm-6 col-md-3 d-flex flex-column justify-content-center align-items-center py-4'>
 		<FontAwesomeIcon className='mb-4 info-card-icon' icon={ props.iconName } size='4x' />
 		<h4 className='mb-2 text-uppercase text-center font-weight-bold'>{ props.title }</h4>
 		<p className='mb-0 text-center'>{ props.text }</p>

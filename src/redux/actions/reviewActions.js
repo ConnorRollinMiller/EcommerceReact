@@ -1,13 +1,12 @@
 import { ReviewActions } from '../actions';
-import { APP_URL } from '../../utilities/constants';
 import axios from 'axios';
 
-const ROUTE = 'api/reviews';
+const ROUTE = '/api/reviews';
 
 export const fetchReviewsByShoeId = shoeId => {
       return dispatch => {
             axios
-                  .get(`${ APP_URL }/${ ROUTE }/${ shoeId }`)
+                  .get(`${ ROUTE }/${ shoeId }`)
                   .then(res => {
                         console.log('RESPONSE:', res.data);
                         if (res.data.reviews.length > 0 && res.data.success) {
@@ -67,7 +66,7 @@ export const postNewReview = (shoeId, username, rating, reviewText) => {
             };
 
             axios
-                  .post(`${ APP_URL }/${ ROUTE }`, newReview)
+                  .post(`${ ROUTE }`, newReview)
                   .then(res => {
                         console.log(res.data);
                         dispatch(postNewReviewSuccess(res.data.newReview));

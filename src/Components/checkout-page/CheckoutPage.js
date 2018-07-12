@@ -36,7 +36,7 @@ class CheckoutPage extends Component {
                this.props.completedOrder &&
                <CheckoutTitle checkoutSuccess={ this.props.completedOrder } />
             }
-            <div className='container-fluid align-item-center justify-content-center mx-auto col-12 row p-4'>
+            <div className='container-fluid row p-4' >
                {
                   this.props.completedOrder ? (
                      <CheckoutComplete
@@ -53,9 +53,7 @@ class CheckoutPage extends Component {
                         />
                         <CheckoutForm />
                      </React.Fragment>
-                  ) : (
-                           <NoCheckoutItems />
-                        )
+                  ) : <NoCheckoutItems />
                }
             </div>
          </main>

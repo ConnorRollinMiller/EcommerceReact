@@ -9,7 +9,7 @@ class CheckoutComplete extends Component {
 
    render() {
       return (
-         <div className='jumbotron col-12'>
+         <div className='jumbotron col-12 py-4'>
             <h3 className='display-4'>Thank You!</h3>
             <p>
                Your order has been successfully processed and will be shipped

@@ -30,7 +30,7 @@ const Menu = ({ ...props }) => (
          />
 
          <div className='navbar-nav ml-auto'>
-            <div className='nav-seperator mx-2' />
+            <div className='nav-seperator mr-2' />
             <ShoppingCart />
          </div>
       </nav>

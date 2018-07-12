@@ -11,7 +11,7 @@ class CheckoutDetails extends Component {
 
    render() {
       return (
-         <div className='col-md-6 text-center'>
+         <div className='col-md-6 text-center py-4'>
             <hr className='mt-0' />
 
             <strong className='h4 mb-0'>

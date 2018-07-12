@@ -1,5 +1,4 @@
 import { AccountActions } from '../actions/index';
-import { APP_URL } from '../../utilities/constants';
 import axios from 'axios';
 import { setToken, deleteToken } from '../../utilities/localStorage';
 import RegisterNewUserDTO from '../../utilities/RegisterNewUserDTO';
@@ -36,7 +35,7 @@ export const submitAccountRegister = (email, username, password, confirmPassword
 
 		console.log('NEW USER:', newUser);
 
-		axios.post(`${ APP_URL }${ API_USER_URL }/register`, newUser)
+		axios.post(`${ API_USER_URL }/register`, newUser)
 			.then(res => {
 				console.log('RESPONSE:', res);
 				console.log('RESPONSE STATUS:', res.status);
@@ -75,7 +74,7 @@ export const submitAccountLogin = (username, password) => {
 
 		const user = LoginUserDTO(username, password)
 
-		axios.post(`${ APP_URL }${ API_USER_URL }/login`, user)
+		axios.post(`${ API_USER_URL }/login`, user)
 			.then(res => {
 				console.log(res.data);
 				if (res.data.success === true) {
@@ -113,7 +112,7 @@ export const verifyToken = token => {
 			return dispatch(verifyTokenFailure('No Token In Local Storage.'));
 
 		axios
-			.post(`${ APP_URL }${ API_JWT_URL }/verify`, { token: token })
+			.post(`${ API_JWT_URL }/verify`, { token: token })
 			.then(res => {
 				console.log(res.data);
 				dispatch(verifyTokenSuccess(res.data.user));
@@ -157,7 +156,7 @@ export const submitNewAccountUserName = (userId, currentUsername, newUsername) =
 
 		const newAccountUserName = NewAccountUserNameDTO(userId, newUsername);
 
-		axios.put(`${ APP_URL }${ API_USER_URL }/update/username`, newAccountUserName)
+		axios.put(`${ API_USER_URL }/update/username`, newAccountUserName)
 			.then(res => {
 				console.log(res.data);
 				if (res.data.success === true) {
@@ -198,7 +197,7 @@ export const submitNewAccountEmail = (userId, currentEmail, newEmail) => {
 
 		const newAccountEmail = NewAccountEmailDTO(userId, newEmail);
 
-		axios.put(`${ APP_URL }${ API_USER_URL }/update/email`, newAccountEmail)
+		axios.put(`${ API_USER_URL }/update/email`, newAccountEmail)
 			.then(res => {
 				console.log(res.data);
 				if (res.data.success === true) {
@@ -240,7 +239,7 @@ export const submitNewAccountPassword = (userId, currentPassword, newPassword, c
 
 		const newAccountPassword = NewAccountPasswordDTO(userId, currentPassword, newPassword);
 
-		axios.put(`${ APP_URL }${ API_USER_URL }/update/password`, newAccountPassword)
+		axios.put(`${ API_USER_URL }/update/password`, newAccountPassword)
 			.then(res => {
 				console.log(res.data);
 				if (res.data.success === true) {
