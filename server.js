@@ -30,7 +30,7 @@ app.use('/api/shoes', ShoesController);
 app.use('/api/reviews', ReviewsController);
 app.use('/api/orders', OrdersController);
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'production') {
    app.use(express.static(path.join(__dirname, 'build')));
 
    app.get('/*', function(req, res) {
