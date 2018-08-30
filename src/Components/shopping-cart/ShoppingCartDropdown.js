@@ -4,7 +4,7 @@ import CartTotal from './CartTotal';
 import CartItem from './CartItem';
 import LinkComponent from '../common/LinkComponent';
 
-const ShoppingCartHover = ({ ...props }) => (
+const ShoppingCartDropdown = ({ ...props }) => (
 	<div className='shopping-cart-hover-container bg-white p-4 rounded text-center'>
 		{
 			props.cart.length > 0 ?
@@ -34,10 +34,10 @@ const ShoppingCartHover = ({ ...props }) => (
 	</div>
 );
 
-ShoppingCartHover.propTypes = {
+ShoppingCartDropdown.propTypes = {
 	removeFromCart: PropTypes.func.isRequired,
 	cart: PropTypes.array.isRequired,
 	total: PropTypes.string.isRequired
 }
 
-export default ShoppingCartHover;
+export default ShoppingCartDropdown;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Select extends Component {
+
    shouldComponentUpdate(nextProps) {
       if (nextProps.value !== this.props.value) return true;
       return false;

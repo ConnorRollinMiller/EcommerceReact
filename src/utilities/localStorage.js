@@ -1,7 +1,6 @@
 const TOKEN_NAME = 'token';
 
-export const setToken = token => {
-   console.log(token);
+export const setToken = (token) => {
    localStorage.setItem(TOKEN_NAME, token);
 };
 
@@ -9,7 +8,7 @@ export const getToken = () => {
    const token = localStorage.getItem(TOKEN_NAME);
 
    if (!token) {
-      console.log('NO TOKEN');
+      ('NO TOKEN');
       return null;
    }
    return token;

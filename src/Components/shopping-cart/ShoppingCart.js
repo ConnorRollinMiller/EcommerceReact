@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CartTotal from './CartTotal';
 import CartIcon from './CartIcon';
-import ShoppingCartHover from './ShoppingCartHover';
+import ShoppingCartDropdown from './ShoppingCartDropdown';
 import './css/ShoppingCart.css';
 
 import { connect } from 'react-redux';
@@ -14,13 +14,13 @@ class ShoppingCart extends Component {
 	render() {
 		return (
 			<div className='nav-link' id='shopping-cart'>
-				<CartTotal total={ this.props.total }>
+				<CartTotal total={ this.props.total.toFixed(2) }>
 					Cart /
 				</CartTotal>
 				<CartIcon itemNumber={ this.props.cart.length } />
-				<ShoppingCartHover
+				<ShoppingCartDropdown
 					cart={ this.props.cart }
-					total={ this.props.total }
+					total={ this.props.total.toFixed(2) }
 					removeFromCart={ this.props.removeFromCart }
 				/>
 			</div>
@@ -30,13 +30,13 @@ class ShoppingCart extends Component {
 
 ShoppingCart.propTypes = {
 	cart: PropTypes.array.isRequired,
-	total: PropTypes.string.isRequired,
+	total: PropTypes.number.isRequired,
 	removeFromCart: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => ({
 	cart: state.cartReducer.cart,
-	total: state.cartReducer.total.toFixed(2)
+	total: state.cartReducer.total
 });
 
 const mapDispatchToProps = (dispatch) => ({

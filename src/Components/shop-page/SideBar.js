@@ -17,7 +17,7 @@ class SideBar extends Component {
          <aside className='col-3 d-none d-lg-block justify-content-center p-4'>
             <div className='my-4'>
                <form className='p-4'>
-                  <h4 className='text-capitalize'>Brand</h4>
+                  <h4 className='text-capitalize'>brand</h4>
                   <hr className='sidebar-hr col-1' />
                   <RadioButton
                      key='All'

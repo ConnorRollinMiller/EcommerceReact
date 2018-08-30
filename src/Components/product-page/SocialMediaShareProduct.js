@@ -11,10 +11,10 @@ const SocialMediaShareProduct = ({ ...props }) => (
 	<div>
 		<h4 className='h6 text-center font-weight-bold text-uppercase mb-2'>Share:</h4>
 		<div className='d-flex justify-content-center'>
-			<a className='mx-2' href={ `http://twitter.com/share?url=${ siteUrl }/${ props.shoe.ShoeId }` } target='_blank'>
+			<a className='mx-2' href={ `http://twitter.com/share?url=${ siteUrl }/${ props.shoe.shoeId }` } target='_blank'>
 				<TwitterIcon size='lg' />
 			</a>
-			<a className='mx-2' href={ `http://facebook.com/sharer.php?u=${ siteUrl }/${ props.shoe.ShoeId }` } target='_blank'>
+			<a className='mx-2' href={ `http://facebook.com/sharer.php?u=${ siteUrl }/${ props.shoe.shoeId }` } target='_blank'>
 				<FacebookIcon size='lg' />
 			</a>
 			<a className='mx-2' href={ `http://instagram.com/` } target='_blank'>
@@ -23,8 +23,8 @@ const SocialMediaShareProduct = ({ ...props }) => (
 			<a
 				className='mx-2'
 				href={ `mailto:enteremail@here.com?
-						subject=${props.shoe.Brand } ${ props.shoe.Model } ${ props.shoe.Colorway }&
-						body=Check This Out: ${ siteUrl }/${ props.shoe.ShoeId }` }
+						subject=${props.shoe.brand } ${ props.shoe.model } ${ props.shoe.colorway }&
+						body=Check This Out: ${ siteUrl }/${ props.shoe.shoeId }` }
 			>
 				<EmailIcon size='lg' />
 			</a>

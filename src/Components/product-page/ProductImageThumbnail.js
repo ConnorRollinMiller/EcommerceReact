@@ -15,13 +15,12 @@ class ProductImageThumnail extends Component {
       return (
          <div
             className='product-image-thumbnail col-3'
-            style={this.props.isActive ? { opacity: '1' } : { opacity: '0.5' }}
-         >
+            style={ this.props.isActive ? { opacity: '1' } : { opacity: '0.5' } }>
             <img
                className='w-100'
-               src={`${this.props.imageFolderURL}/${this.props.imageId}.jpg`}
-               alt={`${this.props.brand} ${this.props.colorway} 1`}
-               onClick={() =>
+               src={ `/images/${ this.props.brand }/${ this.props.imageFolderURL }/${ this.props.imageId }.jpg` }
+               alt={ `${ this.props.brand } ${ this.props.colorway } 1` }
+               onClick={ () =>
                   this.props.changeActiveShoeImage(this.props.imageId)
                }
             />

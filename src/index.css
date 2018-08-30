@@ -70,6 +70,15 @@ a {
    border-color: var(--secondary-color-shade1) !important;
 }
 
+.btn-primary:disabled {
+   background: var(--secondary-color-shade1) !important;
+   border-color: var(--secondary-color-shade1) !important;
+}
+
+.btn-primary:disabled:hover, input:disabled:hover {
+   cursor: not-allowed;
+}
+
 input:focus,
 select:focus,
 textarea:focus,
@@ -93,4 +102,8 @@ hr {
 .main-section {
    position: relative;
    min-height: 60vh;
+}
+
+.secondary-color {
+   color: var(--secondary-color)
 }

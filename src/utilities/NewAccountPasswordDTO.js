@@ -1,5 +1,4 @@
-export default (userId, currentPassword, newPassword) => ({
-	UserId: userId,
-	CurrentPassword: currentPassword,
-	NewPassword: newPassword
+export default (currentPassword, newPassword) => ({
+   currentPassword: currentPassword,
+   newPassword: newPassword
 });

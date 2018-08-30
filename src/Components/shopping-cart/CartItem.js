@@ -5,29 +5,31 @@ import LinkComponent from '../common/LinkComponent';
 import './css/CartItem.css';
 
 class CartItem extends Component {
+
    shouldComponentUpdate(nextProps) {
       return false;
    }
+
    render() {
       return (
          <div className='d-flex align-items-center justify-content-between px-2 py-3 text-uppercase'>
             <img
                className='img-fluid shopping-card-img'
-               src={ `${ this.props.shoe.ImageFolderURL }/1.jpg` }
-               alt={ `${ this.props.shoe.Model } ${ this.props.shoe.Colorway }` }
+               src={ `/images/${ this.props.shoe.brand }/${ this.props.shoe.imageFolderName }/1.jpg` }
+               alt={ `${ this.props.shoe.model } ${ this.props.shoe.colorway }` }
             />
             <div className='text-center text-truncate px-2'>
                <LinkComponent
                   className='h5 font-weight-bold'
-                  to={ `/shop/${ this.props.shoe.ShoeId }` }
+                  to={ `/shop/${ this.props.shoe.shoeId }` }
                >
-                  <p className='mb-0 text-truncate '>{ this.props.shoe.Model }</p>
+                  <p className='mb-0 text-truncate '>{ this.props.shoe.model }</p>
                   <p className='mb-0 text-truncate '>
-                     { this.props.shoe.Colorway }
+                     { this.props.shoe.colorway }
                   </p>
                </LinkComponent>
                <p className='mb-0 font-weight-bold'>
-                  ${ this.props.shoe.Price.toFixed(2) }
+                  ${ this.props.shoe.price.toFixed(2) }
                </p>
             </div>
             { this.props.displayCloseIcon && (
@@ -37,7 +39,7 @@ class CartItem extends Component {
                   onClick={ () =>
                      this.props.removeFromCart(
                         this.props.id,
-                        this.props.shoe.Price
+                        this.props.shoe.price
                      )
                   }
                />

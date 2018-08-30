@@ -1,70 +1,72 @@
 # E-commerce App
 
-This application is an ecommerce store for shoes. It is built with MongoDB, Express.js, React.js, Node.js, and Redux.
+This application is an ecommerce store for shoes. It is built with an Node (Express) Server, MySQL Database, React.js, & Redux.
 
 ## Data Models
 
-### Shoe Model
+### Shoe model
 
-    |	Keys		|						Data Types						|
-    | -------- | ------------------------------------------ |
-    |	ShoeId	|	Int (Primary Key)									|
-    |	Brand		|	String			 									|
-    | Model		| 	String												|
-    |	Size		|	Int													|
-    | Price		| 	Decimal												|
-    |	Featured	|	Boolean												|
-    | Color		| 	String												|
-    | ImageUrl |	String												|
+    |	Keys	 |						Data Types						|
+    | ---------- | ---------------------------------------------------- |
+    |	shoeId	 |	Int (Primary Key)									|
+    |	brand    |	String			 									|
+    |   model    | 	String												|
+    |   colorway | 	String												|
+    |   price	 | 	Decimal												|
+    |   featured |	Boolean												|
+    |   ImageFolderUrl |	String												|
 
-### Review Model
+### Review model
 
-    |	Keys			|					Data Types						|
-    | ----------- | --------------------------------------- |
-    |	ReviewId		|	Int (Primary key)								|
-    |	ShoeId		|	Int (Foreign Key)								|
+    |	Keys		|					Data Types						|
+    | ------------- | ------------------------------------------------- |
+    |	ReviewId	|	Int (Primary key)								|
+    |	shoeId		|	Int (Foreign Key)								|
     |	UserId		|	Int (Foreign Key)								|
-    |	UserName		|	String											|
-    | ReviewDate	|	Date												|
+    |	UserName	|	String											|
+    |   ReviewDate	|	Date											|
     |	Rating		|	Int												|
     |	ReviewText	|	String											|
 
-### User Model
+### User model
 
-    | Keys						|						Data Types					|
-    | -------------------- | --------------------------------------- |
-    |	UserId					|	Int (Primary Key)								|
-    |	Username					|	String											|
-    |	NormalizedUserName	|	String **(All CAPS)**						|
-    | PasswordHashed			| 	String											|
-    | Email						| 	String											|
-    |	isActive					|	Boolean											|
-    |	DateCreated				|	Date												|
+    |   Keys				|			Data Types					|
+    | --------------------- | ------------------------------------- |
+    |	UserId				|	Int (Primary Key)					|
+    |	Username			|	String								|
+    |	NormalizedUserName	|	String              				|
+    |   PasswordHashed		| 	String								|
+    |   Email				| 	String								|
+    |   NormalizedEmail		| 	String								|
+    |	isActive			|	Boolean								|
 
-### Order Model
+### Order model
 
-    |	Keys				|					Data Types						|
-    | -------------- | --------------------------------------- |
+    |	Keys			|					Data Types						|
+    | ----------------- | ------------------------------------------------- |
     |	OrderId			|	Int (Primary Key)								|
-    |	OrderDate		|	BigInt											|
+    |	UserId			|	Int (Foreign Key)								|
+    |	CreatedAt		|	Timestamp										|
+    |	FirstName		|	String											|
+    |	LastName		|	String											|
     |	Country			|	String											|
-    |	State				|	String											|
-    |	City				|	String			 								|
+    |	State			|	String											|
+    |	City			|	String			 								|
     |	Address			|	String											|
     |	ZipCode			|	Int												|
-    |	Phone				|	String											|
-    |	Email				|	String											|
-    |	Total				|	Decimal											|
+    |	Phone			|	String											|
+    |	Email			|	String											|
+    |	Total			|	Decimal											|
 
-### Order Details Model
+### Order Details model
 
-    |	Keys				|					Data Types						|
-    | -------------- | --------------------------------------- |
+    |	Keys			|					Data Types						|
+    | ----------------- | ------------------------------------------------- |
     |	OrderDetailsId	|	Int (Primary Key)								|
     |	OrderId			|	Int (Foreign Key)								|
-    |	ShoeId			|	Int (Foreign Key)								|
-    |	Quantity			|	Int												|
-    |	Price				|	Decimal											|
+    |	shoeId			|	Int (Foreign Key)								|
+    |	Quantity		|	Int												|
+    |	price			|	Decimal											|
 
 ### Pages
 

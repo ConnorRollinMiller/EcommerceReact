@@ -9,7 +9,6 @@ import CheckoutForm from './CheckoutForm';
 import { connect } from 'react-redux';
 import { removeItemFromCart } from '../../redux/actions/cartActions';
 import { addNotification } from '../../redux/actions/notificationActions';
-import { clearCheckoutReducer } from '../../redux/actions/checkoutActions';
 import { NotificationCodes } from '../../redux/actions';
 
 class CheckoutPage extends Component {
@@ -19,10 +18,6 @@ class CheckoutPage extends Component {
       if (nextProps.completedOrder !== this.props.completedOrder) return true;
 
       return false;
-   }
-
-   componentWillUnmount() {
-      this.props.clearCheckoutReducer();
    }
 
    render() {
@@ -42,7 +37,6 @@ class CheckoutPage extends Component {
                      <CheckoutComplete
                         itemsOrdered={ this.props.itemsOrdered }
                         orderDetails={ this.props.orderDetails }
-                        clearCheckoutReducer={ () => this.props.clearCheckoutReducer }
                      />
                   ) : this.props.cart.length > 0 ? (
                      <React.Fragment>
@@ -68,7 +62,6 @@ CheckoutPage.propTypes = {
    cart: PropTypes.array.isRequired,
    completedOrder: PropTypes.bool.isRequired,
    removeFromCart: PropTypes.func.isRequired,
-   clearCheckoutReducer: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -83,8 +76,7 @@ const mapDispatchToProps = dispatch => ({
    removeFromCart: (id, price) => {
       dispatch(removeItemFromCart(id, price));
       dispatch(addNotification(NotificationCodes.REMOVE_FROM_CART));
-   },
-   clearCheckoutReducer: () => dispatch(clearCheckoutReducer())
+   }
 });
 
 export default connect(

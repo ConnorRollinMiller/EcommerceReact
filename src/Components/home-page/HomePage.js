@@ -12,17 +12,18 @@ import { Filters } from '../../redux/actions';
 import { connect } from 'react-redux';
 
 class HomePage extends Component {
+
    componentDidMount() {
       if (this.props.shoes && this.props.filter !== Filters.SHOW_FEATURED) {
          this.props.changeFilter(Filters.SHOW_FEATURED);
       }
    }
 
-   shouldComponentUpdate(nextProps) {
-      if (nextProps.quickviewOpen !== this.props.quickviewOpen) return true;
-      if (nextProps.shoes !== this.props.shoes) return true;
-      return false;
-   }
+   // shouldComponentUpdate(nextProps) {
+   //    if (nextProps.quickviewOpen !== this.props.quickviewOpen) return true;
+   //    if (nextProps.shoes !== this.props.shoes) return true;
+   //    return false;
+   // }
 
    render() {
       return (
@@ -30,7 +31,7 @@ class HomePage extends Component {
             <Carousel />
             <BrandList />
             <FilterProductList
-               sectionTitle='Featured Shoes'
+               sectionTitle='featured Shoes'
                shoes={ this.props.shoes }
             />
             <Newsletter />

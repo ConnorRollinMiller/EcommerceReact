@@ -1,5 +1,4 @@
-export default (userId, username) => ({
-	UserId: userId,
-	UserName: username.trim(),
-	NormalizedUserName: username.toUpperCase().trim(),
+export default (username) => ({
+   username: username.trim(),
+   normalizedUsername: username.toUpperCase().trim(),
 });

@@ -15,7 +15,6 @@ import { connect } from 'react-redux';
 import {
    accountInputChange,
    submitAccountRegister,
-   resetAccountInputs
 } from '../../redux/actions/accountActions';
 
 class RegisterFormPage extends Component {
@@ -28,10 +27,6 @@ class RegisterFormPage extends Component {
       if (nextProps.errorMessage !== this.props.errorMessage) return true;
       if (nextProps.user !== this.props.user) return true;
       return false;
-   }
-
-   componentWillUnmount() {
-      this.props.resetAccountInputs();
    }
 
    render() {
@@ -130,8 +125,7 @@ RegisterFormPage.propTypes = {
    password: PropTypes.string.isRequired,
    confirmPassword: PropTypes.string.isRequired,
    inputChange: PropTypes.func.isRequired,
-   submitRegister: PropTypes.func.isRequired,
-   resetAccountInputs: PropTypes.func.isRequired
+   submitRegister: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -151,8 +145,7 @@ const mapDispatchToProps = dispatch => ({
       dispatch(
          submitAccountRegister(email, username, password, confirmPassword)
       );
-   },
-   resetAccountInputs: () => dispatch(resetAccountInputs())
+   }
 });
 
 export default connect(

@@ -1,9 +1,5 @@
-export default date => {
-   const newDate = new Date(date);
+export default (date) => {
+   const newDate = date.slice(0, 9);
 
-   const year = newDate.getUTCFullYear();
-   const month = newDate.getUTCMonth();
-   const day = newDate.getUTCDay();
-
-   return `${month}-${day + 1}-${year}`;
+   return newDate
 };

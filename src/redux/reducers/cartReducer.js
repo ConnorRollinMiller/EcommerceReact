@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
          return {
             ...state,
             errorMessage: null,
-            total: state.total + action.shoe.Price,
+            total: state.total + action.shoe.price,
             cart: [
                ...state.cart,
                {

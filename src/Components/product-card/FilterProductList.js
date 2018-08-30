@@ -13,13 +13,13 @@ const getQualifiedShoes = (shoes, filter) => {
 		case Filters.SHOW_ALL:
 			return shoes;
 		case Filters.SHOW_FEATURED:
-			return shoes.filter(s => s.Featured === 1);
+			return shoes.filter(s => s.featured === true);
 		case Filters.SHOW_ADIDAS:
-			return shoes.filter(s => s.Brand === 'Adidas');
+			return shoes.filter(s => s.brand === 'Adidas');
 		case Filters.SHOW_JORDAN:
-			return shoes.filter(s => s.Brand === 'Jordan');
+			return shoes.filter(s => s.brand === 'Jordan');
 		case Filters.SHOW_NIKE:
-			return shoes.filter(s => s.Brand === 'Nike');
+			return shoes.filter(s => s.brand === 'Nike');
 		default:
 			throw Error('Unknown filter => ' + filter);
 	}

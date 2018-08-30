@@ -11,7 +11,6 @@ import {
    accountInputChange,
    submitAccountLogin,
    submitAccountRegister,
-   resetAccountInputs,
    changeForm
 } from '../../redux/actions/accountActions';
 
@@ -28,40 +27,36 @@ class AccountFormPage extends Component {
       return false;
    }
 
-   componentWillUnmount() {
-      this.props.resetAccountInputs();
-   }
-
    render() {
       if (this.props.user) return <Redirect to='/' />;
 
       return (
          <main>
-            <PageTitle displayBreadcrumbs={true} />
+            <PageTitle displayBreadcrumbs={ true } />
             <div className='main-section container d-flex align-items-center justify-content-center p-4'>
-               {this.props.isLoginForm ? (
+               { this.props.isLoginForm ? (
                   <LoginForm
-                     username={this.props.username}
-                     password={this.props.password}
-                     error={this.props.error}
-                     errorMessage={this.props.errorMessage}
-                     changeForm={this.props.changeForm}
-                     inputChange={this.props.inputChange}
-                     submitLogin={this.props.submitLogin}
+                     username={ this.props.username }
+                     password={ this.props.password }
+                     error={ this.props.error }
+                     errorMessage={ this.props.errorMessage }
+                     changeForm={ this.props.changeForm }
+                     inputChange={ this.props.inputChange }
+                     submitLogin={ this.props.submitLogin }
                   />
                ) : (
-                  <RegisterForm
-                     email={this.props.email}
-                     username={this.props.username}
-                     password={this.props.password}
-                     confirmPassword={this.props.confirmPassword}
-                     error={this.props.error}
-                     errorMessage={this.props.errorMessage}
-                     changeForm={this.props.changeForm}
-                     inputChange={this.props.inputChange}
-                     submitRegister={this.props.submitRegister}
-                  />
-               )}
+                     <RegisterForm
+                        email={ this.props.email }
+                        username={ this.props.username }
+                        password={ this.props.password }
+                        confirmPassword={ this.props.confirmPassword }
+                        error={ this.props.error }
+                        errorMessage={ this.props.errorMessage }
+                        changeForm={ this.props.changeForm }
+                        inputChange={ this.props.inputChange }
+                        submitRegister={ this.props.submitRegister }
+                     />
+                  ) }
             </div>
          </main>
       );
@@ -80,7 +75,6 @@ AccountFormPage.propTypes = {
    inputChange: PropTypes.func.isRequired,
    submitLogin: PropTypes.func.isRequired,
    submitRegister: PropTypes.func.isRequired,
-   resetAccountInputs: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -106,11 +100,9 @@ const mapDispatchToProps = dispatch => ({
          submitAccountRegister(email, username, password, confirmPassword)
       );
    },
-   resetAccountInputs: () => dispatch(resetAccountInputs()),
    changeForm: e => {
       e.preventDefault();
       dispatch(changeForm());
-      dispatch(resetAccountInputs());
    }
 });
 

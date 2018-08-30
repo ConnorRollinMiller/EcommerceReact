@@ -15,21 +15,21 @@ class QuickviewDetails extends Component {
       return (
          <div className='col-md-6 text-center text-uppercase my-2'>
             <span className='text-uppercase text-black-50 mb-0'>
-               { this.props.shoe.Brand }
+               { this.props.shoe.brand }
             </span>
             <LinkComponent
-               to={ `/shop/${ this.props.shoe.ShoeId }` }
+               to={ `/shop/${ this.props.shoe.shoeId }` }
                onClick={ () => this.props.closeQuickview() }
             >
                <h4 className='h5 mb-0 font-weight-bold mb-0'>
-                  { this.props.shoe.Model }
+                  { this.props.shoe.model }
                </h4>
                <h3 className='mb-0 font-weight-bold mb-2'>
-                  { this.props.shoe.Colorway }
+                  { this.props.shoe.colorway }
                </h3>
             </LinkComponent>
             <p className='h4 font-weight-bold mb-2'>
-               ${ this.props.shoe.Price.toFixed(2) }
+               ${ this.props.shoe.price.toFixed(2) }
             </p>
             <Select
                className='col-12 col-sm-6 mx-auto my-3'

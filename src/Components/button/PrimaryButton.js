@@ -1,37 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-class PrimaryButton extends Component {
-   shouldComponentUpdate(nextProps) {
-      return false;
-   }
+const PrimaryButton = ({
+   largeButton = false,
+   fullWidth = false,
+   className = '',
+   disabled = false,
+   onClick,
+   children }) => (
+      <button
+         className={ `btn btn-primary
+				${largeButton && 'btn-lg' }
+				${fullWidth && 'btn-block' }
+				${className }` }
+         onClick={ onClick }
+         disabled={ disabled }>
+         { children }
+      </button>
+   );
 
-   render() {
-      return (
-         <button
-            className={ `btn btn-primary
-				${this.props.largeButton && 'btn-lg' }
-				${this.props.fullWidth && 'btn-block' }
-				${this.props.className }` }
-            onClick={ this.props.onClick }
-         >
-            { this.props.children }
-         </button>
-      );
-   }
-}
+// PrimaryButton.propTypes = {
+//    onClick: PropTypes.func,
+//    className: PropTypes.string,
+//    largeButton: PropTypes.bool.isRequired,
+//    fullWidth: PropTypes.bool.isRequired,
+//    children: PropTypes.string.isRequired,
+// };
 
-PrimaryButton.propTypes = {
-   onClick: PropTypes.func,
-   className: PropTypes.string,
-   largeButton: PropTypes.bool.isRequired,
-   fullWidth: PropTypes.bool.isRequired,
-   children: PropTypes.string.isRequired,
-};
-
-PrimaryButton.defaultProps = {
-   largeButton: false,
-   fullWidth: false,
-};
+// PrimaryButton.defaultProps = {
+//    largeButton: false,
+//    fullWidth: false
+// };
 
 export default PrimaryButton;

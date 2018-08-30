@@ -1,4 +1,4 @@
 export default (username, password) => ({
-	NormalizedUserName: username.toUpperCase().trim(),
-	Password: password
+	normalizedUsername: username.toUpperCase().trim(),
+	password: password
 });
