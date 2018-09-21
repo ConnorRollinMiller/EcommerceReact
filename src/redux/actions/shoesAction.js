@@ -4,7 +4,7 @@ import {
    Filters
 } from './index';
 
-const apiUrl = 'http://localhost:8080/api/shoes';
+const apiUrl = '/api/shoes';
 
 export const fetchShoes = () => {
    return dispatch => {
@@ -14,7 +14,7 @@ export const fetchShoes = () => {
             dispatch(setShoeFilter(Filters.SHOW_FEATURED));
          })
          .catch(err => {
-            (err.response);
+            console.log(err.response);
             dispatch(fetchShoesFailed(err.response));
          });
    }

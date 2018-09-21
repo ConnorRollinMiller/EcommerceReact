@@ -26,8 +26,8 @@ module.exports = {
          },
          featured: {
             type: Sequelize.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
+            allowNull: true,
+            defaultValue: null
          },
          imageFolderName: {
             type: Sequelize.STRING,
@@ -41,7 +41,7 @@ module.exports = {
          createdAt: {
             type: Sequelize.DATE,
             allowNull: false,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(3)')
          },
          updatedAt: {
             type: Sequelize.DATE,

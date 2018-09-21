@@ -13,7 +13,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       userId: {
          type: DataTypes.INTEGER,
-         allowNull: false
+         references: {
+            model: 'Users',
+            key: 'userId'
+         }
       },
       username: {
          type: DataTypes.STRING,
@@ -33,8 +36,8 @@ module.exports = (sequelize, DataTypes) => {
       });
    Reviews.associate = function(models) {
       // associations can be defined here
-      Reviews.hasMany(models.users, { foreignKey: 'userId' });
-      Reviews.hasMany(models.shoes, { foreignKey: 'shoeId' });
+      // Reviews.hasMany(models.users, { foreignKey: 'userId' });
+      // Reviews.hasMany(models.shoes, { foreignKey: 'shoeId' });
    };
    return Reviews;
 };

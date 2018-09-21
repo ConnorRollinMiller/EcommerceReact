@@ -1,45 +1,45 @@
 import React from 'react';
 import Loadable from 'react-loadable';
-import Loading from './Components/common/Loading';
+import Loading from './components/common/Loading';
 import { Route, Switch } from 'react-router-dom';
 
 const HomePage = Loadable({
-   loader: () => import('./Components/home-page/HomePage'),
+   loader: () => import('./components/home-page/HomePage'),
    loading: Loading
 });
 
 const ShopPage = Loadable({
-   loader: () => import('./Components/shop-page/ShopPage'),
+   loader: () => import('./components/shop-page/ShopPage'),
    loading: Loading
 });
 
 const ProductPage = Loadable({
-   loader: () => import('./Components/product-page/ProductPage'),
+   loader: () => import('./components/product-page/ProductPage'),
    loading: Loading
 });
 
 const CheckoutPage = Loadable({
-   loader: () => import('./Components/checkout-page/CheckoutPage'),
+   loader: () => import('./components/checkout-page/CheckoutPage'),
    loading: Loading
 });
 
 const LoginFormPage = Loadable({
-   loader: () => import('./Components/login-register-page/LoginFormPage'),
+   loader: () => import('./components/login-register-page/LoginFormPage'),
    loading: Loading
 });
 
 const RegisterFormPage = Loadable({
-   loader: () => import('./Components/login-register-page/RegisterFormPage'),
+   loader: () => import('./components/login-register-page/RegisterFormPage'),
    loading: Loading
 });
 
 const ManageAccountPage = Loadable({
-   loader: () => import('./Components/manage-account-page/ManageAccountPage'),
+   loader: () => import('./components/manage-account-page/ManageAccountPage'),
    loading: Loading
 });
 
 const PageNotFound = Loadable({
-   loader: () => import('./Components/common/PageNotFound'),
+   loader: () => import('./components/common/PageNotFound'),
    loading: Loading
 });
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './Components/App';
+import App from './components/App';
 
 import { Provider } from 'react-redux';
 import configureStore from './redux/store/configureStore';
@@ -16,19 +16,19 @@ import './index.css';
 
 import ConnectedRouter from 'react-router-redux/ConnectedRouter';
 
-const history = createHistory();
+const history = createHistory({ basename: process.env.PUBLIC_URL });
 const store = configureStore({}, history);
 
-// if (process.env.NODE_ENV !== 'production') {
+// if (process.env.NODE_ENV === 'development') {
 // 	const { whyDidYouUpdate } = require('why-did-you-update');
 // 	whyDidYouUpdate(React);
 // }
 
 ReactDOM.render(
-	<Provider store={ store }>
-		<ConnectedRouter history={ history }>
-			<App />
-		</ConnectedRouter>
-	</Provider>,
-	document.querySelector('#root')
+   <Provider store={ store }>
+      <ConnectedRouter history={ history }>
+         <App />
+      </ConnectedRouter>
+   </Provider>,
+   document.querySelector('#root')
 );

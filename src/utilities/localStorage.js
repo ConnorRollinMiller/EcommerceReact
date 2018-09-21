@@ -8,7 +8,6 @@ export const getToken = () => {
    const token = localStorage.getItem(TOKEN_NAME);
 
    if (!token) {
-      ('NO TOKEN');
       return null;
    }
    return token;

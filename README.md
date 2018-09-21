@@ -1,72 +1,80 @@
 # E-commerce App
 
-This application is an ecommerce store for shoes. It is built with an Node (Express) Server, MySQL Database, React.js, & Redux.
+This application is an ecommerce store for shoes. It is built with an Node (Express) Server, MySQL Database, React.js, & Redux. Link to production version: https://reactecommerceapp.herokuapp.com/
 
 ## Data Models
 
 ### Shoe model
 
-    |	Keys	 |						Data Types						|
-    | ---------- | ---------------------------------------------------- |
-    |	shoeId	 |	Int (Primary Key)									|
-    |	brand    |	String			 									|
-    |   model    | 	String												|
-    |   colorway | 	String												|
-    |   price	 | 	Decimal												|
-    |   featured |	Boolean												|
-    |   ImageFolderUrl |	String												|
+      |	  Keys	      |						Data Types						|
+      | --------------- | ------------------------------------------ |
+      | shoeId          |	INTEGER (Primary Key)						   |
+      | brand           |	VARCHAR			 									|
+      | model           | 	VARCHAR												|
+      | colorway        | 	VARCHAR												|
+      | price	         | 	DECIMAL												|
+      | featured        |	BOOLEAN												|
+      | imageFolderName |	VARCHAR												|
+      | createdAt		   |	DATETIME										      |
+      | updateAt        |  DATETIME                                  |
 
 ### Review model
 
-    |	Keys		|					Data Types						|
-    | ------------- | ------------------------------------------------- |
-    |	ReviewId	|	Int (Primary key)								|
-    |	shoeId		|	Int (Foreign Key)								|
-    |	UserId		|	Int (Foreign Key)								|
-    |	UserName	|	String											|
-    |   ReviewDate	|	Date											|
-    |	Rating		|	Int												|
-    |	ReviewText	|	String											|
+      |	Keys		   |					Data Types						|
+      | ------------ | --------------------------------------- |
+      |	reviewId	   |	INTEGER (Primary key)						|
+      |	shoeId		|	INTEGER (Foreign Key)						|
+      |	userId		|	INTEGER (Foreign Key)						|
+      |	username	   |	VARCHAR											|
+      |	rating		|	INTEGER											|
+      |	reviewText	|	VARCHAR											|
+      |	createdAt	|	DATETIME										   |
+      |  updateAt    |  DATETIME                               |
 
 ### User model
 
-    |   Keys				|			Data Types					|
-    | --------------------- | ------------------------------------- |
-    |	UserId				|	Int (Primary Key)					|
-    |	Username			|	String								|
-    |	NormalizedUserName	|	String              				|
-    |   PasswordHashed		| 	String								|
-    |   Email				| 	String								|
-    |   NormalizedEmail		| 	String								|
-    |	isActive			|	Boolean								|
+      | Keys				   |			Data Types					|
+      | ------------------ | ------------------------------ |
+      | userId				   |	INTEGER (Primary Key)			|
+      | username		      |	VARCHAR								|
+      | normalizedUsername |	VARCHAR              			|
+      | passwordHashed		| 	VARCHAR								|
+      | email				   | 	VARCHAR								|
+      | normalizedEmail	   | 	VARCHAR								|
+      | createdAt		      |	DATETIME								|
+      | updateAt           |  DATETIME                      |
 
 ### Order model
 
-    |	Keys			|					Data Types						|
-    | ----------------- | ------------------------------------------------- |
-    |	OrderId			|	Int (Primary Key)								|
-    |	UserId			|	Int (Foreign Key)								|
-    |	CreatedAt		|	Timestamp										|
-    |	FirstName		|	String											|
-    |	LastName		|	String											|
-    |	Country			|	String											|
-    |	State			|	String											|
-    |	City			|	String			 								|
-    |	Address			|	String											|
-    |	ZipCode			|	Int												|
-    |	Phone			|	String											|
-    |	Email			|	String											|
-    |	Total			|	Decimal											|
+      |	Keys			   |					Data Types						|
+      | --------------  | --------------------------------------- |
+      |	orderId			|	INTEGER (Primary Key)						|
+      |	userId			|	INTEGER (Foreign Key)					   |
+      |	firstName		|	VARCHAR											|
+      |	lastName		   |	VARCHAR											|
+      |	country			|	VARCHAR											|
+      |	state			   |	VARCHAR											|
+      |	city			   |	VARCHAR			 								|
+      |	address			|	VARCHAR											|
+      |	zipCode			|	INTEGER											|
+      |	phone			   |	VARCHAR											|
+      |	email			   |	VARCHAR											|
+      |	total			   |	DECIMAL											|
+      |	createdAt		|	DATETIME										   |
+      |  updateAt       |  DATETIME                               |
+
 
 ### Order Details model
 
-    |	Keys			|					Data Types						|
-    | ----------------- | ------------------------------------------------- |
-    |	OrderDetailsId	|	Int (Primary Key)								|
-    |	OrderId			|	Int (Foreign Key)								|
-    |	shoeId			|	Int (Foreign Key)								|
-    |	Quantity		|	Int												|
-    |	price			|	Decimal											|
+      |	Keys			   |					Data Types				|
+      | --------------- | --------------------------------- |
+      |	orderDetailId	|	INTEGER (Primary Key)            |
+      |	orderId			|	INTEGER (Foreign Key)				|
+      |	shoeId			|	INTEGER (Foreign Key)				|
+      |	quantity		   |	INTEGER									|
+      |	pricePerShoe	|	DECIMAL									|
+      |	createdAt		|	DATETIME						   	   |
+      |  updateAt       |  DATETIME                         |
 
 ### Pages
 

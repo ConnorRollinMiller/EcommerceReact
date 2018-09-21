@@ -50,8 +50,8 @@ module.exports = (sequelize, DataTypes) => {
 
    Users.associate = (models) => {
       // associations can be defined here
-      Users.belongsTo(models.orders, { foreignKey: 'userId' });
-      Users.belongsTo(models.reviews, { foreignKey: 'userId' });
+      // Users.belongsTo(models.orders, { foreignKey: 'userId' });
+      // Users.belongsTo(models.reviews, { foreignKey: 'userId' });
    };
    return Users;
 };

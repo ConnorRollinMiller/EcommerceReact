@@ -114,7 +114,6 @@ export const verifyToken = token => {
       axios
          .post(`${ API_JWT_URL }/verify`, { token: token })
          .then(res => {
-            (res.data);
             dispatch(verifyTokenSuccess(res.data.user));
          })
          .catch(err => {

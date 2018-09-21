@@ -8,7 +8,17 @@ module.exports = (sequelize, DataTypes) => {
       },
       orderId: {
          type: DataTypes.INTEGER,
-         allowNull: false
+         references: {
+            model: 'Orders',
+            key: 'orderId'
+         }
+      },
+      shoeId: {
+         type: DataTypes.INTEGER,
+         references: {
+            model: 'Shoes',
+            key: 'shoeId'
+         },
       },
       quantity: {
          type: DataTypes.INTEGER,
@@ -24,8 +34,8 @@ module.exports = (sequelize, DataTypes) => {
       });
    OrderDetails.associate = function(models) {
       // associations can be defined here
-      OrderDetails.hasMany(models.orders, { foreignKey: 'orderId' });
-      OrderDetails.hasMany(models.shoes, { foreignKey: 'shoeId' });
+      // OrderDetails.hasMany(models.orders, { foreignKey: 'orderId' });
+      // OrderDetails.hasMany(models.shoes, { foreignKey: 'shoeId' });
    };
    return OrderDetails;
 };

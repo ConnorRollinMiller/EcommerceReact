@@ -67,7 +67,6 @@ export const submitOrder = (
             newOrderDetails: newOrderDetails
          })
          .then(res => {
-            ('RESPONSE:', res);
             if (res.data.success) {
                dispatch(submitOrderSuccess(cartItems, res.data.order));
             } else {
@@ -75,7 +74,7 @@ export const submitOrder = (
             }
          })
          .catch(err => {
-            (err.response);
+            console.log(err.response);
             dispatch(submitOrderFailure(err.response));
          });
    };

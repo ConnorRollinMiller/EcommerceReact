@@ -26,8 +26,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       featured: {
          type: DataTypes.BOOLEAN,
-         allowNull: false,
-         defaultValue: false
+         allowNull: true,
+         defaultValue: null
       },
       imageFolderName: {
          type: DataTypes.STRING,
@@ -39,8 +39,8 @@ module.exports = (sequelize, DataTypes) => {
       })
    Shoes.associate = (models) => {
       // associations can be defined here
-      Shoes.belongsTo(models.orderDetails, { foreignKey: 'shoeId' });
-      Shoes.belongsTo(models.reviews, { foreignKey: 'shoeId' });
+      // Shoes.belongsTo(models.orderDetails, { foreignKey: 'shoeId' });
+      // Shoes.belongsTo(models.reviews, { foreignKey: 'shoeId' });
    }
    return Shoes;
 }

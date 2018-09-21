@@ -14,7 +14,9 @@ module.exports = {
             references: {
                model: 'Shoes',
                key: 'shoeId'
-            }
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE'
          },
          userId: {
             type: Sequelize.INTEGER,
@@ -22,7 +24,9 @@ module.exports = {
             references: {
                model: 'Users',
                key: 'userId'
-            }
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE'
          },
          username: {
             type: Sequelize.STRING,

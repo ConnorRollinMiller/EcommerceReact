@@ -17,7 +17,7 @@ module.exports = {
             model: 'Ultraboost',
             colorway: 'Miami Hurricanes',
             price: 1600.00,
-            featured: false,
+            // featured: NULL,
             imageFolderName: 'Ultraboost-MiamiHurricanes',
             discount: 0
          },
@@ -53,7 +53,7 @@ module.exports = {
             model: 'Retro 4',
             colorway: 'Carhartt x Eminem',
             price: 23750.00,
-            featured: false,
+            // featured: NULL,
             imageFolderName: 'Retro4-CarharttxEminem',
             discount: 0
          },
@@ -62,7 +62,7 @@ module.exports = {
             model: 'Retro 5',
             colorway: 'Grape',
             price: 325.00,
-            featured: false,
+            // featured: NULL,
             imageFolderName: 'Retro5-Grape',
             discount: 0
          },
@@ -71,7 +71,7 @@ module.exports = {
             model: 'Retro 11',
             colorway: 'Legend Blue',
             price: 345.00,
-            featured: false,
+            // featured: NULL,
             imageFolderName: 'Retro11-LegendBlue',
             discount: 0
          },
@@ -80,7 +80,7 @@ module.exports = {
             model: 'Retro 12',
             colorway: 'OVO',
             price: 1145.00,
-            featured: false,
+            // featured: NULL,
             imageFolderName: 'Retro12-OVO',
             discount: 0
          },
@@ -89,7 +89,7 @@ module.exports = {
             model: 'HyperDunk',
             colorway: 'Marty McFly',
             price: 375.00,
-            featured: false,
+            // featured: NULL,
             imageFolderName: 'Hyperdunk-MartyMcFly',
             discount: 0
          },
