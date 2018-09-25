@@ -8,7 +8,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import './css/Menu.css';
 
 const noUserMenuItems = [ { text: 'Login', path: '/login' }, { text: 'Register', path: '/register' } ];
-const userMenuItems = [ { text: 'Account Settings', path: '/account' } ]
+const userMenuItems = [ { text: 'Settings', path: '/settings/account' }, { text: 'Order History', path: '' } ];
 
 class Menu extends Component {
 
@@ -17,15 +17,17 @@ class Menu extends Component {
    }
 
    shouldComponentUpdate(nextProps, nextState) {
+
       if (nextProps.user !== this.props.user) return true;
-      if (nextProps.location.pathname !== this.props.location.pathname) return true;
+      if (nextProps.pathname !== this.props.pathname) return true;
       if (nextState.isOpen !== this.state.isOpen) return true;
+
       return false;
    }
 
    componentDidUpdate(prevProps) {
-      if (prevProps.location.pathname !== this.props.location.pathname) {
-         this.setState({})
+      if (prevProps.pathname !== this.props.pathname) {
+         this.setState({ isOpen: false });
       }
    }
 
@@ -59,13 +61,13 @@ class Menu extends Component {
                   noUserMenuItems={ noUserMenuItems }
                   userMenuItems={ userMenuItems }
                   user={ this.props.user }
-                  logout={ this.props.logout }
-                  location={ this.props.location }
+                  accountLogout={ this.props.accountLogout }
+                  pathname={ this.props.pathname }
                />
 
                <div className='navbar-nav ml-auto'>
                   <div className='nav-seperator mr-2' />
-                  <ShoppingCart />
+                  <ShoppingCart pathname={ this.props.pathname } />
                </div>
             </nav>
          </div>
@@ -74,7 +76,7 @@ class Menu extends Component {
 }
 Menu.propTypes = {
    user: PropTypes.object,
-   logout: PropTypes.func.isRequired
+   accountLogout: PropTypes.func.isRequired
 };
 
 export default Menu;

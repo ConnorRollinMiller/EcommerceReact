@@ -1,6 +1,7 @@
-import { AccountActions } from '../actions/index';
+import { AccountActions } from './index';
 import axios from 'axios';
-import { setToken, deleteToken } from '../../utilities/localStorage';
+
+import { setToken } from '../../utilities/localStorage';
 import RegisterNewUserDTO from '../../utilities/RegisterNewUserDTO';
 import LoginUserDTO from '../../utilities/LoginUserDTO';
 import NewAccountUsernameDTO from '../../utilities/NewAccountUsernameDTO';
@@ -8,16 +9,9 @@ import NewAccountEmailDTO from '../../utilities/NewAccountEmailDTO';
 import NewAccountPasswordDTO from '../../utilities/NewAccountPasswordDTO';
 
 const API_USER_URL = '/api/users';
-const API_JWT_URL = '/api/jwt';
-
-export const accountInputChange = (name, value) => ({
-   type: AccountActions.ACCOUNT_INPUT_CHANGE,
-   name,
-   value
-});
 
 export const submitAccountRegister = (email, username, password, confirmPassword) => {
-   return dispatch => {
+   return (dispatch) => {
       if (!email)
          return dispatch(submitAccountLoginFailure('Email Is Required!'));
       if (!username)
@@ -33,20 +27,17 @@ export const submitAccountRegister = (email, username, password, confirmPassword
 
       const newUser = RegisterNewUserDTO(email, username, password);
 
-      console.log('NEW USER:', newUser);
-
       axios.post(`${ API_USER_URL }/register`, newUser)
          .then(res => {
-            console.log('RESPONSE:', res);
-            console.log('RESPONSE STATUS:', res.status);
             if (res.data.success === true) {
-               dispatch(submitAccountRegisterSuccess(res.data.user));
+               dispatch(submitAccountRegisterSuccess(res.data.payload));
                setToken(res.data.token);
             } else {
                dispatch(submitAccountRegisterFailure(res.data.message));
             }
          })
          .catch(err => {
+            console.log('ERROR:', err);
             console.log('ERROR:', err.response);
             dispatch(submitAccountRegisterFailure(err.response));
          });
@@ -76,17 +67,16 @@ export const submitAccountLogin = (username, password) => {
 
       axios.post(`${ API_USER_URL }/login`, user)
          .then(res => {
-            console.log(res.data);
             if (res.data.success === true) {
-               dispatch(submitAccountLoginSuccess(res.data.user));
+               dispatch(submitAccountLoginSuccess(res.data.payload.user));
                setToken(res.data.token);
             } else {
                dispatch(submitAccountLoginFailure(res.data.message));
             }
          })
          .catch(err => {
-            // console.log('ERROR:', err);
-            console.log(err.response.data);
+            console.error(err);
+            console.error('ERROR:', err.response);
             dispatch(submitAccountLoginFailure(err.response.data.message))
          });
    };
@@ -106,40 +96,23 @@ export const resetAccountReducer = () => ({
    type: AccountActions.RESET_ACCOUNT_REDUCER
 });
 
-export const verifyToken = token => {
-   return dispatch => {
-      if (!token)
-         return dispatch(verifyTokenFailure('No Token In Local Storage.'));
-
-      axios
-         .post(`${ API_JWT_URL }/verify`, { token: token })
+export const accountLogout = (cart) => {
+   return (dispatch) => {
+      axios.post(`${ API_USER_URL }/logout`, { cart: cart })
          .then(res => {
-            dispatch(verifyTokenSuccess(res.data.user));
+            console.log(res.data);
+            setToken(res.data.token);
+            dispatch(accountLogoutSuccess());
          })
          .catch(err => {
-            console.log(err);
-            console.log(err.response);
-            dispatch(verifyTokenFailure(err.response));
+            console.error(err.response);
          });
-   };
+   }
 };
 
-const verifyTokenSuccess = user => ({
-   type: AccountActions.VERIFY_TOKEN_SUCCESS,
-   user
+const accountLogoutSuccess = () => ({
+   type: AccountActions.ACCOUNT_LOGOUT
 });
-
-const verifyTokenFailure = errorMessage => ({
-   type: AccountActions.VERIFY_TOKEN_FAILURE,
-   errorMessage
-});
-
-export const accountLogout = () => {
-   deleteToken();
-   return {
-      type: AccountActions.ACCOUNT_LOGOUT
-   };
-};
 
 export const submitNewAccountUsername = (userId, currentUsername, newUsername) => {
    return dispatch => {
@@ -157,9 +130,9 @@ export const submitNewAccountUsername = (userId, currentUsername, newUsername) =
 
       axios.put(`${ API_USER_URL }/username/${ userId }`, newAccountUserName)
          .then(res => {
-            console.log(res.data);
+            console.log(res);
             if (res.data.success === true) {
-               dispatch(submitNewAccountUserNameSuccess(res.data.user));
+               dispatch(submitNewAccountUserNameSuccess(res.data.payload.user));
                setToken(res.data.token);
             } else {
                dispatch(submitNewAccountUserNameFailure(res.data.message));
@@ -168,7 +141,7 @@ export const submitNewAccountUsername = (userId, currentUsername, newUsername) =
          .catch(err => {
             console.log(err);
             console.log(err.response);
-            dispatch(submitNewAccountUserNameFailure(err.response));
+            dispatch(submitNewAccountUserNameFailure(err.response.data));
          });
    }
 };
@@ -199,9 +172,9 @@ export const submitNewAccountEmail = (userId, currentEmail, newEmail) => {
 
       axios.put(`${ API_USER_URL }/email/${ userId }`, newAccountEmail)
          .then(res => {
-            console.log(res.data);
             if (res.data.success === true) {
-               dispatch(submitNewAccountEmailSuccess(res.data.user));
+               dispatch(submitNewAccountEmailSuccess(res.data.payload.user));
+               setToken(res.data.token);
             } else {
                dispatch(submitNewAccountEmailFailure(res.data.message));
             }
@@ -209,7 +182,7 @@ export const submitNewAccountEmail = (userId, currentEmail, newEmail) => {
          .catch(err => {
             console.log(err);
             console.log(err.response);
-            dispatch(submitNewAccountEmailFailure(err.response))
+            dispatch(submitNewAccountEmailFailure(err.response.data.message))
          })
    }
 }
@@ -246,9 +219,8 @@ export const submitNewAccountPassword = (userId, currentPassword, newPassword, c
 
       axios.put(`${ API_USER_URL }/password/${ userId }`, newAccountPassword)
          .then(res => {
-            // console.log(res.data);
             if (res.data.success === true) {
-               dispatch(submitNewAccountPasswordSuccess(res.data.user));
+               dispatch(submitNewAccountPasswordSuccess(res.data.payload.user));
                setToken(res.data.token);
             } else {
                dispatch(submitNewAccountPasswordFailure(res.data.message));

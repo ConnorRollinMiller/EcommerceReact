@@ -7,23 +7,26 @@ import { connect } from 'react-redux';
 import { removeNotification } from '../../redux/actions/notificationActions';
 
 class NotificationsList extends Component {
+
    shouldComponentUpdate(nextProps) {
-      if (nextProps.notifications !== this.props.notifications) {
-         return true;
-      }
+
+      if (nextProps.notifications !== this.props.notifications) return true;
+
       return true;
    }
 
    render() {
       return (
          <div className='notifications-list col-10 col-md-4'>
-            { this.props.notifications.map(n => (
-               <Notifcation
-                  key={ n.id }
-                  notification={ n }
-                  removeNotification={ () => this.props.removeNotification(n.id) }
-               />
-            )) }
+            {
+               this.props.notifications.map(n =>
+                  <Notifcation
+                     key={ n.id }
+                     notification={ n }
+                     removeNotification={ () => this.props.removeNotification(n.id) }
+                  />
+               )
+            }
          </div>
       );
    }

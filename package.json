@@ -26,7 +26,6 @@
       "history": "^4.7.2",
       "jsonwebtoken": "^8.3.0",
       "mysql2": "^1.6.1",
-      "npm": "^6.4.0",
       "react": "^16.4.2",
       "react-dom": "^16.4.2",
       "react-loadable": "^5.5.0",
@@ -37,8 +36,7 @@
       "redux": "^4.0.0",
       "redux-thunk": "^2.3.0",
       "sequelize": "^4.38.0",
-      "sequelize-cli": "^4.1.1",
-      "validator": "^10.5.0"
+      "sequelize-cli": "^4.1.1"
    },
    "scripts": {
       "start": "node server.js",

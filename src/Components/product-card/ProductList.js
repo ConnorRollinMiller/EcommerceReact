@@ -5,14 +5,15 @@ import ProductCard from '../product-card/ProductCard';
 
 class ProductList extends Component {
 
-   // shouldComponentUpdate(nextProps) {
-   //    if (nextProps.filter !== this.props.filter) return true;
-   //    if (nextProps.shoes.length !== this.props.shoes.length) return true;
-   //    for (let i = 0; i < nextProps.length; i++) {
-   //       if (nextProps.shoes[ i ] !== this.props.shoes[ i ]) return true;
-   //    }
-   //    return false;
-   // }
+   shouldComponentUpdate(nextProps) {
+
+      if (nextProps.filter !== this.props.filter) return true;
+      if (nextProps.shoes.length !== this.props.shoes.length) return true;
+      for (let i = 0; i < nextProps.length; i++) {
+         if (nextProps.shoes[ i ] !== this.props.shoes[ i ]) return true;
+      }
+      return false;
+   }
 
    render() {
       return (
@@ -21,7 +22,7 @@ class ProductList extends Component {
                <SectionTitle title={ this.props.sectionTitle } />
             ) }
             <div className='row justify-content-center align-items-end px-0 py-4 mx-auto'>
-               { this.props.error ? (
+               { this.props.error || this.props.shoes.length === 0 ? (
                   <h1 className='text-center text-capitalize alert alert-danger'>
                      there was an error!
                   </h1>
@@ -30,7 +31,7 @@ class ProductList extends Component {
                         <ProductCard
                            key={ shoe.shoeId }
                            shoe={ shoe }
-                           addToCart={ this.props.addToCart }
+                           addToCart={ () => this.props.addToCart(shoe, this.props.cart) }
                            showQuickview={ this.props.showQuickview }
                         />
                      ))
@@ -44,6 +45,7 @@ class ProductList extends Component {
 ProductList.propTypes = {
    sectionTitle: PropTypes.string,
    shoes: PropTypes.array,
+   cart: PropTypes.array.isRequired,
    filter: PropTypes.string,
    addToCart: PropTypes.func.isRequired,
    showQuickview: PropTypes.func.isRequired,

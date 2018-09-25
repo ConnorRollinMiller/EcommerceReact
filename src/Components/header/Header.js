@@ -8,10 +8,14 @@ import { connect } from 'react-redux';
 import { accountLogout } from '../../redux/actions/accountActions';
 
 class Header extends Component {
+
    shouldComponentUpdate(nextProps) {
+
       if (nextProps.user !== this.props.user) return true;
-      if (nextProps.location.pathname !== this.props.location.pathname) return true;
+      if (nextProps.pathname !== this.props.pathname) return true;
+
       return false;
+
    }
 
    render() {
@@ -21,8 +25,8 @@ class Header extends Component {
             <header className='py-4' id='header'>
                <Menu
                   user={ this.props.user }
-                  logout={ this.props.accountLogout }
-                  location={ this.props.location }
+                  accountLogout={ () => this.props.accountLogout(this.props.cart) }
+                  pathname={ this.props.pathname }
                />
             </header>
          </div>
@@ -37,11 +41,12 @@ Header.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
    user: state.accountReducer.user,
-   location: state.routerReducer.location
+   pathname: state.routerReducer.location.pathname,
+   cart: state.cartReducer.cart
 });
 
-const mapDispatchToProps = dispatch => ({
-   accountLogout: () => dispatch(accountLogout())
+const mapDispatchToProps = (dispatch) => ({
+   accountLogout: (cart) => dispatch(accountLogout(cart))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

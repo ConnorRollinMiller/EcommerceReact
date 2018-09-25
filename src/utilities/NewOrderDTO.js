@@ -1,16 +1,4 @@
-export default (
-   firstName,
-   lastName,
-   country,
-   state,
-   address,
-   city,
-   zipCode,
-   phone,
-   email,
-   total,
-   userId = null
-) => ({
+export default (firstName, lastName, country, state, address, city, zipCode, phone, email, total, userId = null) => ({
    userId: userId,
    firstName: firstName,
    lastName: lastName,

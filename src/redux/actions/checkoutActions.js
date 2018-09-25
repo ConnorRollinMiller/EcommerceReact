@@ -11,62 +11,18 @@ export const inputChange = (name, value) => ({
    value
 });
 
-export const submitOrder = (
-   firstName,
-   lastName,
-   country,
-   state,
-   city,
-   address,
-   zipCode,
-   phone,
-   email,
-   total,
-   cartItems,
-   user
-) => {
+export const submitOrder = (firstName, lastName, country, state, city, address, zipCode, phone, email, total, cartItems, userId = null) => {
    return dispatch => {
-      let newOrder;
 
-      if (!user) {
-         newOrder = NewOrderDTO(
-            firstName,
-            lastName,
-            country,
-            state,
-            address,
-            city,
-            zipCode,
-            phone,
-            email,
-            total,
-         );
-      } else {
-         newOrder = NewOrderDTO(
-            firstName,
-            lastName,
-            country,
-            state,
-            address,
-            city,
-            zipCode,
-            phone,
-            email,
-            total,
-            user.UserId
-         );
-      }
+      console.log(cartItems);
 
-      const newOrderDetails = cartItems.map(item =>
-         NewOrderDetailsDTO(item.shoe.shoeId, 1, item.shoe.price)
-      );
+      const newOrder = NewOrderDTO(firstName, lastName, country, state, address, city, zipCode, phone, email, total, userId);
 
-      axios
-         .post(`${ API_ORDER_URL }`, {
-            newOrder: newOrder,
-            newOrderDetails: newOrderDetails
-         })
+      const newOrderDetails = cartItems.map(item => NewOrderDetailsDTO(item.shoeId, 1, item.price));
+
+      axios.post(`${ API_ORDER_URL }`, { newOrder: newOrder, newOrderDetails: newOrderDetails })
          .then(res => {
+            console.log(res);
             if (res.data.success) {
                dispatch(submitOrderSuccess(cartItems, res.data.order));
             } else {
@@ -80,10 +36,10 @@ export const submitOrder = (
    };
 };
 
-const submitOrderSuccess = (itemsOrdered, orderDetails) => ({
+const submitOrderSuccess = (itemsOrdered, order) => ({
    type: CheckoutActions.SUBMIT_ORDER_SUCCESS,
    itemsOrdered,
-   orderDetails
+   order
 });
 
 const submitOrderFailure = errorMessage => ({

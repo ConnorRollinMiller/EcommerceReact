@@ -6,7 +6,7 @@ import './css/CartItem.css';
 
 class CartItem extends Component {
 
-   shouldComponentUpdate(nextProps) {
+   shouldComponentUpdate() {
       return false;
    }
 
@@ -21,8 +21,7 @@ class CartItem extends Component {
             <div className='text-center text-truncate px-2'>
                <LinkComponent
                   className='h5 font-weight-bold'
-                  to={ `/shop/${ this.props.shoe.shoeId }` }
-               >
+                  to={ `/shop/${ this.props.shoe.shoeId }` }>
                   <p className='mb-0 text-truncate '>{ this.props.shoe.model }</p>
                   <p className='mb-0 text-truncate '>
                      { this.props.shoe.colorway }
@@ -32,18 +31,14 @@ class CartItem extends Component {
                   ${ this.props.shoe.price.toFixed(2) }
                </p>
             </div>
-            { this.props.displayCloseIcon && (
-               <CloseIcon
-                  className='ml-2 shopping-cart-remove-icon'
-                  size='2x'
-                  onClick={ () =>
-                     this.props.removeFromCart(
-                        this.props.id,
-                        this.props.shoe.price
-                     )
-                  }
-               />
-            ) }
+
+            <CloseIcon
+               className='ml-2 shopping-cart-remove-icon'
+               size='2x'
+               onClick={ this.props.removeFromCart }
+            />
+
+
          </div>
       );
    }
@@ -52,12 +47,6 @@ class CartItem extends Component {
 CartItem.propTypes = {
    removeFromCart: PropTypes.func,
    shoe: PropTypes.object.isRequired,
-   id: PropTypes.number.isRequired,
-   displayCloseIcon: PropTypes.bool.isRequired
-};
-
-CartItem.defaultProps = {
-   displayCloseIcon: true
 };
 
 export default CartItem;

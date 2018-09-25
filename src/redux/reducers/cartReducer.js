@@ -1,14 +1,26 @@
-import { CartActions } from '../actions';
+import { CartActions, JwtActions } from '../actions';
 
 const initialState = {
    cart: [],
-   total: 0.0,
+   total: 0.00,
    errorMessage: null
 };
 
 export default (state = initialState, action) => {
    switch (action.type) {
-      case CartActions.ADD_TO_CART_SUCCESS:
+      case JwtActions.VERIFY_TOKEN_SUCCESS_CART:
+         return {
+            ...state,
+            cart: action.cart,
+            total: action.total
+         };
+      case JwtActions.VERIFY_TOKEN_FAILURE_CART:
+         return {
+            ...state,
+            cart: [],
+            total: 0.00
+         };
+      case CartActions.ADD_TO_CART:
          return {
             ...state,
             errorMessage: null,
@@ -16,8 +28,8 @@ export default (state = initialState, action) => {
             cart: [
                ...state.cart,
                {
-                  id: action.id,
-                  shoe: action.shoe
+                  cartId: action.cartId,
+                  ...action.shoe
                }
             ]
          };
@@ -29,7 +41,7 @@ export default (state = initialState, action) => {
       case CartActions.REMOVE_FROM_CART:
          return {
             ...state,
-            cart: state.cart.filter(item => item.id !== action.id),
+            cart: state.cart.filter(item => item.cartId !== action.id),
             total: state.total - action.price
          };
       case CartActions.CLEAR_CART:

@@ -4,31 +4,31 @@ import thunk from 'redux-thunk';
 import rootReducer from '../reducers/index';
 
 export default (initialState, history) => {
-	const middleware = [
-		thunk,
-		routerMiddleware(history)
-	];
+   const middleware = [
+      thunk,
+      routerMiddleware(history)
+   ];
 
-	let enhancers = [];
+   let enhancers = [];
 
-	if (process.env.NODE_ENV === 'development') {
-		const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__;
+   if (process.env.NODE_ENV !== 'production') {
+      const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__;
 
-		if (typeof devToolsExtension === 'function') {
-			enhancers.push(devToolsExtension());
-		}
-	}
+      if (typeof devToolsExtension === 'function') {
+         enhancers.push(devToolsExtension());
+      }
+   }
 
-	const composedEnhancers = compose(
-		applyMiddleware(...middleware),
-		...enhancers
-	);
+   const composedEnhancers = compose(
+      applyMiddleware(...middleware),
+      ...enhancers
+   );
 
-	return createStore(
-		rootReducer,
-		initialState,
-		composedEnhancers
-	);
+   return createStore(
+      rootReducer,
+      initialState,
+      composedEnhancers
+   );
 }
 
 

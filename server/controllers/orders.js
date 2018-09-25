@@ -20,7 +20,6 @@ module.exports = {
 
       Orders.create(req.body.newOrder)
          .then(newOrder => {
-            console.log(newOrder);
             req.body.newOrder = newOrder;
             next();
          })
@@ -30,10 +29,10 @@ module.exports = {
    },
 
    submitNewOrderDetails: (req, res, next) => {
-      const newOrderDetails = req.body.newOrderDetails;
+      let newOrderDetails = req.body.newOrderDetails;
 
-      newOrderDetails = newOrderDetails.map(od => {
-         return { orderId: req.body.newOrder.orderId, ...od }
+      newOrderDetails = newOrderDetails.map(orderDetails => {
+         return { orderId: req.body.newOrder.orderId, ...orderDetails }
       });
 
       OrderDetails.bulkCreate(newOrderDetails)

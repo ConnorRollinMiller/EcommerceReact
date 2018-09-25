@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './css/ProductCard.css';
 import ProductCardDetails from './ProductCardDetails';
-import QuickviewButton from './QuickviewButton';
 
 class ProductCard extends Component {
-   // shouldComponentUpdate(nextProps) {
-   //    if (nextProps.shoe !== this.props.shoe) return true;
-   //    return false;
-   // }
+
+   shouldComponentUpdate(nextProps) {
+      // if (nextProps.shoe !== this.props.shoe) return true;
+      return false;
+   }
 
    render() {
       return (
@@ -20,10 +20,10 @@ class ProductCard extends Component {
                   alt={ `${ this.props.shoe.brand } ${ this.props.shoe.colorway }` }
                />
                <div className='product-card-info py-4'>
-                  <QuickviewButton
+                  <button className='product-card-quick-view-button text-truncate'
                      onClick={ () => this.props.showQuickview(this.props.shoe) }>
                      Quickview
-                  </QuickviewButton>
+                  </button>
                   <ProductCardDetails
                      shoe={ this.props.shoe }
                      addToCart={ this.props.addToCart }

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 class CloseIcon extends Component {
+
    shouldComponentUpdate(nextProps) {
       return false;
    }
@@ -10,10 +11,10 @@ class CloseIcon extends Component {
    render() {
       return (
          <FontAwesomeIcon
-            className={`${this.props.className} secondary-color`}
+            className={ `${ this.props.className } secondary-color` }
             icon='times-circle'
-            size={this.props.size}
-            onClick={this.props.onClick}
+            size={ this.props.size }
+            onClick={ this.props.onClick }
          />
       );
    }

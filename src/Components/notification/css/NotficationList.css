@@ -1,7 +1,9 @@
 .notifications-list {
    position: fixed !important;
    bottom: 2.5%;
-   left: 2.5%;
+   left: 50%;
+   right: 50%;
+   transform: translate(-50%, 0%);
    z-index: 1100;
 }
 

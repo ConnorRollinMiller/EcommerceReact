@@ -10,13 +10,15 @@ export const fetchReviewsByShoeId = shoeId => {
          .get(`${ API_ROUTE }/${ shoeId }`)
          .then(res => {
             console.log('RESPONSE:', res.data);
-            if (res.data.reviews.length > 0 && res.data.success) {
+            if (res.data.success && res.data.reviews.length > 0) {
                dispatch(fetchReviewsByShoeIdSuccess(res.data.reviews));
             } else {
                dispatch(resetReviews());
+               // dispatch(fetchReviewsByShoeIdFailure('There were n'));
             }
          })
          .catch(err => {
+            console.error(err);
             console.error('ERROR:', err.response);
 
             dispatch(fetchReviewsByShoeIdFailure(err.response));
@@ -64,6 +66,7 @@ export const postNewReview = (shoeId, userId, username, rating, reviewText) => {
             dispatch(postNewReviewSuccess(res.data.newReview));
          })
          .catch(err => {
+            console.error(err);
             console.log('ERROR:', err.response);
             dispatch(postNewReviewFailure(err.response));
          });

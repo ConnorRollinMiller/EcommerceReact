@@ -28,21 +28,21 @@ app.use('/api', routes);
 
 if (env === 'production') {
    app.use(express.static(path.join(__dirname, 'build')));
-   app.get('*', function(req, res) {
+   app.get('*', (req, res) => {
       res.sendFile(path.join(__dirname, 'build', 'index.html'));
    });
 }
 
-// db.sequelize.sync()
-//    .then(() => {
-//       app.listen(PORT, () => {
-//          console.log(`Server listening on port ${ PORT }`);
-//       });
-//    })
-//    .catch(err => {
-//       console.log(`ERROR Syncing DB: ${ err }`);
-//    });
+db.sequelize.sync()
+   .then(() => {
+      app.listen(PORT, () => {
+         console.log(`Server listening on port ${ PORT }`);
+      });
+   })
+   .catch(err => {
+      console.log(`ERROR Syncing DB: ${ err }`);
+   });
 
-app.listen(PORT, () => {
-   console.log(`Server listening on port ${ PORT }`);
-});
+// app.listen(PORT, () => {
+//    console.log(`Server listening on port ${ PORT }`);
+// });

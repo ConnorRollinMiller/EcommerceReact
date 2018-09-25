@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import LinkComponent from '../common/LinkComponent';
 import './css/TopHeader.css';
 
 class TopHeader extends Component {
@@ -37,36 +36,33 @@ class TopHeader extends Component {
                   <li className='nav-seperator d-none d-sm-block' />
 
                   <li className='m-auto d-none d-sm-block'>
-                     <LinkComponent
-                        className='top-header-social'
-                        to='https://www.facebook.com'
+                     <a className='top-header-social'
+                        href='https://www.facebook.com'
                         target='_blank'
-                     >
+                        rel="noopener noreferrer">
                         <FontAwesomeIcon
                            className='top-header-icon-link'
                            icon={ [ 'fab', 'facebook' ] }
                         />
-                     </LinkComponent>
-                     <LinkComponent
-                        className='top-header-social'
-                        to='https://www.instagram.com'
+                     </a>
+                     <a className='top-header-social'
+                        href='https://www.instagram.com'
                         target='_blank'
-                     >
+                        rel="noopener noreferrer">
                         <FontAwesomeIcon
                            className='top-header-icon-link'
                            icon={ [ 'fab', 'instagram' ] }
                         />
-                     </LinkComponent>
-                     <LinkComponent
-                        className='top-header-social'
-                        to='https://www.twitter.com'
+                     </a>
+                     <a className='top-header-social'
+                        href='https://www.twitter.com'
                         target='_blank'
-                     >
+                        rel="noopener noreferrer">
                         <FontAwesomeIcon
                            className='top-header-icon-link'
                            icon={ [ 'fab', 'twitter' ] }
                         />
-                     </LinkComponent>
+                     </a>
                   </li>
                </ul>
             </div>

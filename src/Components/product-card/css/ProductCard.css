@@ -50,12 +50,12 @@
 	transition: 0.25s;
 	border: none;
 	z-index: 0;
-	opacity: 0;
+   opacity: 0;
 }
 
 .product-card:hover .product-card-quick-view-button {
 	/* top: -30px; */
-	opacity: 1;
+   opacity: 1;
 }
 
 .product-card-quick-view-button:hover {
@@ -65,4 +65,11 @@
 .product-card-price {
 	color: #fff;
 	font-size: 1.2em;
+}
+
+@media (max-width: 768px) {
+   .product-card-quick-view-button {
+      /* top: -30px !important */
+      opacity: 1;
+   }
 }

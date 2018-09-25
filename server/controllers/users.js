@@ -10,12 +10,13 @@ module.exports = {
 
       bcrypt.hash(password, SALT_ROUNDS, (err, hash) => {
 
-         console.error(err);
-         if (err)
+         if (err) {
+            console.error(err);
             return res.status(200).json({
                success: false,
                message: 'Error salting password'
             });
+         }
 
          console.log('HASHED PASS:', hash);
 
@@ -34,7 +35,7 @@ module.exports = {
          passwordHashed
       } = req.body;
 
-      console.log('REGISTER NEW USER');
+      // console.log('REGISTER NEW USER');
 
       if (!username) {
          console.error('No UserName Provided.');
@@ -80,12 +81,14 @@ module.exports = {
          passwordHashed: passwordHashed
       })
          .then(newUser => {
-            console.log(newUser.dataValues);
-            req.body.user = newUser.dataValues;
+
+            req.body.payload = newUser.dataValues;
+
             next();
+
          }).catch(err => {
             console.error(err);
-            res.status(200).json({ success: false, message: err });
+            res.status(200).json({ success: false, message: err.errors[ 0 ].message });
          });
    },
 
@@ -107,14 +110,16 @@ module.exports = {
                return res.status(404).json({ success: false, message: 'Username Or Password Is Incorrect.' });
             }
             bcrypt.compare(password, user.dataValues.passwordHashed, (err, isMatch) => {
-               console.log('Password Is A Match', isMatch);
+               // console.log('Password Is A Match', isMatch);
                if (err) {
                   console.error(err);
                   return res.status(500).json({ success: false, message: err });
                }
                if (!isMatch) return res.status(404).json({ success: false, message: 'Username Or Password Is Incorrect.' });
 
-               req.body.user = user
+
+               req.body.payload = { user: user.dataValues };
+
                next()
             });
          })
@@ -139,8 +144,11 @@ module.exports = {
             }
          })
          .then(updatedUser => {
-            req.body.user = updatedUser;
+
+            req.body.payload = { user: updatedUser.dataValues }
+
             next();
+
          })
          .catch(err => {
             console.log('ERROR:', err);
@@ -151,8 +159,6 @@ module.exports = {
    updateAccountEmail: (req, res, next) => {
       const { userId } = req.params;
       const { email, normalizedEmail } = req.body;
-
-      console.log(req.body);
 
       if (!userId)
          return res.json({ success: false, message: 'No User ID Was Given' });
@@ -168,7 +174,7 @@ module.exports = {
             }
          })
          .then(updatedUser => {
-            req.body.user = updatedUser;
+            req.body.payload = { user: updatedUser.dataValues }
             next();
          })
          .catch(err => {
@@ -191,21 +197,25 @@ module.exports = {
       Users.findById(userId)
          .then(user => {
             bcrypt.compare(currentPassword, user.dataValues.passwordHashed, (err, result) => {
-               if (err)
+               if (err) {
+                  console.log(err);
                   return res.status(500).json({ success: false, message: err });
+               }
                if (!result)
                   return res.status(404).json({ success: false, message: `Passwords Don't Match!` });
-               bcrypt.hash(newPassword, SALT_ROUNDS, (err, hashedPass) => {
-                  if (err)
-                     return res.status(500).json({ success: false, message: err });
 
-                  // console.log('HASHED_PASS:', hashedPass);
+               bcrypt.hash(newPassword, SALT_ROUNDS, (err, hashedPass) => {
+                  if (err) {
+                     console.error(err);
+                     return res.status(500).json({ success: false, message: err });
+                  }
 
                   user.updateAttributes({ passwordHashed: hashedPass });
 
-                  // console.log('UPDATED_USER:', user)
-                  req.body.user = user;
+                  req.body.payload = { user: user.dataValues }
+
                   next();
+
                });
             });
          })
@@ -213,5 +223,17 @@ module.exports = {
             console.log('ERROR:', err);
             res.status(500).json({ success: false, message: err });
          });
+   },
+
+   userLogout: (req, res, next) => {
+
+      const cart = req.body.cart;
+
+      console.log(req.body)
+
+      req.body.payload = { cart: cart };
+
+      next();
+
    }
 }

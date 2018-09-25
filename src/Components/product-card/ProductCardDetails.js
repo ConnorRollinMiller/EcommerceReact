@@ -16,8 +16,7 @@ const ProductCardDetails = ({ ...props }) => (
       </p>
       <PrimaryButton
          className='col-10 col-sm-6 text-truncate mx-auto mt-2'
-         onClick={ () => props.addToCart(props.shoe) }
-      >
+         onClick={ props.addToCart }>
          Add To Cart
       </PrimaryButton>
    </div>

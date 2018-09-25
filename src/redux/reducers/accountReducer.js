@@ -1,16 +1,7 @@
-import { AccountActions } from '../actions';
+import { AccountActions, JwtActions } from '../actions';
 
 const initialState = {
    user: null,
-   email: '',
-   username: '',
-   password: '',
-   confirmPassword: '',
-   newUsername: '',
-   newEmail: '',
-   currentPassword: '',
-   newPassword: '',
-   confirmNewPassword: '',
    error: false,
    errorMessage: null,
    isUsernameChangeComplete: false,
@@ -26,19 +17,22 @@ const initialState = {
 
 export default (state = initialState, action) => {
    switch (action.type) {
-      case AccountActions.ACCOUNT_INPUT_CHANGE:
+      case JwtActions.VERIFY_TOKEN_SUCCESS_USER:
          return {
             ...state,
-            [ action.name ]: action.value
+            user: action.user,
+            error: false,
+            errorMessage: null
+         };
+      case JwtActions.VERIFY_TOKEN_FAILURE_USER:
+         return {
+            ...state,
+            user: null
          };
       case AccountActions.SUBMIT_REGISTER_SUCCESS:
          return {
             ...state,
             user: action.user,
-            email: '',
-            username: '',
-            password: '',
-            confirmPassword: '',
             error: false,
             errorMessage: null
          };
@@ -52,10 +46,6 @@ export default (state = initialState, action) => {
          return {
             ...state,
             user: action.user,
-            email: '',
-            username: '',
-            password: '',
-            confirmPassword: '',
             error: false,
             errorMessage: null
          };
@@ -68,15 +58,6 @@ export default (state = initialState, action) => {
       case AccountActions.RESET_ACCOUNT_REDUCER:
          return {
             ...state,
-            email: '',
-            username: '',
-            password: '',
-            confirmPassword: '',
-            newUsername: '',
-            newEmail: '',
-            currentPassword: '',
-            newPassword: '',
-            confirmNewPassword: '',
             error: false,
             errorMessage: null,
             isUsernameChangeComplete: false,
@@ -88,23 +69,6 @@ export default (state = initialState, action) => {
             isPasswordChangeComplete: false,
             accountPasswordError: false,
             accountPasswordErrorMessage: null
-         };
-      case AccountActions.CHANGE_REVIEW_TEXT:
-         return {
-            ...state,
-            reviewText: action.value
-         };
-      case AccountActions.VERIFY_TOKEN_SUCCESS:
-         return {
-            ...state,
-            user: action.user,
-            error: false,
-            errorMessage: null
-         };
-      case AccountActions.VERIFY_TOKEN_FAILURE:
-         return {
-            ...state,
-            user: null
          };
       case AccountActions.ACCOUNT_LOGOUT:
          return {

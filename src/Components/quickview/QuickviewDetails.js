@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import LinkComponent from '../common/LinkComponent';
 import PrimaryButton from '../button/PrimaryButton';
-import Select from '../form/Select';
+import Select from '../form/form-components/Select';
 
 import { SHOE_SIZES } from '../../utilities/constants';
 
@@ -13,14 +13,13 @@ class QuickviewDetails extends Component {
 
    render() {
       return (
-         <div className='col-md-6 text-center text-uppercase my-2'>
+         <div className='col-md-6 text-center text-uppercase p-4'>
             <span className='text-uppercase text-black-50 mb-0'>
                { this.props.shoe.brand }
             </span>
             <LinkComponent
                to={ `/shop/${ this.props.shoe.shoeId }` }
-               onClick={ () => this.props.closeQuickview() }
-            >
+               onClick={ () => this.props.closeQuickview() }>
                <h4 className='h5 mb-0 font-weight-bold mb-0'>
                   { this.props.shoe.model }
                </h4>
@@ -37,15 +36,15 @@ class QuickviewDetails extends Component {
                name='size'
                onChange={ e => this.props.changeShoeSize(e.target.value) }
             />
-            { this.props.errorMessage && (
+            {
+               this.props.errorMessage &&
                <p className='text-danger text-capitalize mb-3'>
                   { this.props.errorMessage }
                </p>
-            ) }
+            }
             <PrimaryButton
                className='col-12 col-sm-6'
-               onClick={ () => this.props.addToCart(this.props.shoe) }
-            >
+               onClick={ this.props.addToCart }>
                Add To Cart
             </PrimaryButton>
          </div>

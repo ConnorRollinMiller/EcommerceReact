@@ -6,15 +6,30 @@ const jwtController = require('../controllers/jwt');
 const ordersController = require('../controllers/orders');
 const reviewsController = require('../controllers/reviews');
 
+
+
+//JWT ROUTES
 router.route('/jwt/verify')
    .post(jwtController.verifyToken);
 
+router.route('/jwt/cart')
+   .post(
+      jwtController.manageCart,
+      jwtController.signToken
+   );
+
+
+
+// SHOE ROUTES
 router.route('/shoes')
    .get(shoesController.getAllShoes);
 
 router.route('/shoes/:shoeId')
    .get(shoesController.getShoeById);
 
+
+
+// USER ROUTES
 router.route('/users/register')
    .post(
       usersController.hashPassword,
@@ -25,6 +40,12 @@ router.route('/users/register')
 router.route('/users/login')
    .post(
       usersController.userLogin,
+      jwtController.signToken
+   );
+
+router.route('/users/logout')
+   .post(
+      usersController.userLogout,
       jwtController.signToken
    );
 
@@ -46,12 +67,18 @@ router.route('/users/password/:userId')
       jwtController.signToken
    );
 
+
+
+// ORDER ROUTES
 router.route('/orders')
    .post(
       ordersController.submitNewOrder,
       ordersController.submitNewOrderDetails
    );
 
+
+
+// REVIEW ROUTES
 router.route('/reviews')
    .post(reviewsController.postNewReview);
 
