@@ -4,11 +4,11 @@ import CloseIcon from '../icon/CloseIcon';
 import QuickviewDetails from './QuickviewDetails';
 import './css/ProductQuickview.css';
 
-import { connect } from 'react-redux';
-import { closeQuickview, setShoeSize } from '../../redux/actions/shoesAction';
-import { addToCart } from '../../redux/actions/cartActions';
-import { addNotification } from '../../redux/actions/notificationActions';
-import { NotificationCodes } from '../../redux/actions';
+// import { connect } from 'react-redux';
+// import { closeQuickview, setShoeSize } from '../../redux/actions/shoesAction';
+// import { addToCart } from '../../redux/actions/cartActions';
+// import { addNotification } from '../../redux/actions/notificationActions';
+// import { NotificationCodes } from '../../redux/actions';
 
 class ProductQuickview extends Component {
 

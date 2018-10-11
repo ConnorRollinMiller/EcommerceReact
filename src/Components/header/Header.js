@@ -46,7 +46,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-   accountLogout: (cart) => dispatch(accountLogout(cart))
+   accountLogout: () => dispatch(accountLogout())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

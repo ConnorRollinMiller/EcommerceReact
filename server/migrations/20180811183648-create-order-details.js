@@ -31,10 +31,6 @@ module.exports = {
             type: Sequelize.INTEGER,
             allowNull: false
          },
-         pricePerShoe: {
-            type: Sequelize.DECIMAL(8, 2),
-            allowNull: false
-         },
          createdAt: {
             type: Sequelize.DATE,
             allowNull: false,

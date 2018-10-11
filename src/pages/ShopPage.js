@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PageTitle from '../components/common/PageTitle';
 import FilterProductList from '../components/product-card/FilterProductList';
 import SideBar from '../components/sidebar/SideBar';
-import Quickview from '../components/quickview/Quickview';
 import './css/ShopPage.css';
 
 import { connect } from 'react-redux';

@@ -41,6 +41,7 @@ This application is an ecommerce store for shoes. It is built with an Node (Expr
 | passwordHashed		| 	VARCHAR								|
 | email				   | 	VARCHAR								|
 | normalizedEmail	   | 	VARCHAR								|
+| role         	   | 	ENUM								   |
 | createdAt		      |	DATETIME								|
 | updatedAt          |  DATETIME                      |
 
@@ -81,7 +82,7 @@ This application is an ecommerce store for shoes. It is built with an Node (Expr
 
    - Be able to use filters on `Shop` page for mobile users.
    - Add CSS animations for page transitions
-   - Order tracking / history for customers purchases
+   - Order tracking / history for customers purchases ✅
    - Autofill forms with account info if user is logged in ✅
    - Change all controlled form components to uncontrolled for performance increase ✅
    - Change Checkoput input fields `phone` & `zipCode` to controlled input to validate input ✅
@@ -96,9 +97,13 @@ This application is an ecommerce store for shoes. It is built with an Node (Expr
    - Reorganize files to be more organized ✅
    - Sign out function redirects to previous page => componenDidUpdate(pathname) {<Redirect to={pathname} />}
    - Make a shoe size required - add stock to DB
-   - Get rid of all the icon components
    - Fix Menu item `Account` to have items `Login` + `Register` when user isn't logged in
-   - Fix all axios `catch` statements ro check if they return an `error.response` message, otherwise, customize failure message
+   - Fix all axios `catch` statements to check if they return an `error.response` message, otherwise, customize failure message
    - Save cart & user to localStorage ✅
    - For header menu - if open, make it close if you click anywhere other than the menu.
       - Make full screen menu for mobile?
+   - Create HOC => withShoes, withUser, withOrderComeplete??
+   - Join redux actions `checkoutActions` with `orderActions`
+   - Get rid of all individual icons components and make one `Icon` component
+   - Group each shoe in `orderHistory` by each individual order on `OrderHistoryPage`
+   - Add `admin` / CMS capabilities for `site owner`

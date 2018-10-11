@@ -41,6 +41,12 @@ module.exports = {
                isUppercase: { msg: 'normalizedEmail must be all uppercase.' }
             }
          },
+         role: {
+            type: Sequelize.ENUM,
+            allowNull: false,
+            values: [ 'admin', 'user' ],
+            defaultValue: 'user'
+         },
          createdAt: {
             type: Sequelize.DATE,
             allowNull: false,

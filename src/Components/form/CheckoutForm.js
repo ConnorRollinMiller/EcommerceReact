@@ -9,7 +9,7 @@ import PrimaryButton from '../button/PrimaryButton';
 import { connect } from 'react-redux';
 import { inputChange, submitOrder } from '../../redux/actions/checkoutActions';
 import { clearCart } from '../../redux/actions/cartActions';
-import { COUNTRIES, STATES } from '../../utilities/constants';
+import { COUNTRIES, STATES } from '../../constants';
 
 class CheckoutForm extends Component {
 
@@ -179,6 +179,7 @@ class CheckoutForm extends Component {
                   type='email'
                   name='email'
                   placeholder='Email'
+                  defaultValue={ this.props.user ? this.props.user.email : '' }
                   forwardedRef={ ref => this.emailRef = ref }
                />
             </div>

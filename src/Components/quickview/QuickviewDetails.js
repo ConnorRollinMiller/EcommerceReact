@@ -4,7 +4,7 @@ import LinkComponent from '../common/LinkComponent';
 import PrimaryButton from '../button/PrimaryButton';
 import Select from '../form/form-components/Select';
 
-import { SHOE_SIZES } from '../../utilities/constants';
+import { SHOE_SIZES } from '../../constants';
 
 class QuickviewDetails extends Component {
    shouldComponentUpdate(nextProps) {

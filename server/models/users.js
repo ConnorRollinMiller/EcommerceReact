@@ -42,6 +42,12 @@ module.exports = (sequelize, DataTypes) => {
             isEmail: { msg: 'Must be a valid email address.' },
             isUppercase: { msg: 'normalizedEmail must be all uppercase.' }
          }
+      },
+      role: {
+         type: DataTypes.ENUM,
+         allowNull: false,
+         values: [ 'admin', 'user' ],
+         defaultValue: 'user'
       }
    }, {
          tableName: 'Users',

@@ -3,5 +3,6 @@ export default (email, username, password) => ({
    normalizedEmail: email.toUpperCase().trim(),
    username: username.trim(),
    normalizedUsername: username.toUpperCase().trim(),
-   password: password
+   password: password,
+   role: 'user'
 });

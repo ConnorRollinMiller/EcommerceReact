@@ -1,4 +1,6 @@
-const Reviews = require('../models').reviews;
+const Reviews = require('../db').reviews;
+const db = require('../db');
+const Sequelize = require('sequelize');
 
 module.exports = {
 
@@ -7,7 +9,16 @@ module.exports = {
 
       console.log('SHOEID:', shoeId);
 
-      Reviews.findAll({ where: { shoeId: shoeId } })
+      db.sequelize.query(`SELECT Reviews.reviewId,
+                                 Reviews.reviewText,
+                                 Reviews.rating,
+                                 Reviews.createdAt,
+                                 Users.username
+                           FROM Reviews
+                           JOIN Users
+                              On Reviews.userId = Users.userId
+                           WHERE shoeId = ${ shoeId };`,
+         { type: Sequelize.QueryTypes.SELECT })
          .then(reviews => {
             if (!reviews)
                return res.status(200).json({ success: false, message: 'No Reviews Were Found.' });
@@ -29,8 +40,6 @@ module.exports = {
          rating,
          reviewText
       } = req.body
-
-      console.log(req.body);
 
       if (!userId)
          return res.status(200).json({
@@ -59,10 +68,16 @@ module.exports = {
          });
 
       Reviews.create(req.body)
-         .then(newReview => {
-            res.status(201).json({ success: true, newReview: newReview });
+         .then((newReview) => {
+
+            newReview = {
+               username: username,
+               ...newReview.dataValues
+            };
+
+            res.status(201).json({ success: true, newReview });
          })
-         .catch(err => {
+         .catch((err) => {
             console.error(err);
             res.status(500).json({ success: false, message: err });
          });

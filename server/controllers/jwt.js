@@ -30,42 +30,12 @@ module.exports = {
                message: err
             });
          } else {
+            console.log(decoded);
             res.status(200).json({
                success: true,
-               payload: {
-                  user: decoded.user,
-                  cart: decoded.cart
-               }
+               user: decoded.user || null
             });
          }
       });
-   },
-   manageCart: (req, res, next) => {
-      const cart = req.body.cart;
-      const token = req.body.token;
-
-      if (!token) {
-
-         req.body.payload = { cart: cart }
-
-         next()
-
-      } else {
-
-         jwt.verify(token, KEY, (err, decoded) => {
-            if (err) {
-               console.error(err);
-               return res.status(200).json({ success: false, message: err, token: token, cart: cart });
-            }
-
-            req.body.payload = {
-               cart: cart,
-               user: decoded.user
-            }
-
-            next();
-         });
-
-      }
    }
 }

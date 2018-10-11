@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Slide from './Slide';
 import './css/Carousel.css';
-import { CAROUSEL_IMAGES } from '../../utilities/constants';
+import { CAROUSEL_IMAGES } from '../../constants';
 
 class Carousel extends Component {
 

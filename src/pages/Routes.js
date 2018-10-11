@@ -1,7 +1,7 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 import Loading from '../components/common/Loading';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 const HomePage = Loadable({
    loader: () => import('./HomePage'),
@@ -33,8 +33,8 @@ const RegisterFormPage = Loadable({
    loading: Loading
 });
 
-const ManageAccountPage = Loadable({
-   loader: () => import('./ManageAccountPage'),
+const AccountSettingsPage = Loadable({
+   loader: () => import('./AccountSettingsPage'),
    loading: Loading
 });
 
@@ -42,6 +42,11 @@ const PageNotFound = Loadable({
    loader: () => import('./PageNotFound'),
    loading: Loading
 });
+
+const OrderHistoryPage = Loadable({
+   loader: () => import('./OrderHistoryPage'),
+   loading: Loading
+})
 
 const Routes = ({ ...props }) => (
    <Switch>
@@ -51,7 +56,17 @@ const Routes = ({ ...props }) => (
       <Route path='/checkout' component={ CheckoutPage } />
       <Route path='/login' component={ LoginFormPage } />
       <Route path='/register' component={ RegisterFormPage } />
-      <Route path='/settings/account' component={ ManageAccountPage } />
+      <Route path='/account/settings' render={ () => {
+         if (!props.user) return <Redirect to='/login' />
+         else return <AccountSettingsPage />
+      }
+      } />
+      <Route path='/account/orderHistory' render={ () => {
+         if (!props.user) return <Redirect to='/login' />
+         else return <OrderHistoryPage />
+         // return <OrderHistoryPage />
+      }
+      } />
       <Route path='*' component={ PageNotFound } />
    </Switch>
 );

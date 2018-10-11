@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const Users = require('../models').users;
+const Users = require('../db').users;
 
 const SALT_ROUNDS = 10;
 
@@ -223,17 +223,5 @@ module.exports = {
             console.log('ERROR:', err);
             res.status(500).json({ success: false, message: err });
          });
-   },
-
-   userLogout: (req, res, next) => {
-
-      const cart = req.body.cart;
-
-      console.log(req.body)
-
-      req.body.payload = { cart: cart };
-
-      next();
-
    }
 }

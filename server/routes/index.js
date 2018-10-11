@@ -12,13 +12,6 @@ const reviewsController = require('../controllers/reviews');
 router.route('/jwt/verify')
    .post(jwtController.verifyToken);
 
-router.route('/jwt/cart')
-   .post(
-      jwtController.manageCart,
-      jwtController.signToken
-   );
-
-
 
 // SHOE ROUTES
 router.route('/shoes')
@@ -40,12 +33,6 @@ router.route('/users/register')
 router.route('/users/login')
    .post(
       usersController.userLogin,
-      jwtController.signToken
-   );
-
-router.route('/users/logout')
-   .post(
-      usersController.userLogout,
       jwtController.signToken
    );
 
@@ -75,6 +62,11 @@ router.route('/orders')
       ordersController.submitNewOrder,
       ordersController.submitNewOrderDetails
    );
+
+router.route('/orders/:userId')
+   .get(
+      ordersController.getOrderHistory
+   )
 
 
 

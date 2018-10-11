@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import LinkComponent from '../common/LinkComponent';
 
-const ItemOrdered = ({ ...props }) => (
+const Item = ({ ...props }) => (
    <article className='media d-flex align-items-center justify-content-between text-center mb-2' >
       <img
          className='img-fluid p-0'
@@ -10,10 +11,10 @@ const ItemOrdered = ({ ...props }) => (
          alt={ `${ props.shoe.brand } ${ props.shoe.colorway }` }
       />
       <div className='media-body text-center p-0'>
-         <a className='h5' href={ `/shop/${ props.shoe.shoeId }` }>
+         <LinkComponent className='h5' to={ `/shop/${ props.shoe.shoeId }` }>
             <p className='mb-0'>{ props.shoe.brand }</p>
             <p className='mb-0'>{ props.shoe.colorway }</p>
-         </a>
+         </LinkComponent>
       </div>
       <div className='p-0'>
          <p className='font-weight-bold mb-0'>${ props.shoe.price }</p>
@@ -21,8 +22,8 @@ const ItemOrdered = ({ ...props }) => (
    </article>
 );
 
-ItemOrdered.propTypes = {
+Item.propTypes = {
    shoe: PropTypes.object.isRequired
 };
 
-export default ItemOrdered;
+export default Item;

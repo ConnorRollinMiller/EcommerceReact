@@ -23,10 +23,6 @@ module.exports = (sequelize, DataTypes) => {
       quantity: {
          type: DataTypes.INTEGER,
          allowNull: false
-      },
-      pricePerShoe: {
-         type: DataTypes.DECIMAL(8, 2),
-         allowNull: false
       }
    }, {
          tableName: 'OrderDetails',

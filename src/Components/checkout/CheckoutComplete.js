@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ItemOrdered from './ItemOrdered';
+import Item from './Item';
 
 const CheckoutComplete = ({ ...props }) => (
    <div className='jumbotron col-12 py-4'>
@@ -34,7 +34,7 @@ const CheckoutComplete = ({ ...props }) => (
             <h4>Your Order:</h4>
             <div>
                {
-                  props.itemsOrdered.map(item => <ItemOrdered key={ item.shoeId } shoe={ item } />)
+                  props.itemsOrdered.map(item => <Item key={ item.shoeId } shoe={ item } />)
                }
             </div>
          </section>

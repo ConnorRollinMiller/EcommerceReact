@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CartTotal from './CartTotal';
 import CartItem from './CartItem';
-import LinkComponent from '../common/LinkComponent';
 
 const CartList = ({ ...props }) => (
    <div className='text-center'>

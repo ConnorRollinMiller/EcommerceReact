@@ -6,6 +6,8 @@ import DownArrow from '../icon/DownArrow';
 import LinkComponent from '../common/LinkComponent';
 import './css/Dropdown.css';
 
+const userMenuItems = [ { text: 'Settings', path: '/account/settings' }, { text: 'Order History', path: '/account/orderHistory' } ];
+
 class Dropdown extends Component {
 
    state = {
@@ -13,10 +15,13 @@ class Dropdown extends Component {
    };
 
    shouldComponentUpdate(nextProps) {
+
       if (nextProps.user !== this.props.user) return true;
       if (nextProps.pathname !== this.props.pathname) return true;
       if (nextProps.isOpen !== this.state.isOpen) return true;
+
       return false;
+
    }
 
    componentDidUpdate(prevProps) {
@@ -45,39 +50,24 @@ class Dropdown extends Component {
                </span>
             </div>
             <ul className={ this.state.isOpen ? 'dropdown-menu text-center show' : 'dropdown-menu text-center' }>
+
                {
-                  this.props.user ? (
-                     <React.Fragment>
-                        {
-                           this.props.userMenuItems.map(item =>
-                              <LinkComponent
-                                 className='dropdown-item nav-link font-weight-bold text-capitalize py-2'
-                                 key={ item.path }
-                                 to={ `${ item.path }` }>
-                                 { item.text }
-                              </LinkComponent>
-                           )
-                        }
-                        <div className='dropdown-divider' />
-                        <PrimaryButton
-                           className='dropdown-item col-10 text-center my-3 mx-auto'
-                           onClick={ this.props.accountLogout }>
-                           Sign Out
-                        </PrimaryButton>
-                     </React.Fragment>
-                  ) : (
-                        <React.Fragment>
-                           { this.props.noUserMenuItems.map(item =>
-                              <LinkComponent
-                                 className='dropdown-item nav-link font-weight-bold text-capitalize py-2'
-                                 key={ item.path }
-                                 to={ `${ item.path }` }>
-                                 { item.text }
-                              </LinkComponent>
-                           ) }
-                        </React.Fragment>
-                     )
+                  userMenuItems.map(item =>
+                     <LinkComponent
+                        className='dropdown-item nav-link font-weight-bold text-capitalize py-2'
+                        key={ item.path }
+                        to={ `${ item.path }` }>
+                        { item.text }
+                     </LinkComponent>
+                  )
                }
+               <div className='dropdown-divider' />
+               <PrimaryButton
+                  className='dropdown-item col-10 text-center my-3 mx-auto'
+                  onClick={ this.props.accountLogout }>
+                  Sign Out
+               </PrimaryButton>
+
             </ul>
          </div>
       );
@@ -85,9 +75,9 @@ class Dropdown extends Component {
 }
 
 Dropdown.propTypes = {
-   menuItems: PropTypes.array,
    navItemName: PropTypes.string.isRequired,
-   accountLogout: PropTypes.func.isRequired
+   accountLogout: PropTypes.func.isRequired,
+   user: PropTypes.object.isRequired
 };
 
 export default Dropdown;

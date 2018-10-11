@@ -28,10 +28,6 @@ module.exports = {
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE'
          },
-         username: {
-            type: Sequelize.STRING,
-            allowNull: false
-         },
          reviewText: {
             type: Sequelize.STRING,
             allowNull: false

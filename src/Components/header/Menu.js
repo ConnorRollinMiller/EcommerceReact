@@ -7,8 +7,7 @@ import Dropdown from './Dropdown';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import './css/Menu.css';
 
-const noUserMenuItems = [ { text: 'Login', path: '/login' }, { text: 'Register', path: '/register' } ];
-const userMenuItems = [ { text: 'Settings', path: '/settings/account' }, { text: 'Order History', path: '' } ];
+// const noUserMenuItems = [ { text: 'Login', path: '/login' }, { text: 'Register', path: '/register' } ];
 
 class Menu extends Component {
 
@@ -23,6 +22,7 @@ class Menu extends Component {
       if (nextState.isOpen !== this.state.isOpen) return true;
 
       return false;
+
    }
 
    componentDidUpdate(prevProps) {
@@ -50,21 +50,31 @@ class Menu extends Component {
             </button>
 
             <nav className={ this.state.isOpen ? 'collapse navbar-collapse show' : 'collapse navbar-collapse' }>
-               <NavItem activeClassName='' to='/shop'>
+               <NavItem to='/shop'>
                   Shop
                </NavItem>
-               <NavItem activeClassName='' to='/checkout'>
+               <NavItem to='/checkout'>
                   Checkout
                </NavItem>
-               <Dropdown
-                  navItemName='Account'
-                  noUserMenuItems={ noUserMenuItems }
-                  userMenuItems={ userMenuItems }
-                  user={ this.props.user }
-                  accountLogout={ this.props.accountLogout }
-                  pathname={ this.props.pathname }
-               />
-
+               {
+                  this.props.user ? (
+                     <Dropdown
+                        navItemName='Account'
+                        user={ this.props.user }
+                        accountLogout={ this.props.accountLogout }
+                        pathname={ this.props.pathname }
+                     />
+                  ) : (
+                        <React.Fragment>
+                           <NavItem to='/login'>
+                              Login
+                           </NavItem>
+                           <NavItem to='/register'>
+                              Register
+                           </NavItem>
+                        </React.Fragment>
+                     )
+               }
                <div className='navbar-nav ml-auto'>
                   <div className='nav-seperator mr-2' />
                   <ShoppingCart pathname={ this.props.pathname } />

@@ -30,7 +30,7 @@ class PageTitle extends Component {
 				{
 					this.props.displayBreadcrumbs && (
 						<h3 className='h4 mt-2 breadcrumbs'>
-							<LinkComponent className='' to='/'>
+							<LinkComponent to='/'>
 								Home
                   	</LinkComponent>
 							{
@@ -40,7 +40,9 @@ class PageTitle extends Component {
 										return (
 											<span key={ p }>
 												{ ' ' }
-												/ <LinkComponent to={ `/${ p }` }>{ p }</LinkComponent>
+												/ <LinkComponent to={ `/${ p }` }>
+                                       { p }
+                                    </LinkComponent>
 											</span>
 										);
 									}

@@ -5,14 +5,16 @@ import cartReducer from './cartReducer';
 import accountReducer from './accountReducer';
 import checkoutReducer from './checkoutReducer';
 import reviewReducer from './reviewReducer';
-import notificationReducer from './notificationReducer'
+import notificationReducer from './notificationReducer';
+import orderReducer from './orderReducer';
 
 export default combineReducers({
-	shoeReducer,
-	cartReducer,
-	accountReducer,
-	checkoutReducer,
-	reviewReducer,
-	notificationReducer,
-	routerReducer
+   shoeReducer,
+   cartReducer,
+   accountReducer,
+   checkoutReducer,
+   reviewReducer,
+   notificationReducer,
+   orderReducer,
+   routerReducer
 });

@@ -25,7 +25,9 @@ class App extends Component {
    componentDidUpdate(prevProps) {
       if (prevProps.pathname !== this.props.pathname) {
          window.scrollTo(0, 0);
-         this.props.closeQuickview();
+         if (this.props.isQuickviewOpen) {
+            this.props.closeQuickview();
+         }
       }
       if (prevProps.pathname === '/checkout' && this.props.pathname !== '/checkout') {
          this.props.clearCheckoutReducer();
@@ -45,9 +47,9 @@ class App extends Component {
 
    render() {
       return (
-         <div id='page'>
+         <div id="page">
             <Header />
-            <Routes />
+            <Routes user={ this.props.user } />
             <Footer />
             <NotificationList />
             {
@@ -73,9 +75,10 @@ const mapStateToProps = (state, ownProps) => ({
    cart: state.cartReducer.cart,
    isQuickviewOpen: state.shoeReducer.quickviewOpen,
    quickviewShoe: state.shoeReducer.quickviewShoe,
+   user: state.accountReducer.user
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
    appStart: () => {
       dispatch(fetchShoes());
       dispatch(verifyToken());
@@ -86,7 +89,7 @@ const mapDispatchToProps = dispatch => ({
       dispatch(addToCart(shoe, cart));
       dispatch(addNotification(NotificationCodes.ADD_TO_CART));
    },
-   changeShoeSize: size => dispatch(setShoeSize(size)),
+   changeShoeSize: (size) => dispatch(setShoeSize(size)),
    closeQuickview: () => dispatch(closeQuickview())
 });
 

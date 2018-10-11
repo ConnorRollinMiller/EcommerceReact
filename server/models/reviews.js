@@ -18,10 +18,6 @@ module.exports = (sequelize, DataTypes) => {
             key: 'userId'
          }
       },
-      username: {
-         type: DataTypes.STRING,
-         allowNull: false
-      },
       reviewText: {
          type: DataTypes.STRING,
          allowNull: false

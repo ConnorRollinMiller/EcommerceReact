@@ -1,10 +1,10 @@
 import { ReviewActions } from '../actions';
 import axios from 'axios';
-import NewReviewDTO from '../../utilities/NewReviewDTO';
+import NewReviewDTO from '../../modelsDTO/NewReviewDTO';
 
 const API_ROUTE = '/api/reviews';
 
-export const fetchReviewsByShoeId = shoeId => {
+export const fetchReviewsByShoeId = (shoeId) => {
    return dispatch => {
       axios
          .get(`${ API_ROUTE }/${ shoeId }`)
@@ -14,7 +14,6 @@ export const fetchReviewsByShoeId = shoeId => {
                dispatch(fetchReviewsByShoeIdSuccess(res.data.reviews));
             } else {
                dispatch(resetReviews());
-               // dispatch(fetchReviewsByShoeIdFailure('There were n'));
             }
          })
          .catch(err => {
@@ -26,12 +25,12 @@ export const fetchReviewsByShoeId = shoeId => {
    };
 };
 
-const fetchReviewsByShoeIdSuccess = reviews => ({
+const fetchReviewsByShoeIdSuccess = (reviews) => ({
    type: ReviewActions.GET_REVIEWS_BY_SHOEID_SUCCESS,
    reviews
 });
 
-const fetchReviewsByShoeIdFailure = errorMessage => ({
+const fetchReviewsByShoeIdFailure = (errorMessage) => ({
    type: ReviewActions.GET_REVIEWS_BY_SHOEID_FAILURE,
    errorMessage
 });
@@ -40,12 +39,12 @@ export const resetReviews = () => ({
    type: ReviewActions.RESET_REVIEWS
 });
 
-export const changeReviewRating = rating => ({
+export const changeReviewRating = (rating) => ({
    type: ReviewActions.CHANGE_REVIEW_RATING,
    rating
 });
 
-export const changeReviewText = value => ({
+export const changeReviewText = (value) => ({
    type: ReviewActions.CHANGE_REVIEW_TEXT,
    value
 });
@@ -59,10 +58,10 @@ export const postNewReview = (shoeId, userId, username, rating, reviewText) => {
 
       const newReview = NewReviewDTO(shoeId, userId, username, reviewText, rating);
 
-      axios
-         .post(`${ API_ROUTE }`, newReview)
+      console.log(newReview);
+
+      axios.post(`${ API_ROUTE }`, newReview)
          .then(res => {
-            console.log(res.data);
             dispatch(postNewReviewSuccess(res.data.newReview));
          })
          .catch(err => {
@@ -73,12 +72,12 @@ export const postNewReview = (shoeId, userId, username, rating, reviewText) => {
    };
 };
 
-const postNewReviewSuccess = newReview => ({
+const postNewReviewSuccess = (newReview) => ({
    type: ReviewActions.POST_NEW_REVIEW_SUCCESS,
    newReview
 });
 
-const postNewReviewFailure = errorMessage => ({
+const postNewReviewFailure = (errorMessage) => ({
    type: ReviewActions.POST_NEW_REVIEW_FAILURE,
    errorMessage
 });

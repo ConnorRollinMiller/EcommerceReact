@@ -5,7 +5,7 @@ import Select from '../form/form-components/Select';
 import PrimaryButton from '../button/PrimaryButton';
 import SocialMediaShareProduct from './SocialMediaShareProduct';
 import './css/ProductDetails.css';
-import { SHOE_SIZES } from '../../utilities/constants';
+import { SHOE_SIZES } from '../../constants';
 
 class ProductDetails extends Component {
 

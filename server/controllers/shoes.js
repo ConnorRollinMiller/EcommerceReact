@@ -1,4 +1,4 @@
-const Shoe = require('../models').shoes;
+const Shoe = require('../db').shoes;
 
 module.exports = {
    getAllShoes: (req, res, next) => {

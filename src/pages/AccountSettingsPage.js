@@ -5,7 +5,6 @@ import UpdateEmailForm from '../components/form/UpdateEmailForm';
 import UpdatePasswordForm from '../components/form/UpdatePasswordForm';
 import './css/ManageAccountPage.css';
 
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
    submitNewAccountUsername,
@@ -13,9 +12,10 @@ import {
    submitNewAccountPassword
 } from '../redux/actions/accountActions';
 
-class ManageAccountPage extends Component {
+class AccountSettingsPage extends Component {
 
    shouldComponentUpdate(nextProps) {
+
       if (nextProps.user !== this.props.user) return true;
       if (nextProps.user.userId !== this.props.user.userId) return true;
       if (nextProps.user.username !== this.props.user.username) return true;
@@ -34,11 +34,13 @@ class ManageAccountPage extends Component {
       if (nextProps.isPasswordChangeComplete !== this.props.isPasswordChangeComplete) return true;
 
       return false;
+
    }
 
    render() {
-
-      if (!this.props.user) return <Redirect to='/' />
+      // if (!this.props.user) {
+      //    return <Redirect to='/login' />
+      // }
 
       return (
          <main className='main-section'>
@@ -81,7 +83,7 @@ class ManageAccountPage extends Component {
    }
 }
 
-ManageAccountPage.propTypes = {
+AccountSettingsPage.propTypes = {
    user: PropTypes.object,
    isUsernameChangeComplete: PropTypes.bool.isRequired,
    accountUserNameError: PropTypes.bool.isRequired,
@@ -127,4 +129,4 @@ const mapDispatchToProps = (dispatch) => ({
    }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageAccountPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountSettingsPage);

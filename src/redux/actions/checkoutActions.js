@@ -1,7 +1,7 @@
 import { CheckoutActions } from '../actions/index';
 import axios from 'axios';
-import NewOrderDTO from '../../utilities/NewOrderDTO';
-import NewOrderDetailsDTO from '../../utilities/NewOrderDetailsDTO';
+import NewOrderDTO from '../../modelsDTO/NewOrderDTO';
+import NewOrderDetailsDTO from '../../modelsDTO/NewOrderDetailsDTO';
 
 const API_ORDER_URL = '/api/orders/';
 
@@ -14,13 +14,11 @@ export const inputChange = (name, value) => ({
 export const submitOrder = (firstName, lastName, country, state, city, address, zipCode, phone, email, total, cartItems, userId = null) => {
    return dispatch => {
 
-      console.log(cartItems);
-
       const newOrder = NewOrderDTO(firstName, lastName, country, state, address, city, zipCode, phone, email, total, userId);
 
       const newOrderDetails = cartItems.map(item => NewOrderDetailsDTO(item.shoeId, 1, item.price));
 
-      axios.post(`${ API_ORDER_URL }`, { newOrder: newOrder, newOrderDetails: newOrderDetails })
+      axios.post(`${ API_ORDER_URL }`, { newOrder: newOrder, newOrderDetails: newOrderDetails, itemsOrdered: cartItems })
          .then(res => {
             console.log(res);
             if (res.data.success) {

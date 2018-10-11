@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import App from './pages/App';
-
+import 'dotenv';
 import { Provider } from 'react-redux';
 import configureStore from './redux/store/configureStore';
 import createHistory from 'history/createBrowserHistory';

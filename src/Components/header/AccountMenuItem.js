@@ -5,14 +5,13 @@ import PrimaryButton from '../button/PrimaryButton';
 import './css/AccountMenuItem.css';
 
 import { connect } from 'react-redux';
-import { deleteToken } from '../../utilities/localStorage';
 import { accountLogout } from '../../redux/actions/accountActions';
 
 const AccountMenuItem = ({ ...props }) => (
    <div className='nav-link' id='account-nav-menu'>
       My Account <DownArrow className='ml-1' size='lg' />
       <span className='account-nav-menu-hover-container p-4 rounded bg-white'>
-         <PrimaryButton onClick={() => props.accountLogout()}>
+         <PrimaryButton onClick={ () => props.accountLogout() }>
             Log Out
          </PrimaryButton>
       </span>
@@ -24,13 +23,7 @@ AccountMenuItem.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-   accountLogout: () => {
-      deleteToken();
-      dispatch(accountLogout());
-   }
+   accountLogout: () => dispatch(accountLogout())
 });
 
-export default connect(
-   null,
-   mapDispatchToProps
-)(AccountMenuItem);
+export default connect(null, mapDispatchToProps)(AccountMenuItem);

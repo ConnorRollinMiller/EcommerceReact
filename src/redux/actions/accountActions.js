@@ -1,12 +1,13 @@
 import { AccountActions } from './index';
 import axios from 'axios';
 
-import { setToken } from '../../utilities/localStorage';
-import RegisterNewUserDTO from '../../utilities/RegisterNewUserDTO';
-import LoginUserDTO from '../../utilities/LoginUserDTO';
-import NewAccountUsernameDTO from '../../utilities/NewAccountUsernameDTO';
-import NewAccountEmailDTO from '../../utilities/NewAccountEmailDTO';
-import NewAccountPasswordDTO from '../../utilities/NewAccountPasswordDTO';
+import { TOKEN_NAMES } from '../../constants';
+import { setToken, deleteToken } from '../../utilities/localStorage';
+import RegisterNewUserDTO from '../../modelsDTO/RegisterNewUserDTO';
+import LoginUserDTO from '../../modelsDTO/LoginUserDTO';
+import NewAccountUsernameDTO from '../../modelsDTO/NewAccountUsernameDTO';
+import NewAccountEmailDTO from '../../modelsDTO/NewAccountEmailDTO';
+import NewAccountPasswordDTO from '../../modelsDTO/NewAccountPasswordDTO';
 
 const API_USER_URL = '/api/users';
 
@@ -29,9 +30,10 @@ export const submitAccountRegister = (email, username, password, confirmPassword
 
       axios.post(`${ API_USER_URL }/register`, newUser)
          .then(res => {
+            console.log(res.data)
             if (res.data.success === true) {
                dispatch(submitAccountRegisterSuccess(res.data.payload));
-               setToken(res.data.token);
+               setToken(TOKEN_NAMES.USER, res.data.token);
             } else {
                dispatch(submitAccountRegisterFailure(res.data.message));
             }
@@ -69,7 +71,7 @@ export const submitAccountLogin = (username, password) => {
          .then(res => {
             if (res.data.success === true) {
                dispatch(submitAccountLoginSuccess(res.data.payload.user));
-               setToken(res.data.token);
+               setToken(TOKEN_NAMES.USER, res.data.token);
             } else {
                dispatch(submitAccountLoginFailure(res.data.message));
             }
@@ -96,17 +98,10 @@ export const resetAccountReducer = () => ({
    type: AccountActions.RESET_ACCOUNT_REDUCER
 });
 
-export const accountLogout = (cart) => {
+export const accountLogout = () => {
    return (dispatch) => {
-      axios.post(`${ API_USER_URL }/logout`, { cart: cart })
-         .then(res => {
-            console.log(res.data);
-            setToken(res.data.token);
-            dispatch(accountLogoutSuccess());
-         })
-         .catch(err => {
-            console.error(err.response);
-         });
+      deleteToken(TOKEN_NAMES.USER);
+      dispatch(accountLogoutSuccess());
    }
 };
 
@@ -133,7 +128,7 @@ export const submitNewAccountUsername = (userId, currentUsername, newUsername) =
             console.log(res);
             if (res.data.success === true) {
                dispatch(submitNewAccountUserNameSuccess(res.data.payload.user));
-               setToken(res.data.token);
+               setToken(TOKEN_NAMES.USER, res.data.token);
             } else {
                dispatch(submitNewAccountUserNameFailure(res.data.message));
             }
@@ -174,7 +169,7 @@ export const submitNewAccountEmail = (userId, currentEmail, newEmail) => {
          .then(res => {
             if (res.data.success === true) {
                dispatch(submitNewAccountEmailSuccess(res.data.payload.user));
-               setToken(res.data.token);
+               setToken(TOKEN_NAMES.USER, res.data.token);
             } else {
                dispatch(submitNewAccountEmailFailure(res.data.message));
             }
@@ -221,7 +216,7 @@ export const submitNewAccountPassword = (userId, currentPassword, newPassword, c
          .then(res => {
             if (res.data.success === true) {
                dispatch(submitNewAccountPasswordSuccess(res.data.payload.user));
-               setToken(res.data.token);
+               setToken(TOKEN_NAMES.USER, res.data.token);
             } else {
                dispatch(submitNewAccountPasswordFailure(res.data.message));
             }

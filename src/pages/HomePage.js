@@ -5,7 +5,6 @@ import FilterProductList from '../components/product-card/FilterProductList';
 import AdditionalInfoContainer from '../components/additional-info-card/AdditionalInfoContainer';
 import BrandList from '../components/brand-card/BrandList';
 import Newsletter from '../components/form/NewsletterForm';
-import Quickview from '../components/quickview/Quickview';
 
 import { setShoeFilter } from '../redux/actions/shoesAction';
 import { Filters } from '../redux/actions';
@@ -21,7 +20,7 @@ class HomePage extends Component {
 
    shouldComponentUpdate(nextProps) {
 
-      if (nextProps.isQuickviewOpen !== this.props.isQuickviewOpen) return true;
+      if (nextProps.filter !== this.props.filter) return true;
       if (nextProps.shoes !== this.props.shoes) return true;
 
       return false;
@@ -39,10 +38,6 @@ class HomePage extends Component {
             />
             <Newsletter />
             <AdditionalInfoContainer />
-
-            {
-               // this.props.quickviewOpen && <Quickview /> 
-            }
          </main>
       );
    }
@@ -50,18 +45,16 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
    shoes: PropTypes.array.isRequired,
-   isQuickviewOpen: PropTypes.bool.isRequired,
-   notifications: PropTypes.array.isRequired
+   filter: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
    shoes: state.shoeReducer.shoes,
-   isQuickviewOpen: state.shoeReducer.quickviewOpen,
-   notifications: state.notificationReducer.notifications
+   filter: state.shoeReducer.filter
 });
 
 const mapDispatchToProps = dispatch => ({
-   changeFilter: filter => dispatch(setShoeFilter(filter))
+   changeFilter: (filter) => dispatch(setShoeFilter(filter))
 });
 
 export default connect(

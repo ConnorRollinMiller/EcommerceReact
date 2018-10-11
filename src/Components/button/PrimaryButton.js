@@ -9,10 +9,12 @@ const PrimaryButton = ({
    onClick,
    children }) => (
       <button
-         className={ `btn btn-primary
-				${largeButton && 'btn-lg' }
-				${fullWidth && 'btn-block' }
-				${className }` }
+         className={
+            `btn btn-primary
+				${largeButton ? 'btn-lg' : '' }
+				${fullWidth ? 'btn-block' : '' }
+				${className }`
+         }
          onClick={ onClick }
          disabled={ disabled }>
          { children }
