@@ -5,7 +5,7 @@ import { Filters } from '../../redux/actions';
 import { addToCart } from '../../redux/actions/cartActions';
 import { showQuickview } from '../../redux/actions/shoesAction';
 import { addNotification } from '../../redux/actions/notificationActions';
-import { NotificationCodes } from '../../redux/actions';
+import { NotificationCodes } from '../../constants';
 
 const getQualifiedShoes = (shoes = [], filter) => {
    switch (filter) {
@@ -29,6 +29,7 @@ const mapStateToProps = (state, ownProps) => ({
    filter: state.shoeReducer.filter,
    shoes: getQualifiedShoes(state.shoeReducer.shoes, state.shoeReducer.filter),
    error: state.shoeReducer.error,
+   errorMessage: state.shoeReducer.errorMessage,
    cart: state.cartReducer.cart
 });
 

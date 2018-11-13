@@ -63,6 +63,12 @@ module.exports = {
             type: Sequelize.DECIMAL(8, 2),
             allowNull: false
          },
+         status: {
+            type: Sequelize.ENUM,
+            values: [ 'Pending', 'Cancelled', 'Returned', 'Complete' ],
+            defaultValue: 'Pending',
+            allowNull: false
+         },
          createdAt: {
             type: Sequelize.DATE,
             allowNull: false,

@@ -23,20 +23,24 @@ class ProductList extends Component {
             }
             <div className='row justify-content-center align-items-end px-0 py-4 mx-auto'>
                {
-                  this.props.error || this.props.shoes.length === 0 ? (
-                     <h1 className='text-center text-capitalize alert alert-danger'>
-                        There Was An Error!
-                     </h1>
+                  this.props.error ? (
+                     <h2 className='text-center text-capitalize alert alert-danger'>
+                        There Was An Error - { this.props.errorMessage }
+                     </h2>
+                  ) : this.props.shoes.length === 0 ? (
+                     <h2 className='text-center text-capitalize alert alert-danger'>
+                        There Are No Shoes...
+                     </h2>
                   ) : (
-                        this.props.shoes.map(shoe =>
-                           <ProductListItem
-                              key={ shoe.shoeId }
-                              shoe={ shoe }
-                              addToCart={ () => this.props.addToCart(shoe, this.props.cart) }
-                              showQuickview={ this.props.showQuickview }
-                           />
+                           this.props.shoes.map(shoe =>
+                              <ProductListItem
+                                 key={ shoe.shoeId }
+                                 shoe={ shoe }
+                                 addToCart={ () => this.props.addToCart(shoe, this.props.cart) }
+                                 showQuickview={ this.props.showQuickview }
+                              />
+                           )
                         )
-                     )
                }
             </div>
          </section>
@@ -47,10 +51,11 @@ class ProductList extends Component {
 ProductList.propTypes = {
    sectionTitle: PropTypes.string,
    shoes: PropTypes.array,
+   errorMessage: PropTypes.object,
+   error: PropTypes.bool.isRequired,
    cart: PropTypes.array.isRequired,
    addToCart: PropTypes.func.isRequired,
-   showQuickview: PropTypes.func.isRequired,
-   error: PropTypes.bool.isRequired
+   showQuickview: PropTypes.func.isRequired
 };
 
 export default ProductList;

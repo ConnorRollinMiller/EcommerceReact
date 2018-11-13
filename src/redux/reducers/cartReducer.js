@@ -1,4 +1,4 @@
-import { CartActions, JwtActions } from '../actions';
+import { CartActions } from '../actions';
 
 const initialState = {
    cart: [],
@@ -8,18 +8,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
    switch (action.type) {
-      case JwtActions.VERIFY_TOKEN_SUCCESS_CART:
-         return {
-            ...state,
-            cart: action.cart,
-            total: action.total
-         };
-      case JwtActions.VERIFY_TOKEN_FAILURE_CART:
-         return {
-            ...state,
-            cart: [],
-            total: 0.00
-         };
       case CartActions.ADD_TO_CART:
          return {
             ...state,
@@ -51,6 +39,12 @@ export default (state = initialState, action) => {
             total: 0.0,
             errorMessage: null
          };
+      case CartActions.LOAD_CART_FROM_LOCAL_STORAGE:
+         return {
+            ...state,
+            cart: action.cart,
+            total: action.total
+         }
       default:
          return state;
    }

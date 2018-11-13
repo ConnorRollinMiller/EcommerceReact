@@ -29,7 +29,7 @@ class RegisterFormPage extends Component {
       if (this.props.user) return <Redirect to='/' />;
 
       return (
-         <main>
+         <React.Fragment>
             <PageTitle displayBreadcrumbs={ true } />
             <div className='main-section container d-flex align-items-center justify-content-center py-4'>
                <Form
@@ -104,7 +104,7 @@ class RegisterFormPage extends Component {
                   </p>
                </Form>
             </div>
-         </main >
+         </React.Fragment>
       );
    }
 }

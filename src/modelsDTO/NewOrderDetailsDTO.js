@@ -1,5 +1,4 @@
-export default (shoeId, quantity, price) => ({
+export default (shoeId, quantity) => ({
    shoeId: shoeId,
-   quantity: quantity,
-   pricePerShoe: price
+   quantity: quantity
 });

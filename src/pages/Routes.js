@@ -1,7 +1,11 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 import Loading from '../components/common/Loading';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+
+import withUser from '../HOC/withUser';
+
 
 const HomePage = Loadable({
    loader: () => import('./HomePage'),
@@ -49,26 +53,28 @@ const OrderHistoryPage = Loadable({
 })
 
 const Routes = ({ ...props }) => (
-   <Switch>
-      <Route exact path='/' component={ HomePage } />
-      <Route exact path='/shop' component={ ShopPage } />
-      <Route path='/shop/:shoeId' component={ ProductPage } />
-      <Route path='/checkout' component={ CheckoutPage } />
-      <Route path='/login' component={ LoginFormPage } />
-      <Route path='/register' component={ RegisterFormPage } />
-      <Route path='/account/settings' render={ () => {
-         if (!props.user) return <Redirect to='/login' />
-         else return <AccountSettingsPage />
-      }
-      } />
-      <Route path='/account/orderHistory' render={ () => {
-         if (!props.user) return <Redirect to='/login' />
-         else return <OrderHistoryPage />
-         // return <OrderHistoryPage />
-      }
-      } />
-      <Route path='*' component={ PageNotFound } />
-   </Switch>
+   <TransitionGroup className='transition-group'>
+      <CSSTransition
+         key={ props.location.pathname }
+         classNames='pageSlider'
+         timeout={ { enter: 600, exit: 0 } }
+         mountOnEnter={ true }
+         unmountOnExit={ true }>
+         <main className='main-section d-flex flex-column justify-content-center align-items-stretch'>
+            <Switch location={ props.location }>
+               <Route exact path='/' component={ HomePage } />
+               <Route exact path='/shop' component={ ShopPage } />
+               <Route path='/shop/:shoeId' component={ ProductPage } />
+               <Route path='/checkout' component={ CheckoutPage } />
+               <Route path='/login' component={ LoginFormPage } />
+               <Route path='/register' component={ RegisterFormPage } />
+               <Route path='/account/settings' component={ withUser(AccountSettingsPage) } />
+               <Route path='/account/orderHistory' component={ withUser(OrderHistoryPage) } />
+               <Route path='*' component={ PageNotFound } />
+            </Switch>
+         </main>
+      </CSSTransition>
+   </TransitionGroup>
 );
 
 export default Routes;

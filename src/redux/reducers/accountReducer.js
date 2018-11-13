@@ -1,4 +1,4 @@
-import { AccountActions, JwtActions } from '../actions';
+import { AccountActions } from '../actions';
 
 const initialState = {
    user: null,
@@ -17,18 +17,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
    switch (action.type) {
-      case JwtActions.VERIFY_TOKEN_SUCCESS_USER:
-         return {
-            ...state,
-            user: action.user,
-            error: false,
-            errorMessage: null
-         };
-      case JwtActions.VERIFY_TOKEN_FAILURE_USER:
-         return {
-            ...state,
-            user: null
-         };
       case AccountActions.SUBMIT_REGISTER_SUCCESS:
          return {
             ...state,
@@ -119,6 +107,11 @@ export default (state = initialState, action) => {
             isPasswordChangeComplete: false,
             accountPasswordError: true,
             accountPasswordErrorMessage: action.errorMessage
+         }
+      case AccountActions.VERIFY_USER_JWT_SUCCESS:
+         return {
+            ...state,
+            user: action.user
          }
       default:
          return state;

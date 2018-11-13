@@ -40,6 +40,7 @@ a {
    flex-direction: column;
    justify-content: space-between;
    overflow: hidden;
+   position: relative;
 }
 
 .section-title {
@@ -99,11 +100,27 @@ hr {
    background: var(--secondary-color);
 }
 
-.main-section {
-   position: relative;
-   min-height: 60vh;
-}
-
 .secondary-color {
    color: var(--secondary-color) !important;
+}
+
+.transition-group {
+   position: relative;
+}
+
+.pageSlider-enter {
+  transform: translate3d(100%, 0, 0);
+}
+
+.pageSlider-enter.pageSlider-enter-active {
+  transform: translate3d(0, 0, 0);
+  transition: all 600ms;
+}
+.pageSlider-exit {
+   transform: translate3d(0, 0, 0);
+}
+
+.pageSlider-exit.pageSlider-exit-active {
+  transform: translate3d(-100%, 0, 0);
+  transition: all 0ms;
 }

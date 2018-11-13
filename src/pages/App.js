@@ -7,14 +7,16 @@ import NotificationList from '../components/notification/NotificationList';
 import Quickview from '../components/quickview/Quickview';
 
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
 import { fetchShoes } from '../redux/actions/shoesAction';
-import { verifyToken } from '../redux/actions/jwtActions';
+import { loadCartFromLocalStorage } from '../redux/actions/cartActions';
 import { clearCheckoutReducer } from '../redux/actions/checkoutActions';
-import { resetAccountReducer } from '../redux/actions/accountActions';
+import { verifyUserJWT, resetAccountReducer } from '../redux/actions/accountActions';
 import { closeQuickview, setShoeSize } from '../redux/actions/shoesAction';
 import { addToCart } from '../redux/actions/cartActions';
 import { addNotification } from '../redux/actions/notificationActions';
-import { NotificationCodes } from '../redux/actions';
+import { NotificationCodes } from '../constants';
 
 class App extends Component {
 
@@ -41,15 +43,13 @@ class App extends Component {
       if (prevProps.pathname === '/account' && this.props.pathname !== '/account') {
          this.props.resetAccountReducer();
       }
-
-
    }
 
    render() {
       return (
          <div id="page">
             <Header />
-            <Routes user={ this.props.user } />
+            <Routes user={ this.props.user } location={ this.props.location } />
             <Footer />
             <NotificationList />
             {
@@ -66,12 +66,23 @@ class App extends Component {
 }
 
 App.propTypes = {
+   quickviewShoe: PropTypes.object,
+   user: PropTypes.object,
+   history: PropTypes.object.isRequired,
    pathname: PropTypes.string.isRequired,
-   appStart: PropTypes.func.isRequired
+   cart: PropTypes.array.isRequired,
+   isQuickviewOpen: PropTypes.bool.isRequired,
+   appStart: PropTypes.func.isRequired,
+   clearCheckoutReducer: PropTypes.func.isRequired,
+   resetAccountReducer: PropTypes.func.isRequired,
+   addToCart: PropTypes.func.isRequired,
+   changeShoeSize: PropTypes.func.isRequired,
+   closeQuickview: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => ({
-   pathname: state.routerReducer.location.pathname,
+   history: ownProps.history,
+   pathname: ownProps.history.location.pathname,
    cart: state.cartReducer.cart,
    isQuickviewOpen: state.shoeReducer.quickviewOpen,
    quickviewShoe: state.shoeReducer.quickviewShoe,
@@ -80,8 +91,9 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
    appStart: () => {
+      dispatch(verifyUserJWT());
       dispatch(fetchShoes());
-      dispatch(verifyToken());
+      dispatch(loadCartFromLocalStorage());
    },
    clearCheckoutReducer: () => dispatch(clearCheckoutReducer()),
    resetAccountReducer: () => dispatch(resetAccountReducer()),
@@ -93,4 +105,4 @@ const mapDispatchToProps = (dispatch) => ({
    closeQuickview: () => dispatch(closeQuickview())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

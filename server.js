@@ -35,16 +35,16 @@ if (env === 'production') {
    });
 }
 
-db.sequelize.sync()
-   .then(() => {
-      app.listen(PORT, () => {
-         console.log(`Server listening on port ${ PORT }`);
-      });
-   })
-   .catch(err => {
-      console.log(`ERROR Syncing DB: ${ err }`);
-   });
+// db.sequelize.sync()
+//    .then(() => {
+//       app.listen(PORT, () => {
+//          console.log(`Server listening on port ${ PORT }`);
+//       });
+//    })
+//    .catch(err => {
+//       console.log(`ERROR Syncing DB: ${ err }`);
+//    });
 
-// app.listen(PORT, () => {
-//    console.log(`Server listening on port ${ PORT }`);
-// });
+app.listen(PORT, () => {
+   console.log(`Server listening on port ${ PORT }`);
+});

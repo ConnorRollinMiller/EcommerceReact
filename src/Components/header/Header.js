@@ -20,16 +20,16 @@ class Header extends Component {
 
    render() {
       return (
-         <div>
+         <header>
             <TopHeader />
-            <header className='py-4' id='header'>
+            <div className='py-4' id='header'>
                <Menu
                   user={ this.props.user }
                   accountLogout={ () => this.props.accountLogout(this.props.cart) }
                   pathname={ this.props.pathname }
                />
-            </header>
-         </div>
+            </div>
+         </header>
       );
    }
 }

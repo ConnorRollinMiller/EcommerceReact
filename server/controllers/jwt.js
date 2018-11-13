@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const Users = require('../db').users;
 const KEY = process.env.JWT_SECRET;
 
 module.exports = {
@@ -30,11 +32,22 @@ module.exports = {
                message: err
             });
          } else {
-            console.log(decoded);
-            res.status(200).json({
-               success: true,
-               user: decoded.user || null
-            });
+            console.log('DECODED', decoded);
+
+            Users.findById(decoded.user.userId)
+               .then(user => {
+
+                  if (user.passwordHashed === decoded.user.passwordHashed && user.normalizedUsername === decoded.user.normalizedUsername) {
+                     res.status(200).json({ success: true, user: user });
+                  } else {
+                     res.status(401).json({ success: false, message: `Username or Password didn't match` });
+                  }
+
+               })
+               .catch(err => {
+                  console.log('ERROR: ', err);
+                  res.status(500).json({ success: false, message: err });
+               });
          }
       });
    }

@@ -7,16 +7,13 @@ const Loading = ({ ...props }) => {
             Error: { props.error }!
 			</div>
       )
-   } else if (props.pastDelay) {
+   } else {
       return (
          <div className='text-center'>
             <h2>Loading...</h2>
          </div>
       );
-   } else {
-      return null;
    }
 };
-
 
 export default Loading;

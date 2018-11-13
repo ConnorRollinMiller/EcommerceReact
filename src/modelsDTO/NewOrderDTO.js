@@ -1,4 +1,4 @@
-export default (firstName, lastName, country, state, address, city, zipCode, phone, email, total, userId = null) => ({
+export default (firstName, lastName, country, state, address, city, zipCode, phone, email, total, userId) => ({
    userId: userId,
    firstName: firstName,
    lastName: lastName,
@@ -10,4 +10,5 @@ export default (firstName, lastName, country, state, address, city, zipCode, pho
    phone: phone,
    email: email,
    total: total,
+   status: 'Pending'
 });

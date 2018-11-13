@@ -38,12 +38,9 @@ class AccountSettingsPage extends Component {
    }
 
    render() {
-      // if (!this.props.user) {
-      //    return <Redirect to='/login' />
-      // }
 
       return (
-         <main className='main-section'>
+         <React.Fragment>
             <div className='page-title text-center p-4'>
                <h2 className='h3 mb-0 text-uppercase'>
                   Account Settings
@@ -78,7 +75,7 @@ class AccountSettingsPage extends Component {
                   />
                </div>
             </div>
-         </main>
+         </React.Fragment>
       );
    }
 }
@@ -101,7 +98,7 @@ AccountSettingsPage.propTypes = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-   user: state.accountReducer.user,
+   user: ownProps.user,
    newEmail: state.accountReducer.newEmail,
    isUsernameChangeComplete: state.accountReducer.isUsernameChangeComplete,
    accountUserNameError: state.accountReducer.accountUserNameError,

@@ -6,8 +6,13 @@ import {
 
 const apiUrl = '/api/shoes';
 
+const fetchShoeStart = () => ({
+   type: ShoeActions.FETCH_SHOE_START,
+});
+
 export const fetchShoes = () => {
    return dispatch => {
+      dispatch(fetchShoeStart());
       axios.get(apiUrl)
          .then(res => {
             dispatch(fetchShoesSuccess(res.data.shoes));
@@ -15,7 +20,7 @@ export const fetchShoes = () => {
          })
          .catch(err => {
             console.log(err.response);
-            dispatch(fetchShoesFailed(err.response));
+            dispatch(fetchShoesFailed(err.response.statusText));
          });
    }
 }
@@ -32,6 +37,7 @@ const fetchShoesFailed = (err) => ({
 
 export const fetchShoeById = (id) => {
    return dispatch => {
+      dispatch(fetchShoeStart());
       axios.get(`${ apiUrl }/${ id }`)
          .then(res => {
             console.log(res)
@@ -40,7 +46,7 @@ export const fetchShoeById = (id) => {
          .catch(err => {
             console.error(err)
             console.error(err.response)
-            dispatch(fetchShoeByIdFailed(err.response));
+            dispatch(fetchShoeByIdFailed(err.response.message));
          });
    }
 }

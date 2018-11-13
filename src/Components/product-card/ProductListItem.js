@@ -14,8 +14,8 @@ class ProductListItem extends Component {
 
    render() {
       return (
-         <div className='col-12 col-sm-6 col-md-4 p-0'>
-            <article className='product-card m-2 flex-column justify-content-end text-center'>
+         <article className='col-12 col-sm-6 col-md-4 p-0'>
+            <div className='product-card m-2 flex-column justify-content-end text-center'>
                <img
                   className='product-card-img img-fluid py-4'
                   src={ `/images/${ this.props.shoe.brand }/${ this.props.shoe.imageFolderName }/1.jpg` }
@@ -43,8 +43,8 @@ class ProductListItem extends Component {
                      </PrimaryButton>
                   </div>
                </div>
-            </article>
-         </div>
+            </div>
+         </article >
       );
    }
 }

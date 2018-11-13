@@ -37,7 +37,7 @@ class ShopPage extends Component {
 
    render() {
       return (
-         <main className='main-section'>
+         <React.Fragment>
             <PageTitle />
             <div className='container row mx-auto'>
                <SideBar />
@@ -45,15 +45,7 @@ class ShopPage extends Component {
                   <FilterProductList />
                </main>
             </div>
-            {
-               // this.props.quickviewOpen &&
-               // <Quickview
-               //    addToCart={ this.props.addToCart }
-               //    closeQuickview={ this.props.closeQuickview }
-               //    shoe={ this.props.quickviewShoe }
-               // />
-            }
-         </main>
+         </React.Fragment>
       );
    }
 }

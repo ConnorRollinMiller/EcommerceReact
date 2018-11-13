@@ -9,7 +9,7 @@ import CheckoutForm from '../components/form/CheckoutForm';
 import { connect } from 'react-redux';
 import { removeItemFromCart } from '../redux/actions/cartActions';
 import { addNotification } from '../redux/actions/notificationActions';
-import { NotificationCodes } from '../redux/actions';
+import { NotificationCodes } from '../constants';
 
 class CheckoutPage extends Component {
 
@@ -24,7 +24,7 @@ class CheckoutPage extends Component {
 
    render() {
       return (
-         <main>
+         <React.Fragment>
             {
                this.props.cart.length > 0 &&
                <CheckoutTitle checkoutSuccess={ this.props.completedOrder } />
@@ -54,7 +54,7 @@ class CheckoutPage extends Component {
                         )
                }
             </div>
-         </main>
+         </React.Fragment>
       );
    }
 }

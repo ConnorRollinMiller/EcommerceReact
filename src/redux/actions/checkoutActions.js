@@ -11,7 +11,7 @@ export const inputChange = (name, value) => ({
    value
 });
 
-export const submitOrder = (firstName, lastName, country, state, city, address, zipCode, phone, email, total, cartItems, userId = null) => {
+export const submitOrder = (firstName, lastName, country, state, city, address, zipCode, phone, email, total, cartItems, userId) => {
    return dispatch => {
 
       const newOrder = NewOrderDTO(firstName, lastName, country, state, address, city, zipCode, phone, email, total, userId);

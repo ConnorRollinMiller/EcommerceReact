@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import ItemOrdered from '../components/checkout/ItemOrdered';
 
 import { connect } from 'react-redux';
 import { getOrderHistory } from '../redux/actions/orderActions';
-// import Item from '../components/order-history/Item';
 import OrderedProductList from '../components/order-history/OrderedProductList';
 
 class OrderHistoryPage extends Component {
@@ -25,17 +23,16 @@ class OrderHistoryPage extends Component {
    render() {
 
       return (
-         <main className="container py-4">
+         <React.Fragment>
             {
-               // this.props.orderHistory > 0 ?
-               //    (
-               //       <OrderedProductList shoes={ this.props.orderHistory } />
-               //    ) : (
-               //       <h3>No Order History...</h3>
-               //    )
-               <OrderedProductList shoes={ this.props.orderHistory } />
+               this.props.orderHistory.length > 0 ?
+                  (
+                     <OrderedProductList shoes={ this.props.orderHistory } />
+                  ) : (
+                     <h3>No Order History...</h3>
+                  )
             }
-         </main>
+         </React.Fragment>
       );
    }
 }
@@ -46,7 +43,7 @@ OrderHistoryPage.propTypes = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-   user: state.accountReducer.user,
+   user: ownProps.user,
    orderHistory: state.orderReducer.orderHistory
 });
 

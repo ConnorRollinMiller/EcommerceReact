@@ -73,7 +73,6 @@ This application is an ecommerce store for shoes. It is built with an Node (Expr
 | orderId         |	INTEGER (Foreign Key)				|
 | shoeId			   |	INTEGER (Foreign Key)				|
 | quantity		   |	INTEGER									|
-| pricePerShoe	   |	DECIMAL									|
 | createdAt		   |	DATETIME						   	   |
 | updatedAt       |  DATETIME                         |
 
@@ -107,3 +106,4 @@ This application is an ecommerce store for shoes. It is built with an Node (Expr
    - Get rid of all individual icons components and make one `Icon` component
    - Group each shoe in `orderHistory` by each individual order on `OrderHistoryPage`
    - Add `admin` / CMS capabilities for `site owner`
+   - compress all images & make them the same size / crop

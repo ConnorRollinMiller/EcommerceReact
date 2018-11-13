@@ -1,4 +1,7 @@
 import { CartActions } from './index';
+import { TOKEN_NAMES } from '../../constants';
+import { getToken, setToken } from '../../utilities/localStorage';
+
 
 let cartId = 0;
 
@@ -29,4 +32,32 @@ export const removeItemFromCart = (id, price) => ({
 
 export const clearCart = () => ({
    type: CartActions.CLEAR_CART
+});
+
+export const loadCartFromLocalStorage = () => {
+   return (dispatch) => {
+      const cart = JSON.parse(getToken(TOKEN_NAMES.CART)) || [];
+
+      if (cart) {
+         if (cart.length > 0) {
+
+            let total = 0;
+            cart.forEach(item => total += item.price);
+
+            dispatch(loadCartSuccess(cart, total));
+         }
+      } else {
+
+         setToken(TOKEN_NAMES.CART, []);
+
+         dispatch(loadCartSuccess([], 0));
+
+      }
+   }
+}
+
+const loadCartSuccess = (cart, total) => ({
+   type: CartActions.LOAD_CART_FROM_LOCAL_STORAGE,
+   cart,
+   total
 });

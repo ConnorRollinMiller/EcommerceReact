@@ -5,13 +5,14 @@ import ProductImage from '../components/product/ProductImage';
 import ProductDetails from '../components/product/ProductDetails';
 import ReviewForm from '../components/form/ReviewForm';
 import ReviewList from '../components//review/ReviewList';
+import Loading from '../components/common/Loading';
 
 import { connect } from 'react-redux';
 import { addToCart } from '../redux/actions/cartActions';
 import { fetchShoeById, changeActiveShoeImage } from '../redux/actions/shoesAction';
 import { fetchReviewsByShoeId, resetReviews } from '../redux/actions/reviewActions';
 import { addNotification } from '../redux/actions/notificationActions';
-import { NotificationCodes } from '../redux/actions';
+import { NotificationCodes } from '../constants';
 
 class ProductPage extends Component {
 
@@ -43,38 +44,43 @@ class ProductPage extends Component {
    }
 
    render() {
-      if (!this.props.shoe) {
+      if (this.props.isLoading || !this.props.shoe) {
+         return (
+            <Loading />
+         )
+      } else if (this.props.error) {
          return (
             <div className='alert alert-danger text-center text-capitalize h5 col-6 mx-auto'>
-               Error Fetching Shoe From Server...
-				</div>
-         )
-      }
-      return (
-         <main className='main-section'>
-            <PageTitle displayPageTitle={ false } />
-            <div className='container py-4'>
-               <section className='row justify-content-center align-items-center mb-4'>
-                  <ProductImage
-                     shoe={ this.props.shoe }
-                     activeShoeImage={ this.props.activeShoeImage }
-                     changeActiveShoeImage={ this.props.changeActiveShoeImage }
-                  />
-                  <ProductDetails
-                     shoe={ this.props.shoe }
-                     addToCart={ () => this.props.addToCart(this.props.shoe, this.props.cart) }
-                  />
-               </section>
-               <section className='row text-center'>
-                  <ReviewList reviews={ this.props.reviews } />
-                  <ReviewForm
-                     shoeId={ this.props.shoe.shoeId }
-                     user={ this.props.user }
-                  />
-               </section>
+               Error Fetching Shoe From Server... { this.props.errorMessage }
             </div>
-         </main>
-      );
+         )
+      } else {
+         return (
+            <React.Fragment>
+               <PageTitle displayPageTitle={ false } />
+               <div className='container py-4'>
+                  <section className='row justify-content-center align-items-center mb-4'>
+                     <ProductImage
+                        shoe={ this.props.shoe }
+                        activeShoeImage={ this.props.activeShoeImage }
+                        changeActiveShoeImage={ this.props.changeActiveShoeImage }
+                     />
+                     <ProductDetails
+                        shoe={ this.props.shoe }
+                        addToCart={ () => this.props.addToCart(this.props.shoe, this.props.cart) }
+                     />
+                  </section>
+                  <section className='row text-center'>
+                     <ReviewList reviews={ this.props.reviews } />
+                     <ReviewForm
+                        shoeId={ this.props.shoe.shoeId }
+                        user={ this.props.user }
+                     />
+                  </section>
+               </div>
+            </React.Fragment>
+         );
+      }
    }
 }
 
@@ -94,7 +100,10 @@ const mapStateToProps = (state, ownProps) => ({
    activeShoeImage: state.shoeReducer.activeShoeImage,
    reviews: state.reviewReducer.reviews,
    user: state.accountReducer.user,
-   cart: state.cartReducer.cart
+   cart: state.cartReducer.cart,
+   error: state.shoeReducer.error,
+   errorMessage: state.shoeReducer.errorMessage,
+   isLoading: state.shoeReducer.isLoading
 });
 
 const mapDispatchToProps = dispatch => ({

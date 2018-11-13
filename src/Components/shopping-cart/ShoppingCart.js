@@ -8,7 +8,7 @@ import './css/ShoppingCart.css';
 import { connect } from 'react-redux';
 import { removeItemFromCart } from '../../redux/actions/cartActions';
 import { addNotification } from '../../redux/actions/notificationActions';
-import { NotificationCodes } from '../../redux/actions';
+import { NotificationCodes } from '../../constants';
 
 class ShoppingCart extends Component {
 

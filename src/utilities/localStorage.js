@@ -1,5 +1,5 @@
-export const setToken = (tokenName, token) => {
-   localStorage.setItem(tokenName, token);
+export const setToken = (tokenName, data) => {
+   localStorage.setItem(tokenName, data);
 };
 
 export const getToken = (tokenName) => {

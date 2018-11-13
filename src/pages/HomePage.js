@@ -20,7 +20,8 @@ class HomePage extends Component {
 
    shouldComponentUpdate(nextProps) {
 
-      if (nextProps.filter !== this.props.filter) return true;
+      if (this.props)
+         if (nextProps.filter !== this.props.filter) return true;
       if (nextProps.shoes !== this.props.shoes) return true;
 
       return false;
@@ -29,7 +30,7 @@ class HomePage extends Component {
 
    render() {
       return (
-         <main className='main-section'>
+         <React.Fragment>
             <Carousel />
             <BrandList />
             <FilterProductList
@@ -38,12 +39,13 @@ class HomePage extends Component {
             />
             <Newsletter />
             <AdditionalInfoContainer />
-         </main>
+         </React.Fragment>
       );
    }
 }
 
 HomePage.propTypes = {
+
    shoes: PropTypes.array.isRequired,
    filter: PropTypes.string.isRequired
 };

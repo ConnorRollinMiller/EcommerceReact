@@ -10,7 +10,10 @@ const reviewsController = require('../controllers/reviews');
 
 //JWT ROUTES
 router.route('/jwt/verify')
-   .post(jwtController.verifyToken);
+   .post(
+      jwtController.verifyToken,
+      usersController.userLogin
+   );
 
 
 // SHOE ROUTES

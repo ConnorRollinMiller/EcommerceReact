@@ -22,14 +22,17 @@ module.exports = (orderInfo, itemsOrdered) => {
       // });
 
       const itemsHTML = itemsOrdered.map(item =>
-         `<div>
-            <h3>${ item.brand } <br/> ${ item.model } ${ item.colorway }</h3>
-            <p>Quantity: 1</p>
-            <p>Price: $${ item.price }</p>
+         `<div style="text-align: center;">
+            <h3>
+            ${ item.brand } <br/>
+            ${ item.model } ${ item.colorway }
+            </h3>
+            <p><b>Quantity:</b> 1</p>
+            <p><b>Price:</b> $${ item.price }</p>
          </div>`
       );
 
-      const emailBody = `<div style="text-align: center">
+      const emailBody = `<div style="text-align: center; width: 90%; margin: auto;">
                            <h1>Order Confirmation</h1>
                            <p>${ orderInfo.address }</p>
                            <p>${ orderInfo.city } ${ orderInfo.state }</p>
@@ -42,11 +45,13 @@ module.exports = (orderInfo, itemsOrdered) => {
                         ${ itemsHTML }
                         <h2>Total: ${ orderInfo.total }</h2>`;
 
+      const date = new Date();
+
       // setup email data with unicode symbols
       const mailOptions = {
          from: '', // sender address
          to: orderInfo.email, // list of receivers
-         subject: `Your Order: ${ new Date() }`, // Subject line
+         subject: `React Ecommerce Order: ${ date.getUTCMonth } ${ date.getUTCDay } ${ date.getUTCFullYear }`, // Subject line
          html: emailBody, // html body
          // attachments: attachments
       };

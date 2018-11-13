@@ -9,4 +9,9 @@ export const SHOE_SIZES = [ 'Select Size', 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5 ];
 export const TOKEN_NAMES = {
    USER: 'USER',
    CART: 'CART'
-}
+};
+
+export const NotificationCodes = {
+   ADD_TO_CART: 0,
+   REMOVE_FROM_CART: 1
+};

@@ -2,7 +2,7 @@ import { AccountActions } from './index';
 import axios from 'axios';
 
 import { TOKEN_NAMES } from '../../constants';
-import { setToken, deleteToken } from '../../utilities/localStorage';
+import { getToken, setToken, deleteToken } from '../../utilities/localStorage';
 import RegisterNewUserDTO from '../../modelsDTO/RegisterNewUserDTO';
 import LoginUserDTO from '../../modelsDTO/LoginUserDTO';
 import NewAccountUsernameDTO from '../../modelsDTO/NewAccountUsernameDTO';
@@ -10,6 +10,7 @@ import NewAccountEmailDTO from '../../modelsDTO/NewAccountEmailDTO';
 import NewAccountPasswordDTO from '../../modelsDTO/NewAccountPasswordDTO';
 
 const API_USER_URL = '/api/users';
+const API_JWT_URL = '/api/jwt';
 
 export const submitAccountRegister = (email, username, password, confirmPassword) => {
    return (dispatch) => {
@@ -237,4 +238,32 @@ const submitNewAccountPasswordSuccess = (user) => ({
 const submitNewAccountPasswordFailure = (errorMessage) => ({
    type: AccountActions.SUBMIT_NEW_ACCOUNT_PASSWORD_FAILURE,
    errorMessage
+});
+
+export const verifyUserJWT = () => {
+   return (dispatch) => {
+      const user = getToken(TOKEN_NAMES.USER);
+
+      if (!user) {
+         dispatch(verifyUserJWTSuccess(null));
+         return;
+      }
+
+      axios.post(`${ API_JWT_URL }/verify`, { token: user })
+         .then(res => {
+            console.log(res);
+            if (res.data.success === true) {
+               dispatch(verifyUserJWTSuccess(res.data.user));
+            }
+         })
+         .catch(err => {
+            console.log(err.response);
+            // dispatch(verifyTokenFailure(err.response));
+         });
+   }
+}
+
+const verifyUserJWTSuccess = (user) => ({
+   type: AccountActions.VERIFY_USER_JWT_SUCCESS,
+   user
 });

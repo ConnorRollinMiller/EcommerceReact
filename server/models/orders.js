@@ -61,6 +61,12 @@ module.exports = (sequelize, DataTypes) => {
       total: {
          type: DataTypes.DECIMAL(8, 2),
          allowNull: false
+      },
+      status: {
+         type: DataTypes.ENUM,
+         values: [ 'Pending', 'Cancelled', 'Returned', 'Complete' ],
+         defaultValue: 'Pending',
+         allowNull: false
       }
    }, {
          tableName: 'Orders',
@@ -68,9 +74,8 @@ module.exports = (sequelize, DataTypes) => {
       });
    Orders.associate = function(models) {
       // associations can be defined here
-      // Orders.hasMany(models.users, { foreignKey: 'userId' });
-
-      // Orders.belongsTo(models.orderDetails, { foreignKey: 'orderDetailsId' });
+      // Orders.hasOne(models.users);
+      // Orders.belongsTo(models.orderDetails);
    };
    return Orders;
 };

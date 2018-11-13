@@ -96,7 +96,7 @@ class CheckoutForm extends Component {
                   this.emailRef.value,
                   this.props.total,
                   this.props.cart,
-                  this.props.user.userId
+                  this.props.user ? this.props.user.userId : null
                )
             }
             }>

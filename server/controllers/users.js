@@ -82,7 +82,7 @@ module.exports = {
       })
          .then(newUser => {
 
-            req.body.payload = newUser.dataValues;
+            req.body.payload = { user: newUser.dataValues };
 
             next();
 
