@@ -105,12 +105,11 @@ module.exports = {
             normalizedUsername: normalizedUsername
          }
       })
-         .then(user => {
+         .then((user) => {
             if (!user) {
                return res.status(404).json({ success: false, message: 'Username Or Password Is Incorrect.' });
             }
             bcrypt.compare(password, user.dataValues.passwordHashed, (err, isMatch) => {
-               // console.log('Password Is A Match', isMatch);
                if (err) {
                   console.error(err);
                   return res.status(500).json({ success: false, message: err });
