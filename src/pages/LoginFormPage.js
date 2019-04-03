@@ -8,10 +8,12 @@ import LockIcon from '../components/icon/LockIcon';
 import PageTitle from '../components/common/PageTitle';
 import LinkComponent from '../components/common/LinkComponent';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { submitAccountLogin } from '../redux/actions/accountActions';
+
 import './css/FormPage.css';
 
-import { connect } from 'react-redux';
-import { submitAccountLogin } from '../redux/actions/accountActions';
 
 class LoginFormPage extends Component {
 
@@ -26,7 +28,18 @@ class LoginFormPage extends Component {
    }
 
    render() {
-      if (this.props.user) return <Redirect to='/' />;
+
+      if (this.props.user) {
+         if (this.props.user.role === 'admin') {
+
+            return <Redirect to='/admin' />;
+
+         } else {
+
+            return <Redirect to='/' />;
+
+         }
+      }
 
       return (
          <main>

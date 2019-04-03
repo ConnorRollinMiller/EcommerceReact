@@ -5,28 +5,30 @@ import SideBar from '../components/sidebar/SideBar';
 import './css/ShopPage.css';
 
 import { connect } from 'react-redux';
-import { setShoeFilter, closeQuickview } from '../redux/actions/shoesAction';
+import { setShoeFilter, closeQuickview, fetchShoes } from '../redux/actions/shoesAction';
 import { Filters } from '../redux/actions';
 
 class ShopPage extends Component {
 
-   state = {};
+   componentDidMount() {
 
-   static getDerivedStateFromProps(props, state) {
+      if (this.props.filter !== Filters.SHOW_ALL) {
 
-      if (props.filter === Filters.SHOW_FEATURED) {
-         return {
-            filter: props.setShoeFilter(Filters.SHOW_ALL)
-         };
+         this.props.setShoeFilter(Filters.SHOW_ALL)
+
       }
 
-      return null;
+      if (this.props.shoes.length === 0) {
+
+         this.props.fetchShoes();
+
+      }
 
    }
 
    shouldComponentUpdate(nextProps) {
 
-      if (nextProps.shoes !== this.props.shoes) return true;
+      if (nextProps.shoes.length !== this.props.shoes.length) return true;
       if (nextProps.filter !== this.props.filter) return true;
       if (nextProps.quickviewOpen !== this.props.quickviewOpen) return true;
       if (nextProps.notifications !== this.props.notifications) return true;
@@ -59,6 +61,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+   fetchShoes: () => dispatch(fetchShoes()),
    setShoeFilter: filter => dispatch(setShoeFilter(filter)),
    closeQuickview: () => dispatch(closeQuickview())
 });

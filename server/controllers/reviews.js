@@ -7,8 +7,6 @@ module.exports = {
    getReviewsByShoeId: (req, res, next) => {
       const shoeId = req.params.shoeId;
 
-      console.log('SHOEID:', shoeId);
-
       db.sequelize.query(`SELECT Reviews.reviewId,
                                  Reviews.reviewText,
                                  Reviews.rating,
@@ -17,8 +15,11 @@ module.exports = {
                            FROM Reviews
                            JOIN Users
                               On Reviews.userId = Users.userId
-                           WHERE shoeId = ${ shoeId };`,
-         { type: Sequelize.QueryTypes.SELECT })
+                           WHERE shoeId = :shoeId;`,
+         {
+            replacements: { shoeId: shoeId },
+            type: Sequelize.QueryTypes.SELECT
+         })
          .then(reviews => {
             if (!reviews)
                return res.status(200).json({ success: false, message: 'No Reviews Were Found.' });

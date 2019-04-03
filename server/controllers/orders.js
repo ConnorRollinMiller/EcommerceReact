@@ -56,16 +56,21 @@ module.exports = {
                               ON ord.orderId = ordDet.orderId
                            JOIN Shoes shoe
                               ON ordDet.shoeId = shoe.shoeId
-                           WHERE ord.userId = ${ userId }
+                           WHERE ord.userId = :userId
                            ORDER BY ordDet.orderId;`,
-         { type: Sequelize.QueryTypes.SELECT })
+         {
+            replacements: { userId: userId },
+            type: Sequelize.QueryTypes.SELECT
+         })
          .then(results => {
 
             res.status(200).json({ success: true, orderHistory: results });
 
          })
          .catch(err => {
+
             res.status(500).json({ success: false, message: err });
+
          });
    }
 }

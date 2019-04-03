@@ -6,13 +6,14 @@ import ProductImageThumbnail from './ProductImageThumbnail';
 const imageIdArr = [ 1, 2, 3, 4 ];
 
 class ProductImage extends Component {
+
    shouldComponentUpdate(nextProps) {
-      if (nextProps.shoe !== this.props.shoe) {
-         return true;
-      } else if (nextProps.activeShoeImage !== this.props.activeShoeImage) {
-         return true;
-      }
+
+      if (nextProps.shoe !== this.props.shoe) return true;
+      if (nextProps.activeShoeImage !== this.props.activeShoeImage) return true;
+
       return false;
+
    }
 
    render() {

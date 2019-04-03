@@ -49,9 +49,8 @@ class CheckoutPage extends Component {
                         />
                         <CheckoutForm />
                      </React.Fragment>
-                  ) : (
-                           <NoCheckoutItems />
-                        )
+                  ) : <NoCheckoutItems />
+
                }
             </div>
          </React.Fragment>

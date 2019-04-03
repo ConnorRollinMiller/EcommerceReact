@@ -5,11 +5,16 @@ import UpdateEmailForm from '../components/form/UpdateEmailForm';
 import UpdatePasswordForm from '../components/form/UpdatePasswordForm';
 import './css/ManageAccountPage.css';
 
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+
+
 import { connect } from 'react-redux';
 import {
    submitNewAccountUsername,
    submitNewAccountEmail,
-   submitNewAccountPassword
+   submitNewAccountPassword,
+   deleteAccountById,
+   accountLogout
 } from '../redux/actions/accountActions';
 
 class AccountSettingsPage extends Component {
@@ -73,6 +78,15 @@ class AccountSettingsPage extends Component {
                      handleSubmitNewPassword={ this.props.handleSubmitNewPassword }
                      isPasswordChangeComplete={ this.props.isPasswordChangeComplete }
                   />
+                  <form className="mt-4" onSubmit={ (e) => this.props.handleAccountDelete(e, this.props.user) }>
+                     <button className="btn btn-danger btn-block">
+                        <FontAwesomeIcon
+                           className="mr-2"
+                           icon={ [ 'fa', 'trash' ] }
+                        />
+                        Delete Account
+                     </button>
+                  </form>
                </div>
             </div>
          </React.Fragment>
@@ -123,6 +137,17 @@ const mapDispatchToProps = (dispatch) => ({
    handleSubmitNewPassword: (e, userId, currentPassword, newPassword, confirmNewPassword) => {
       e.preventDefault();
       dispatch(submitNewAccountPassword(userId, currentPassword, newPassword, confirmNewPassword));
+   },
+   handleAccountDelete: (e, user) => {
+      e.preventDefault();
+
+      if (window.confirm("Are you sure you wnat to delete your account?")) {
+
+         console.log("Account deleted!");
+         dispatch(deleteAccountById(user));
+         dispatch(accountLogout());
+
+      }
    }
 });
 

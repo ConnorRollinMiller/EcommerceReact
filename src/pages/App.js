@@ -100,6 +100,7 @@ const mapDispatchToProps = (dispatch) => ({
    addToCart: (shoe, cart) => {
       dispatch(addToCart(shoe, cart));
       dispatch(addNotification(NotificationCodes.ADD_TO_CART));
+      dispatch(closeQuickview());
    },
    changeShoeSize: (size) => dispatch(setShoeSize(size)),
    closeQuickview: () => dispatch(closeQuickview())

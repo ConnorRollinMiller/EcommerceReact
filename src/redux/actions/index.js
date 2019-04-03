@@ -71,4 +71,4 @@ export const NotificationActions = {
 export const OrderActions = {
    GET_ORDER_HISTORY_SUCCESS: 'GET_ORDER_HISTORY_SUCCESS',
    GET_ORDER_HISTORY_FAILURE: 'GET_ORDER_HISTORY_FAILURE'
-}
+};

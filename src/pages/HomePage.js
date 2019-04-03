@@ -6,7 +6,7 @@ import AdditionalInfoContainer from '../components/additional-info-card/Addition
 import BrandList from '../components/brand-card/BrandList';
 import Newsletter from '../components/form/NewsletterForm';
 
-import { setShoeFilter } from '../redux/actions/shoesAction';
+import { setShoeFilter, fetchShoes } from '../redux/actions/shoesAction';
 import { Filters } from '../redux/actions';
 import { connect } from 'react-redux';
 
@@ -16,12 +16,14 @@ class HomePage extends Component {
       if (this.props.shoes && this.props.filter !== Filters.SHOW_FEATURED) {
          this.props.changeFilter(Filters.SHOW_FEATURED);
       }
+      if (this.props.shoes.length === 0) {
+         this.props.fetchShoes();
+      }
    }
 
    shouldComponentUpdate(nextProps) {
 
-      if (this.props)
-         if (nextProps.filter !== this.props.filter) return true;
+      if (nextProps.filter !== this.props.filter) return true;
       if (nextProps.shoes !== this.props.shoes) return true;
 
       return false;
@@ -55,8 +57,10 @@ const mapStateToProps = (state, ownProps) => ({
    filter: state.shoeReducer.filter
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
+   fetchShoes: () => dispatch(fetchShoes()),
    changeFilter: (filter) => dispatch(setShoeFilter(filter))
+
 });
 
 export default connect(

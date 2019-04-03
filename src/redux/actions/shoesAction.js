@@ -15,6 +15,7 @@ export const fetchShoes = () => {
       dispatch(fetchShoeStart());
       axios.get(apiUrl)
          .then(res => {
+            console.log(res);
             dispatch(fetchShoesSuccess(res.data.shoes));
             dispatch(setShoeFilter(Filters.SHOW_FEATURED));
          })
@@ -36,7 +37,7 @@ const fetchShoesFailed = (err) => ({
 });
 
 export const fetchShoeById = (id) => {
-   return dispatch => {
+   return (dispatch) => {
       dispatch(fetchShoeStart());
       axios.get(`${ apiUrl }/${ id }`)
          .then(res => {
@@ -46,7 +47,16 @@ export const fetchShoeById = (id) => {
          .catch(err => {
             console.error(err)
             console.error(err.response)
-            dispatch(fetchShoeByIdFailed(err.response.message));
+            if (err.response.data.message) {
+
+               dispatch(fetchShoeByIdFailed(err.response.data.message));
+
+            } else {
+
+               dispatch(fetchShoeByIdFailed(err.response.statusText));
+
+            }
+
          });
    }
 }

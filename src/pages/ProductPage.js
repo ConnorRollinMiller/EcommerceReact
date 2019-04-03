@@ -50,7 +50,7 @@ class ProductPage extends Component {
          )
       } else if (this.props.error) {
          return (
-            <div className='alert alert-danger text-center text-capitalize h5 col-6 mx-auto'>
+            <div className="alert alert-danger text-center text-capitalize h5 col-6 mx-auto">
                Error Fetching Shoe From Server... { this.props.errorMessage }
             </div>
          )
@@ -112,7 +112,7 @@ const mapDispatchToProps = dispatch => ({
       dispatch(addToCart(shoe, cart));
       dispatch(addNotification(NotificationCodes.ADD_TO_CART));
    },
-   changeActiveShoeImage: shoeImageId =>
+   changeActiveShoeImage: (shoeImageId) =>
       dispatch(changeActiveShoeImage(shoeImageId)),
    getReviewsByShoeId: (shoeId) => dispatch(fetchReviewsByShoeId(shoeId)),
    resetReviews: () => dispatch(resetReviews())

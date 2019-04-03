@@ -102,13 +102,23 @@ module.exports = {
 
       Users.findOne({
          where: {
-            normalizedUsername: normalizedUsername
+            normalizedUsername: normalizedUsername,
+            isDeleted: 0
          }
       })
          .then((user) => {
             if (!user) {
+
                return res.status(404).json({ success: false, message: 'Username Or Password Is Incorrect.' });
+
             }
+
+            if (user.isDeleted) {
+
+               return res.status(200).json({ success: false, message: `This account has been deleted.` });
+
+            }
+
             bcrypt.compare(password, user.dataValues.passwordHashed, (err, isMatch) => {
                if (err) {
                   console.error(err);
@@ -122,7 +132,9 @@ module.exports = {
                next()
             });
          })
-         .catch(err => res.status(200).json({ success: false, message: err }));
+         .catch(err =>
+            res.status(200).json({ success: false, message: err })
+         );
    },
 
    updateAccountUsername: (req, res, next) => {
@@ -222,5 +234,19 @@ module.exports = {
             console.log('ERROR:', err);
             res.status(500).json({ success: false, message: err });
          });
+   },
+   deleteUser: (req, res, next) => {
+
+      console.log(req.body);
+
+      Users.findById(req.body.userId)
+         .then(user => {
+
+            user.updateAttributes({ isDeleted: 1 });
+
+            res.status(200).json({ success: true, message: 'Account has been successfully deleted.' });
+
+         })
+
    }
 }

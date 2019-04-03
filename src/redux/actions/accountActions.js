@@ -40,9 +40,22 @@ export const submitAccountRegister = (email, username, password, confirmPassword
             }
          })
          .catch(err => {
-            console.log('ERROR:', err);
+            // console.log('ERROR:', err);
             console.log('ERROR:', err.response);
-            dispatch(submitAccountRegisterFailure(err.response));
+            console.log(err.response.statusText);
+
+            dispatch(submitAccountRegisterFailure(err.response.statusText));
+
+            // if (err.response.status === 500) {
+
+            //    dispatch(submitAccountRegisterFailure(err.response.statusText));
+
+
+            // } else {
+
+            //    dispatch(submitAccountLoginFailure(err.response))
+
+            // }
          });
    };
 };
@@ -70,6 +83,7 @@ export const submitAccountLogin = (username, password) => {
 
       axios.post(`${ API_USER_URL }/login`, user)
          .then(res => {
+            console.log(res);
             if (res.data.success === true) {
                dispatch(submitAccountLoginSuccess(res.data.payload.user));
                setToken(TOKEN_NAMES.USER, res.data.token);
@@ -80,7 +94,21 @@ export const submitAccountLogin = (username, password) => {
          .catch(err => {
             console.error(err);
             console.error('ERROR:', err.response);
-            dispatch(submitAccountLoginFailure(err.response.data.message))
+            if (err.response.data) {
+               if (err.response.data.message) {
+
+                  dispatch(submitAccountLoginFailure(err.response.data.message));
+
+               } else {
+
+                  dispatch(submitAccountLoginFailure(err.response.statusText));
+
+               }
+            } else {
+
+               dispatch(submitAccountLoginFailure(err.response.statusText));
+
+            }
          });
    };
 };
@@ -266,4 +294,30 @@ export const verifyUserJWT = () => {
 const verifyUserJWTSuccess = (user) => ({
    type: AccountActions.VERIFY_USER_JWT_SUCCESS,
    user
+});
+
+export const deleteAccountById = (user) => {
+   return (dispatch) => {
+
+      axios.delete(`${ API_USER_URL }`, { data: user })
+         .then(res => {
+
+            console.log(res);
+
+         })
+         .catch(err => {
+
+            console.error(err);
+
+         })
+
+   }
+};
+
+const deleteAccountByIdSuccess = () => ({
+
+});
+
+const deleteAccountByIdFailure = (errMsg) => ({
+
 });

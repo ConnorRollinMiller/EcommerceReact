@@ -7,7 +7,6 @@ const ordersController = require('../controllers/orders');
 const reviewsController = require('../controllers/reviews');
 
 
-
 //JWT ROUTES
 router.route('/jwt/verify')
    .post(
@@ -38,6 +37,9 @@ router.route('/users/login')
       usersController.userLogin,
       jwtController.signToken
    );
+
+router.route('/users')
+   .delete(usersController.deleteUser)
 
 router.route('/users/username/:userId')
    .put(

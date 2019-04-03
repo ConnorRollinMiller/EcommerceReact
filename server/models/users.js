@@ -48,6 +48,16 @@ module.exports = (sequelize, DataTypes) => {
          allowNull: false,
          values: [ 'admin', 'user' ],
          defaultValue: 'user'
+      },
+      isDeleted: {
+         type: DataTypes.INTEGER,
+         allowNull: false,
+         defaultValue: 0,
+         validate: {
+            isInt: true,
+            min: 0,
+            max: 1
+         }
       }
    }, {
          tableName: 'Users',

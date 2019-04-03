@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class ProductImageThumnail extends Component {
+
    shouldComponentUpdate(nextProps) {
       if (nextProps.isActive !== this.props.isActive) {
          return true;
@@ -19,7 +20,7 @@ class ProductImageThumnail extends Component {
             <img
                className='w-100'
                src={ `/images/${ this.props.brand }/${ this.props.imageFolderURL }/${ this.props.imageId }.jpg` }
-               alt={ `${ this.props.brand } ${ this.props.colorway } 1` }
+               alt={ `${ this.props.brand } ${ this.props.colorway } ${ this.props.imageId }` }
                onClick={ () =>
                   this.props.changeActiveShoeImage(this.props.imageId)
                }

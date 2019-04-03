@@ -23,7 +23,7 @@ class OrderHistoryPage extends Component {
    render() {
 
       return (
-         <React.Fragment>
+         <div className="text-center">
             {
                this.props.orderHistory.length > 0 ?
                   (
@@ -32,7 +32,7 @@ class OrderHistoryPage extends Component {
                      <h3>No Order History...</h3>
                   )
             }
-         </React.Fragment>
+         </div>
       );
    }
 }

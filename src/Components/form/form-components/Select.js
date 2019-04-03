@@ -5,7 +5,8 @@ const Select = ({ ...props }) => (
    <select
       className={ `form-control ${ props.className }` }
       name={ props.name }
-      ref={ props.forwardedRef }>
+      ref={ props.forwardedRef }
+      value={ props.value }>
       {
          props.options.map(opt =>
             <option key={ opt } value={ opt }>

@@ -22,7 +22,6 @@ class UpdatePasswordForm extends Component {
    render() {
       return (
          <Form
-            className=''
             onSubmit={ e => this.props.handleSubmitNewPassword(
                e,
                this.props.user.userId,

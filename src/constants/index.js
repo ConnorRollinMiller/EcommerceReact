@@ -15,3 +15,9 @@ export const NotificationCodes = {
    ADD_TO_CART: 0,
    REMOVE_FROM_CART: 1
 };
+
+export const SHOE_BRANDS = [
+   'Adidas',
+   'Jordan',
+   'Nike'
+]

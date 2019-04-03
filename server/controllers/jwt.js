@@ -32,21 +32,34 @@ module.exports = {
                message: err
             });
          } else {
-            console.log('DECODED', decoded);
 
-            Users.findById(decoded.user.userId)
+            Users.findOne({
+               where: {
+                  userId: decoded.user.userId,
+                  isDeleted: 0
+               }
+            })
                .then(user => {
 
-                  if (user.passwordHashed === decoded.user.passwordHashed && user.normalizedUsername === decoded.user.normalizedUsername) {
-                     res.status(200).json({ success: true, user: user });
-                  } else {
-                     res.status(401).json({ success: false, message: `Username or Password didn't match` });
+                  if (!user) {
+
+                     return res.status(404).json({ success: false, message: 'No user found.' });
+
                   }
+                  if (user.passwordHashed !== decoded.user.passwordHashed && user.normalizedUsername !== decoded.user.normalizedUsername) {
+
+                     return res.status(401).json({ success: false, message: `Username or Password didn't match` });
+
+                  }
+
+                  res.status(200).json({ success: true, user: user });
 
                })
                .catch(err => {
+
                   console.log('ERROR: ', err);
                   res.status(500).json({ success: false, message: err });
+
                });
          }
       });

@@ -6,6 +6,7 @@ import './css/Header.css';
 
 import { connect } from 'react-redux';
 import { accountLogout } from '../../redux/actions/accountActions';
+import LinkComponent from '../common/LinkComponent';
 
 class Header extends Component {
 
