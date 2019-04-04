@@ -12,11 +12,12 @@ import { withRouter } from 'react-router-dom';
 import { fetchShoes } from '../redux/actions/shoesAction';
 import { loadCartFromLocalStorage } from '../redux/actions/cartActions';
 import { clearCheckoutReducer } from '../redux/actions/checkoutActions';
-import { verifyUserJWT, resetAccountReducer } from '../redux/actions/accountActions';
+import { verifyUserJWT, resetAccountReducer, accountLogout } from '../redux/actions/accountActions';
 import { closeQuickview, setShoeSize } from '../redux/actions/shoesAction';
 import { addToCart } from '../redux/actions/cartActions';
 import { addNotification } from '../redux/actions/notificationActions';
 import { NotificationCodes } from '../constants';
+
 
 class App extends Component {
 
@@ -48,7 +49,11 @@ class App extends Component {
    render() {
       return (
          <div id="page">
-            <Header />
+            <Header
+               cart={ this.props.cart }
+               user={ this.props.user }
+               accountLogout={ this.props.accountLogout }
+            />
             <Routes user={ this.props.user } location={ this.props.location } />
             <Footer />
             <NotificationList />
@@ -103,7 +108,8 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch(closeQuickview());
    },
    changeShoeSize: (size) => dispatch(setShoeSize(size)),
-   closeQuickview: () => dispatch(closeQuickview())
+   closeQuickview: () => dispatch(closeQuickview()),
+   accountLogout: () => dispatch(accountLogout())
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

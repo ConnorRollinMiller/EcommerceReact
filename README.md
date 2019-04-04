@@ -41,7 +41,8 @@ This application is an ecommerce store for shoes. It is built with an Node (Expr
 | passwordHashed		| 	VARCHAR								|
 | email				   | 	VARCHAR								|
 | normalizedEmail	   | 	VARCHAR								|
-| role         	   | 	ENUM								   |
+| role         	   | 	ENUM ('admin', 'user')		   |
+| isDeleted          |  BOOL                          |
 | createdAt		      |	DATETIME								|
 | updatedAt          |  DATETIME                      |
 
@@ -96,7 +97,7 @@ This application is an ecommerce store for shoes. It is built with an Node (Expr
    - Reorganize files to be more organized ✅
    - Sign out function redirects to previous page => componenDidUpdate(pathname) {<Redirect to={pathname} />}
    - Make a shoe size required - add stock to DB
-   - Fix Menu item `Account` to have items `Login` + `Register` when user isn't logged in
+   - Fix Menu item `Account` to have items `Login` + `Register` when user isn't logged in ✅
    - Fix all axios `catch` statements to check if they return an `error.response` message, otherwise, customize failure message
    - Save cart & user to localStorage ✅
    - For header menu - if open, make it close if you click anywhere other than the menu.

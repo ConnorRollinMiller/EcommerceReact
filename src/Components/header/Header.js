@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import TopHeader from './TopHeader';
+import TopHeader from './TopHeader.js';
 import Menu from './Menu';
-import './css/Header.css';
 
-import { connect } from 'react-redux';
-import { accountLogout } from '../../redux/actions/accountActions';
-import LinkComponent from '../common/LinkComponent';
+import './css/Header.css';
 
 class Header extends Component {
 
@@ -38,16 +35,6 @@ class Header extends Component {
 Header.propTypes = {
    user: PropTypes.object,
    accountLogout: PropTypes.func.isRequired
-};
+}
 
-const mapStateToProps = (state, ownProps) => ({
-   user: state.accountReducer.user,
-   pathname: state.routerReducer.location.pathname,
-   cart: state.cartReducer.cart
-});
-
-const mapDispatchToProps = (dispatch) => ({
-   accountLogout: () => dispatch(accountLogout())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;

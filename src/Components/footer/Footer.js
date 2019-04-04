@@ -4,8 +4,10 @@ import './css/Footer.css';
 
 class Footer extends Component {
 
-   shouldComponentUpdate(nextProps) {
+   shouldComponentUpdate() {
+
       return false;
+
    }
 
    render() {
@@ -38,7 +40,8 @@ class Footer extends Component {
                </section>
             </div>
          </footer>
-      )
+      );
    }
 }
+
 export default Footer;

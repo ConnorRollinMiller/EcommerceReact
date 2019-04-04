@@ -12,7 +12,7 @@ class ShopPage extends Component {
 
    componentDidMount() {
 
-      if (this.props.filter !== Filters.SHOW_ALL) {
+      if (this.props.filter === Filters.SHOW_FEATURED) {
 
          this.props.setShoeFilter(Filters.SHOW_ALL)
 

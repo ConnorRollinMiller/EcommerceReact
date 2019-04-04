@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CloseIcon from '../icon/CloseIcon';
 import QuickviewDetails from './QuickviewDetails';
-import './css/ProductQuickview.css';
+import './css/Quickview.css';
 
 // import { connect } from 'react-redux';
 // import { closeQuickview, setShoeSize } from '../../redux/actions/shoesAction';
